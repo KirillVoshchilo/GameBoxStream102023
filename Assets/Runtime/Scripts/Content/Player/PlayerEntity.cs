@@ -1,6 +1,7 @@
 ﻿using App.Architecture;
 using App.Architecture.AppInput;
 using App.Content.Entities;
+using App.Content.Field;
 using App.Logic;
 using UnityEngine;
 using VContainer;
@@ -12,7 +13,6 @@ namespace App.Content.Player
         [SerializeField] private PlayerData _playerData;
 
         private PlayerMoveHandler _moveHandler;
-
 
         public bool IsEnable
         {
@@ -40,6 +40,7 @@ namespace App.Content.Player
             CamerasStorage camerasStorage,
             PlayerInventorySystem playerInventorySystem)
         {
+            _playerData.Walker = new(_playerData.Rigidbody);
             _playerData.AppInputSystem = appInputSystem;
             _playerData.MainCameraTransform = camerasStorage.MainCamera.transform;
             _playerData.PlayerInventorySystem = playerInventorySystem;
@@ -52,7 +53,11 @@ namespace App.Content.Player
             Debug.Log("Сконструировал PlayerEntity.");
         }
         public T Get<T>() where T : class
-            => null;
+        {
+            if (typeof(T) == typeof(WalkerData))
+                return _playerData.Walker as T;
+            return null;
+        }
 
         private void OnExitEntity(Collider collider)
         {
