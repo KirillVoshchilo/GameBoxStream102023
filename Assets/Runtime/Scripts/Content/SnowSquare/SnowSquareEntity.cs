@@ -2,6 +2,7 @@
 using App.Content.Player;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public sealed class SnowSquareEntity : MonoBehaviour, IEntity
 {
@@ -41,6 +42,8 @@ public sealed class SnowSquareEntity : MonoBehaviour, IEntity
         _snowSquareData.IsDrawingStarted = true;
         DrawProcess()
             .Forget();
+        SlowDownUnitsProcess()
+            .Forget();
     }
     private void OnCollisionExit(Collision collision)
     {
@@ -48,7 +51,6 @@ public sealed class SnowSquareEntity : MonoBehaviour, IEntity
         _snowSquareData.Drawer = null;
     }
 
-    [ContextMenu("ResetHeight")]
     public void ResetHeight()
     {
         ResetProcess()
@@ -73,6 +75,11 @@ public sealed class SnowSquareEntity : MonoBehaviour, IEntity
     {
         while (_snowSquareData.Drawer != null)
         {
+            if (!_snowSquareData.Drawer.IsMoving)
+            {
+                await UniTask.NextFrame();
+                continue;
+            }
             if (!Raycast(out RaycastHit hit))
                 break;
             Draw(hit.textureCoord);
@@ -80,6 +87,63 @@ public sealed class SnowSquareEntity : MonoBehaviour, IEntity
         }
         _snowSquareData.IsDrawingStarted = false;
         _snowSquareData.Drawer = null;
+    }
+    private bool CheckForSnow(Vector3 point, out RaycastHit hit, out VirtualHeightMap heightMap)
+    {
+        Ray ray = new(point, Vector3.down);
+        RaycastHit[] raycasts = Physics.RaycastAll(ray);
+        foreach (RaycastHit raycast in raycasts)
+        {
+            if (raycast.collider.gameObject.TryGetComponent(out IEntity entity))
+            {
+                heightMap = entity.Get<VirtualHeightMap>();
+                if (heightMap != null)
+                {
+                    hit = raycast;
+                    return true;
+                }
+            }
+        }
+        hit = default;
+        heightMap = null;
+        return false;
+    }
+    private async UniTask SlowDownUnitsProcess()
+    {
+        while (_snowSquareData.Drawer != null)
+        {
+            if (!_snowSquareData.Drawer.IsMoving)
+            {
+                await UniTask.NextFrame();
+                continue;
+            }
+            Vector3 movingDirection = _snowSquareData.Drawer.MovingDirection;
+            if (movingDirection == Vector3.zero)
+            {
+                await UniTask.NextFrame();
+                continue;
+            }
+            Vector3 nextPoint = _snowSquareData.Drawer.Position + movingDirection * _snowSquareData.SearchingGroundDistance;
+            if (!CheckForSnow(nextPoint, out RaycastHit hit, out VirtualHeightMap heightMap))
+            {
+                SetSpeedMultiplierTo(1);
+                await UniTask.NextFrame();
+                continue;
+            }
+            float heightValue = heightMap.GetHeightByCoordinates(hit.textureCoord);
+            if (heightValue > 0)
+                SetSpeedMultiplierTo(_snowSquareData.InfluenceOnSpeed);
+            else SetSpeedMultiplierTo(1);
+            await UniTask.NextFrame();
+        }
+        _snowSquareData.IsDrawingStarted = false;
+        _snowSquareData.Drawer = null;
+    }
+    private void SetSpeedMultiplierTo(float value)
+    {
+        if (_snowSquareData.Drawer.SpeedMultipliers.ContainsKey(SnowSquareData.SNOW_INFLUENCE_KEY))
+            _snowSquareData.Drawer.SpeedMultipliers[SnowSquareData.SNOW_INFLUENCE_KEY] = value;
+        else _snowSquareData.Drawer.SpeedMultipliers.Add(SnowSquareData.SNOW_INFLUENCE_KEY, value);
     }
     private bool Raycast(out RaycastHit hit)
     {

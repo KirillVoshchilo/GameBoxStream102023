@@ -5,10 +5,14 @@ using UnityEngine;
 [Serializable]
 public sealed class SnowSquareData
 {
+    public const string SNOW_INFLUENCE_KEY = "SnowInfluence";
+
     [SerializeField] private CustomRenderTexture _snowHightMapExample;
     [SerializeField] private MeshRenderer _planeMeshRenderer;
     [SerializeField] private Material _heightMapUpdateSample;
     [SerializeField] private Material _snowPlaneMaterialSample;
+    [SerializeField] private float _searchingGroundDistance;
+    [SerializeField] private float _influenceOnSpeed = 0.4f;
 
     private readonly VirtualHeightMap _virtualHeightMap = new();
     private WalkerData _drawer = null;
@@ -29,4 +33,7 @@ public sealed class SnowSquareData
     public Material SnowPlaneMaterial { get => _snowPlaneMaterial; set => _snowPlaneMaterial = value; }
     public Collider HitCollider { get => _hitCollider; set => _hitCollider = value; }
     public bool IsDrawingStarted { get => _isDrawingStarted; set => _isDrawingStarted = value; }
+    public float SearchingGroundDistance => _searchingGroundDistance;
+    public float InfluenceOnSpeed => _influenceOnSpeed;
+
 }

@@ -16,7 +16,6 @@ namespace App.Content.Player
         [SerializeField] private float _defaultMovingSpeed;
         [SerializeField] private TriggerComponent _triggerComponent;
         [SerializeField] private float _defaultHeatValue;
-        [SerializeField] private float _searchingGroundDistance;
 
         private readonly Dictionary<string, float> _heatMultipliers = new();
         private float _currentHeat;
@@ -40,30 +39,5 @@ namespace App.Content.Player
         public float CurrentHeat { get => _currentHeat; set => _currentHeat = value; }
         public Dictionary<string, float> HeatMultipliers => _heatMultipliers;
         public WalkerData Walker { get => _walker; set => _walker = value; }
-        public float SearchingGroundDistance 
-            => _searchingGroundDistance; 
-    }
-
-    public class WalkerData
-    {
-        private readonly Rigidbody _rigidbody;
-        private bool _isMoving;
-        private float _movingSpeed;
-        private readonly Dictionary<string, float> _speedMultipliers = new();
-
-        public WalkerData(Rigidbody rigidbody)
-            => _rigidbody = rigidbody;
-
-        public Dictionary<string, float> SpeedMultipliers => _speedMultipliers;
-        public bool IsMoving { get => _isMoving; set => _isMoving = value; }
-        public float MovingSpeed { get => _movingSpeed; set => _movingSpeed = value; }
-        public Rigidbody Rigidbody
-            => _rigidbody;
-        public Transform Transform
-            => _rigidbody.transform;
-        public Vector3 Position
-            => _rigidbody.position;
-        public Vector3 EulerRotation
-            => _rigidbody.rotation.eulerAngles;
     }
 }

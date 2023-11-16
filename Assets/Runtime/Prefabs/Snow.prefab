@@ -231,3 +231,5 @@ MonoBehaviour:
     _planeMeshRenderer: {fileID: 170832803845523721}
     _heightMapUpdateSample: {fileID: 2100000, guid: 85ef5088b6f1f9a4f9415f7ed72553cb, type: 2}
     _snowPlaneMaterialSample: {fileID: 2100000, guid: ddbb22b4bfe45574bb814c87b915a5b9, type: 2}
+    _searchingGroundDistance: 1
+    _influenceOnSpeed: 0.4
