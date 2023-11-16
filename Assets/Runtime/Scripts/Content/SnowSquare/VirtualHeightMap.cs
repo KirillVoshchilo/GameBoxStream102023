@@ -1,17 +1,14 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 
-public class SnowHeightData
+public sealed class VirtualHeightMap
 {
     private const float DEFAULT_MAX = 1;
     private const float DEFAULT_MIN = 0;
     private const int DIMENSION = 10;
     private float[,] _heights;
 
-    public SnowHeightData()
-    {
-        ResetHeight();
-    }
+    public VirtualHeightMap()
+        => ResetHeight();
 
     public void ResetHeight()
     {
@@ -32,6 +29,6 @@ public class SnowHeightData
     {
         int i = (int)((DIMENSION - 1) * (coordinate.x / 1));
         int j = (int)((DIMENSION - 1) * (coordinate.y / 1));
-        _heights[i, j] = value;
+        _heights[i, j] = Mathf.Clamp(value, DEFAULT_MIN, DEFAULT_MAX);
     }
 }

@@ -1,7 +1,6 @@
-﻿using Cysharp.Threading.Tasks;
-using JetBrains.Annotations;
+﻿using App.Content.Entities;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
 
 namespace App.Content.Player
 {
@@ -59,15 +58,32 @@ namespace App.Content.Player
             float resultSpeed = _playerData.Walker.MovingSpeed;
             Vector3 nextPoint = _playerData.Transform.position + moveDirection * _playerData.SearchingGroundDistance;
             Ray ray = new(nextPoint, Vector3.down);
-            if (!Physics.Raycast(ray, out RaycastHit hit))
+            if (!CheckForSnow(nextPoint, out RaycastHit hit, out VirtualHeightMap heightMap))
                 return resultSpeed;
-            if (!hit.collider.gameObject.TryGetComponent(out Snow snow))
-                return resultSpeed;
-            float height = snow.SnowHeightData.GetHeightByCoordinates(hit.textureCoord);
-            Debug.Log($"height= {height}");
+            float height = heightMap.GetHeightByCoordinates(hit.textureCoord);
             if (height > 0)
                 resultSpeed *= 0.4f;
             return resultSpeed;
+        }
+        private bool CheckForSnow(Vector3 point, out RaycastHit hit, out VirtualHeightMap heightMap)
+        {
+            Ray ray = new(point, Vector3.down);
+            RaycastHit[] raycasts = Physics.RaycastAll(ray);
+            foreach (RaycastHit raycast in raycasts)
+            {
+                if (raycast.collider.gameObject.TryGetComponent(out IEntity entity))
+                {
+                    heightMap = entity.Get<VirtualHeightMap>();
+                    if (heightMap != null)
+                    {
+                        hit = raycast;
+                        return true;
+                    }
+                }
+            }
+            hit = default;
+            heightMap = null;
+            return false;
         }
         private void Move()
         {
@@ -77,7 +93,6 @@ namespace App.Content.Player
             target += _playerData.AppInputSystem.MoveDirection.y * forwarDirection.normalized;
             Vector3 moveDirection = (target - _playerData.Transform.position).normalized;
             float speed = CalcSpeed(moveDirection);
-            Debug.Log($"Speed= {speed}");
             _playerData.Rigidbody.MovePosition((moveDirection * speed) + _playerData.Transform.position);
         }
     }
