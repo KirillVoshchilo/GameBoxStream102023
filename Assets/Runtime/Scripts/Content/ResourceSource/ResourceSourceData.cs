@@ -10,7 +10,7 @@ using System;
 namespace App.Content.Field
 {
     [Serializable]
-    public sealed class FieldData
+    public sealed class ResourceSourceData
     {
         [SerializeField] private Key _key;
         [SerializeField] private int _itemsCount;
