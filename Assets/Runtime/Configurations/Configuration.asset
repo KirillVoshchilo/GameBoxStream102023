@@ -76,6 +76,9 @@ MonoBehaviour:
     - _key: {fileID: 11400000, guid: 835e3aa1ee85ae246bf1f0f934ae32f9, type: 2}
       _maxCellsForItem: 1
       _maxCountInCell: 1
+    - _key: {fileID: 11400000, guid: 356a97a5dfb8145418cbb7f1f01e0e1e, type: 2}
+      _maxCellsForItem: 1
+      _maxCountInCell: 1
   _storageInventoryConfigurations:
     _itemsConfigurations:
     - _key: {fileID: 11400000, guid: 9699edb0a014f4f4e8af30dea41cd212, type: 2}
@@ -107,3 +110,5 @@ MonoBehaviour:
       _extraCut: 2
     - _axe: {fileID: 11400000, guid: 835e3aa1ee85ae246bf1f0f934ae32f9, type: 2}
       _extraCut: 3
+    _changableCategories:
+    - {fileID: 11400000, guid: 356a97a5dfb8145418cbb7f1f01e0e1e, type: 2}

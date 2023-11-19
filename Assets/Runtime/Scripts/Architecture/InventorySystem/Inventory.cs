@@ -89,6 +89,8 @@ public sealed class Inventory
         int cellsCount = _cells.Length;
         for (int i = 0; i < cellsCount; i++)
         {
+            if (_cells[i] == null)
+                continue;
             if (_cells[i].Key == key)
             {
                 if (remainsToRemove > _cells[i].Count)

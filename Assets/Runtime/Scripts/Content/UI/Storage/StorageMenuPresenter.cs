@@ -3,6 +3,7 @@ using App.Architecture.AppInput;
 using App.Content.Player;
 using Cysharp.Threading.Tasks;
 using System;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -18,6 +19,9 @@ public class StorageMenuPresenter : MonoBehaviour
     private Inventory _storageInventory;
     private IconsConfiguration _iconsConfiguration;
     private VillageTrustSystem _villageTrustSystem;
+    private EquipmentConfigurations _equipmentConfigurations;
+    private StorageInventoryConfiguration _storageInventoryConfiguration;
+    private InventoryConfigurations _playerInventoryConfigurations;
     private IAppInputSystem _appInputSystem;
     private readonly CellPresenter[,] _storageMatrix = new CellPresenter[3, 3];
     private (int x, int y) _selectionPosition;
@@ -35,14 +39,13 @@ public class StorageMenuPresenter : MonoBehaviour
                 UpdateStorageInventoryCells(_storageInventory.Cells);
                 PrepareInventoryMatrix();
                 SetSelection(0, 0);
-                ShowTrustQuantity(_villageTrustSystem.Trust);
+                OnTrustUpdated(_villageTrustSystem.Trust);
                 DefferedSubscribes()
                     .Forget();
             }
             else
             {
-                _villageTrustSystem.OnTrustChanged.RemoveListener(ShowTrustQuantity);
-                _villageTrustSystem.OnTrustLevelChanged.RemoveListener(OnTrustLevelChanged);
+                _villageTrustSystem.OnTrustChanged.RemoveListener(OnTrustUpdated);
                 _appInputSystem.OnMovedInInventory.RemoveListener(MoveSelectionSelection);
                 _appInputSystem.OnInventorySelected.RemoveListener(OnInventorySelect);
                 _playerInventory.OnInventoryUpdated.RemoveListener(UpdatePlayerInventoryCells);
@@ -51,19 +54,19 @@ public class StorageMenuPresenter : MonoBehaviour
         }
     }
 
-    private void OnInventorySelect() => throw new NotImplementedException();
-
     [Inject]
     public void Construct(PlayerEntity playerEntity,
         Configuration configurations,
         VillageTrustSystem villageTrustSystem,
         IAppInputSystem appInputSystem)
     {
+        _equipmentConfigurations = configurations.EquipmentConfigurations;
+        _playerInventoryConfigurations = configurations.PlayerInventoryConfigurations;
         _appInputSystem = appInputSystem;
         _villageTrustSystem = villageTrustSystem;
         _playerInventory = playerEntity.Get<Inventory>();
         _iconsConfiguration = configurations.IconsConfiguration;
-
+        _storageInventoryConfiguration = configurations.DefauleStorageItems;
     }
     public void Clear()
     {
@@ -72,23 +75,61 @@ public class StorageMenuPresenter : MonoBehaviour
             _storageCells[i].Clear();
     }
 
+    private void OnInventorySelect()
+    {
+        CellPresenter cellPresenter = _storageMatrix[_selectionPosition.y, _selectionPosition.x];
+        Cell cell = cellPresenter.Cell;
+        if (cell == null)
+            return;
+        if (!cellPresenter.IsInteractable)
+            return;
+        int cellIndex = _selectionPosition.y * 3 + _selectionPosition.x;
+        int maxQuantityInPlayerInventory = _playerInventoryConfigurations.GetCountInCell(cell.Key);
+        int emptySpace = _playerInventory.CheckSpaceInInventory(cell.Key);
+        int toAdd = 0;
+        // логику инвентаря надо адаптировать под работу с категориями
+        if (emptySpace > maxQuantityInPlayerInventory)
+            toAdd = maxQuantityInPlayerInventory;
+        else toAdd = emptySpace;
+        Key upperCategoryInStorage = _equipmentConfigurations.GetUpperCategory(cell.Key);
+        bool isChangable = _equipmentConfigurations.ChangableCategories.Contains(upperCategoryInStorage);
+        if (isChangable)
+        {
+            int count = _playerInventory.Cells.Length;
+            for (int i = 0; i < count; i++)
+            {
+                Key upper = _equipmentConfigurations.GetUpperCategory(_playerInventory.Cells[i].Key);
+                if (upper == upperCategoryInStorage)
+                {
+                    _playerInventory.RemoveItem(_playerInventory.Cells[i].Key, toAdd);
+                    break;
+                }
+            }
+        }
+        _storageInventory.RemoveItem(cell.Key, toAdd);
+        _playerInventory.AddItem(cell.Key, toAdd);
+    }
     private async UniTask DefferedSubscribes()
     {
         await UniTask.NextFrame();
-        _villageTrustSystem.OnTrustChanged.AddListener(ShowTrustQuantity);
-        _villageTrustSystem.OnTrustLevelChanged.AddListener(OnTrustLevelChanged);
+        _villageTrustSystem.OnTrustChanged.AddListener(OnTrustUpdated);
         _appInputSystem.OnMovedInInventory.AddListener(MoveSelectionSelection);
         _appInputSystem.OnInventorySelected.AddListener(OnInventorySelect);
         _playerInventory.OnInventoryUpdated.AddListener(UpdatePlayerInventoryCells);
         _storageInventory.OnInventoryUpdated.AddListener(UpdateStorageInventoryCells);
     }
-    private void OnTrustLevelChanged(int trustLevel)
-    {
-        ShowTrustQuantity(_villageTrustSystem.Trust);
-    }
-    private void ShowTrustQuantity(float trust)
+    private void OnTrustUpdated(float trust)
     {
         _trustText.text = $"Доверие: {trust}";
+        foreach (CellPresenter cell in _storageCells)
+        {
+            if (cell.Cell != null)
+            {
+                if (_storageInventoryConfiguration[cell.Cell.Key].TrustRequirement <= _villageTrustSystem.Trust)
+                    cell.IsInteractable = true;
+                else cell.IsInteractable = false;
+            }
+        }
     }
     private void PrepareInventoryMatrix()
     {

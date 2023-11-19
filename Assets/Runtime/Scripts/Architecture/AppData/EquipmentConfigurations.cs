@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace App.Architecture.AppData
 {
@@ -9,9 +10,11 @@ namespace App.Architecture.AppData
     {
         [SerializeField] private ItemCategory[] _itemCategories;
         [SerializeField] private AxeProperty[] _axeProperties;
+        [SerializeField] private Key[] _changableCategories;
 
         public AxeProperty[] AxeProperties => _axeProperties;
         public ItemCategory[] ItemCategories => _itemCategories;
+        public Key[] ChangableCategories => _changableCategories;
 
         public bool CheckBelongingToTheCategory(Key part, Key main)
         {
@@ -22,6 +25,26 @@ namespace App.Architecture.AppData
                     return true;
             }
             return false;
+        }
+        public Key[] GetChildInCategory(Key parent)
+        {
+            int count = _itemCategories.Length;
+            for (int i = 0; i < count; i++)
+            {
+                if (_itemCategories[i].Category == parent)
+                    return _itemCategories[i].Keys;
+            }
+            return null;
+        }
+        public Key GetUpperCategory(Key key)
+        {
+            int count = _itemCategories.Length;
+            for (int i = 0; i < count; i++)
+            {
+                if (_itemCategories[i].HasKey(key))
+                    return _itemCategories[i].Category;
+            }
+            return null;
         }
         public bool CheckAvailabilityOfTheCategory(Key category)
         {

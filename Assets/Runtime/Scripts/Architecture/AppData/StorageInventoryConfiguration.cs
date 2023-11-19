@@ -8,7 +8,18 @@ namespace App.Architecture.AppData
     {
         [SerializeField] private StorageItemConfiguration[] _items;
 
-        public StorageItemConfiguration[] Items
-            => _items;
+        public StorageItemConfiguration[] Items => _items;
+        public StorageItemConfiguration this[Key key]
+        {
+            get
+            {
+                foreach (StorageItemConfiguration item in _items)
+                {
+                    if (item.Key == key)
+                        return item;
+                }
+                return null;
+            }
+        }
     }
 }
