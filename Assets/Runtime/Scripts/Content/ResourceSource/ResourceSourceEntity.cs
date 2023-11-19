@@ -19,7 +19,7 @@ namespace App.Content.Field
             IAppInputSystem appInputSystem,
             PlayerEntity playerEntity)
         {
-            _resourceSourceData.PlayerInventory = playerEntity.Get<PlayerInventory>();
+            _resourceSourceData.PlayerInventory = playerEntity.Get<Inventory>();
             _resourceSourceData.AppInputSystem = appInputSystem;
             _resourceSourceData.WorldCanvasStorage = worldCanvasStorage;
             _resourceSourceData.InteractableComp.OnFocusChanged.AddListener(OnFocusChanged);

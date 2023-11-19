@@ -15,7 +15,7 @@ namespace App.Content.UI
 
         private IAppInputSystem _appInputSystem;
         private UIController _uiController;
-        private PlayerInventory _playerInventory;
+        private Inventory _playerInventory;
         private PlayerEntity _playerEntity;
         private LevelLoaderSystem _levelLoader;
 
@@ -26,7 +26,7 @@ namespace App.Content.UI
             UIController uiController)
         {
             _uiController = uiController;
-            _playerInventory = playerEntity.Get<PlayerInventory>();
+            _playerInventory = playerEntity.Get<Inventory>();
             _playerEntity = playerEntity;
             _levelLoader = levelLoader;
             _appInputSystem = appInputSystem;

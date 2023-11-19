@@ -14,7 +14,7 @@ public class StorageMenuPresenter : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _trustText;
     [SerializeField] private DialogueSystem _dialogueSystem;
 
-    private PlayerInventory _playerInventory;
+    private Inventory _playerInventory;
     private IconsConfiguration _iconsConfiguration;
     private VillageTrustSystem _villageTrustSystem;
     private IAppInputSystem _appInputSystem;
@@ -59,7 +59,7 @@ public class StorageMenuPresenter : MonoBehaviour
     {
         _appInputSystem = appInputSystem;
         _villageTrustSystem = villageTrustSystem;
-        _playerInventory = playerEntity.Get<PlayerInventory>();
+        _playerInventory = playerEntity.Get<Inventory>();
         _iconsConfiguration = configurations.IconsConfiguration;
     }
     public void Clear()

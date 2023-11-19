@@ -1,5 +1,6 @@
 using Components.UI;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,12 +8,25 @@ public class CellPresenter : MonoBehaviour
 {
     [SerializeField] private Image _icon;
     [SerializeField] private TextMeshProUGUI _itemsQuantity;
-    [SerializeField] private SCUIHighlighter _highlighter;
+    [SerializeField] private SCUIHighlighter _selectionHighlighter;
+    [SerializeField] private SCUIHighlighter _interactableHighlighter;
 
     private Cell _cell;
+    private bool _isInteractable;
 
-    public SCUIHighlighter Highlighter => _highlighter;
+    public SCUIHighlighter Highlighter => _selectionHighlighter;
     public Cell Cell { get => _cell; set => _cell = value; }
+    public bool IsInteractable
+    {
+        get => _isInteractable;
+        set
+        {
+            _isInteractable = value;
+            if (value)
+                _interactableHighlighter.TurnOffHighlight();
+            else _interactableHighlighter.Highlight();
+        }
+    }
 
     public void SetSprite(Sprite value)
     {

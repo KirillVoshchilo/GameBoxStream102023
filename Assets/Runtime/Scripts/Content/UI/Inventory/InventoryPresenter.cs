@@ -13,14 +13,14 @@ namespace App.Content.UI.InventoryUI
         [SerializeField] private Transform _content;
 
         private readonly List<InventoryItemPresenter> _itemsList = new();
-        private PlayerInventory _playerInventory;
+        private Inventory _playerInventory;
         private IconsConfiguration _iconsConfiguration;
 
         [Inject]
         public void Construct(PlayerEntity playerEntity,
             Configuration configurations)
         {
-            _playerInventory = playerEntity.Get<PlayerInventory>();
+            _playerInventory = playerEntity.Get<Inventory>();
             _iconsConfiguration = configurations.IconsConfiguration;
         }
         public void FillWithItems()

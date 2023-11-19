@@ -14,47 +14,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startInventoryConfiguration:
     _items:
-    - _name: {fileID: 11400000, guid: 356a97a5dfb8145418cbb7f1f01e0e1e, type: 2}
+    - _name: {fileID: 11400000, guid: 8dd837ea2376b6d43a00e51c868ca679, type: 2}
       _count: 1
-  _storageInventoryConfiguration:
+  _defaultStorageItems:
     _items:
     - _name: {fileID: 11400000, guid: 9699edb0a014f4f4e8af30dea41cd212, type: 2}
       _count: 1
-      _trustRequirement: 2
+      _trustRequirement: 1
     - _name: {fileID: 11400000, guid: f99b7f2c77c0af8409f915ab1f8ddc95, type: 2}
       _count: 1
-      _trustRequirement: 6
+      _trustRequirement: 5
     - _name: {fileID: 11400000, guid: 835e3aa1ee85ae246bf1f0f934ae32f9, type: 2}
       _count: 1
       _trustRequirement: 10
     - _name: {fileID: 11400000, guid: 933464c970329e343bda27afa9cd09e6, type: 2}
       _count: 800
-      _trustRequirement: 15
+      _trustRequirement: 2
   _itemsOptions:
     _singletones:
-    - {fileID: 11400000, guid: d397af54a3f35dc4b90c385f7a2ba805, type: 2}
-    - {fileID: 11400000, guid: edd1bca0ad0cc0b4cbeb520b223413d9, type: 2}
-    - {fileID: 11400000, guid: 290570a7a28a19941878743974d7a4f1, type: 2}
+    - {fileID: 11400000, guid: 8dd837ea2376b6d43a00e51c868ca679, type: 2}
+    - {fileID: 11400000, guid: 9699edb0a014f4f4e8af30dea41cd212, type: 2}
+    - {fileID: 11400000, guid: f99b7f2c77c0af8409f915ab1f8ddc95, type: 2}
+    - {fileID: 11400000, guid: 835e3aa1ee85ae246bf1f0f934ae32f9, type: 2}
+    - {fileID: 11400000, guid: 356a97a5dfb8145418cbb7f1f01e0e1e, type: 2}
   _iconsConfiguration:
     _icons:
     - _name: {fileID: 11400000, guid: 8cb786425129ec54496f5ab38651c247, type: 2}
       _icon: {fileID: 21300000, guid: fe813cf23a5d08045be28cb14e567a3f, type: 3}
-    - _name: {fileID: 11400000, guid: 74b1f84f4013ee646bd47f4bfdee2b81, type: 2}
-      _icon: {fileID: 21300000, guid: 8e6dcb6f973755b468188da6376c27e3, type: 3}
-    - _name: {fileID: 11400000, guid: e2f059133e3124e4dae975e6d96ab7bd, type: 2}
-      _icon: {fileID: 21300000, guid: 054fda744af978847be1a3ccd49ce86d, type: 3}
-    - _name: {fileID: 11400000, guid: d397af54a3f35dc4b90c385f7a2ba805, type: 2}
+    - _name: {fileID: 11400000, guid: 8dd837ea2376b6d43a00e51c868ca679, type: 2}
       _icon: {fileID: 21300000, guid: 966424751305c3645b89f0e1daf85a68, type: 3}
-    - _name: {fileID: 11400000, guid: edd1bca0ad0cc0b4cbeb520b223413d9, type: 2}
+    - _name: {fileID: 11400000, guid: 9699edb0a014f4f4e8af30dea41cd212, type: 2}
       _icon: {fileID: 21300000, guid: ae3205e048c9c0049bb45064af592830, type: 3}
-    - _name: {fileID: 11400000, guid: 290570a7a28a19941878743974d7a4f1, type: 2}
+    - _name: {fileID: 11400000, guid: f99b7f2c77c0af8409f915ab1f8ddc95, type: 2}
       _icon: {fileID: 21300000, guid: 0361764729335a446acef2a205ffef20, type: 3}
+    - _name: {fileID: 11400000, guid: 835e3aa1ee85ae246bf1f0f934ae32f9, type: 2}
+      _icon: {fileID: 21300000, guid: 0361764729335a446acef2a205ffef20, type: 3}
+    - _name: {fileID: 11400000, guid: 933464c970329e343bda27afa9cd09e6, type: 2}
+      _icon: {fileID: 21300000, guid: 8e6dcb6f973755b468188da6376c27e3, type: 3}
   _trustLevels:
     _trustLevels:
     - 1
     - 3
     - 6
-  _inventoryConfigurations:
+  _playerInventoryConfigurations:
     _itemsConfigurations:
     - _key: {fileID: 11400000, guid: 8cb786425129ec54496f5ab38651c247, type: 2}
       _maxCellsForItem: 9
@@ -62,11 +64,40 @@ MonoBehaviour:
     - _key: {fileID: 11400000, guid: 933464c970329e343bda27afa9cd09e6, type: 2}
       _maxCellsForItem: 9
       _maxCountInCell: 10
-    - _key: {fileID: 11400000, guid: 356a97a5dfb8145418cbb7f1f01e0e1e, type: 2}
+    - _key: {fileID: 11400000, guid: 8dd837ea2376b6d43a00e51c868ca679, type: 2}
       _maxCellsForItem: 1
       _maxCountInCell: 1
+    - _key: {fileID: 11400000, guid: 9699edb0a014f4f4e8af30dea41cd212, type: 2}
+      _maxCellsForItem: 1
+      _maxCountInCell: 1
+    - _key: {fileID: 11400000, guid: f99b7f2c77c0af8409f915ab1f8ddc95, type: 2}
+      _maxCellsForItem: 1
+      _maxCountInCell: 1
+    - _key: {fileID: 11400000, guid: 835e3aa1ee85ae246bf1f0f934ae32f9, type: 2}
+      _maxCellsForItem: 1
+      _maxCountInCell: 1
+  _storageInventoryConfigurations:
+    _itemsConfigurations:
+    - _key: {fileID: 11400000, guid: 9699edb0a014f4f4e8af30dea41cd212, type: 2}
+      _maxCellsForItem: 1
+      _maxCountInCell: 1
+    - _key: {fileID: 11400000, guid: f99b7f2c77c0af8409f915ab1f8ddc95, type: 2}
+      _maxCellsForItem: 1
+      _maxCountInCell: 1
+    - _key: {fileID: 11400000, guid: 835e3aa1ee85ae246bf1f0f934ae32f9, type: 2}
+      _maxCellsForItem: 1
+      _maxCountInCell: 1
+    - _key: {fileID: 11400000, guid: 933464c970329e343bda27afa9cd09e6, type: 2}
+      _maxCellsForItem: 1
+      _maxCountInCell: 9999
   _equipmentConfigurations:
-    _itemCategories: []
+    _itemCategories:
+    - _category: {fileID: 11400000, guid: 356a97a5dfb8145418cbb7f1f01e0e1e, type: 2}
+      _keys:
+      - {fileID: 11400000, guid: 8dd837ea2376b6d43a00e51c868ca679, type: 2}
+      - {fileID: 11400000, guid: 9699edb0a014f4f4e8af30dea41cd212, type: 2}
+      - {fileID: 11400000, guid: f99b7f2c77c0af8409f915ab1f8ddc95, type: 2}
+      - {fileID: 11400000, guid: 835e3aa1ee85ae246bf1f0f934ae32f9, type: 2}
     _axeProperties:
     - _axe: {fileID: 11400000, guid: 8dd837ea2376b6d43a00e51c868ca679, type: 2}
       _extraCut: 0

@@ -23,14 +23,14 @@ namespace App.Content.UI.Shop
         private IconsConfiguration _iconsConfiguration;
         private Key _selectedProduct;
         private Configuration _configurations;
-        private PlayerInventory _playerInventory;
+        private Inventory _playerInventory;
 
         [Inject]
         public void Construct(PlayerEntity playerEntity,
             Configuration configuration)
         {
             _configurations = configuration;
-            _playerInventory = playerEntity.Get<PlayerInventory>();
+            _playerInventory = playerEntity.Get<Inventory>();
             _buyButton.onClick.AddListener(OnBuyButtonPressed);
             _iconsConfiguration = configuration.IconsConfiguration;
         }

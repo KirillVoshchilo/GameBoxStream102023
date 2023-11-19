@@ -43,7 +43,7 @@ namespace App.Content.Player
             _playerData.Walker = new(_playerData.Rigidbody);
             _playerData.AppInputSystem = appInputSystem;
             _playerData.MainCameraTransform = camerasStorage.MainCamera.transform;
-            _playerData.PlayerInventory = new PlayerInventory(configuration.InventoryConfigurations, 9);
+            _playerData.PlayerInventory = new Inventory(configuration.PlayerInventoryConfigurations, 9);
             _moveHandler = new PlayerMoveHandler(_playerData)
             {
                 IsEnable = true
@@ -56,7 +56,7 @@ namespace App.Content.Player
         {
             if (typeof(T) == typeof(WalkerData))
                 return _playerData.Walker as T;
-            if (typeof(T) == typeof(PlayerInventory))
+            if (typeof(T) == typeof(Inventory))
                 return _playerData.PlayerInventory as T;
             return null;
         }

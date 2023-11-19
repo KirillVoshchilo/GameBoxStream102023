@@ -19,7 +19,7 @@ namespace App.Content.Player
 
         private readonly Dictionary<string, float> _heatMultipliers = new();
         private float _currentHeat;
-        private PlayerInventory _playerInventory;
+        private Inventory _playerInventory;
         private Transform _mainCameraTransform;
         private InteractionComp _interactionEntity;
         private IAppInputSystem _appInputSystem;
@@ -33,7 +33,7 @@ namespace App.Content.Player
         public Transform Transform => _transform;
         public TriggerComponent TriggerComponent => _triggerComponent;
         public IAppInputSystem AppInputSystem { get => _appInputSystem; set => _appInputSystem = value; }
-        public PlayerInventory PlayerInventory { get => _playerInventory; set => _playerInventory = value; }
+        public Inventory PlayerInventory { get => _playerInventory; set => _playerInventory = value; }
         public bool IsEnable { get => _isEnable; set => _isEnable = value; }
         public float DefaultHeatValue => _defaultHeatValue;
         public float CurrentHeat { get => _currentHeat; set => _currentHeat = value; }

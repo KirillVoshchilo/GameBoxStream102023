@@ -16,7 +16,7 @@ public class ScarecrowMenuPresenter : MonoBehaviour
     [SerializeField] private DialogueSystem _dialogueSystem;
     [SerializeField] private Key _requirementResource;
 
-    private PlayerInventory _playerInventory;
+    private Inventory _playerInventory;
     private IconsConfiguration _iconsConfiguration;
     private VillageTrustSystem _villageTrustSystem;
     private TrustLevels _trustLevels;
@@ -106,7 +106,7 @@ public class ScarecrowMenuPresenter : MonoBehaviour
     {
         _appInputSystem = appInputSystem;
         _villageTrustSystem = villageTrustSystem;
-        _playerInventory = playerEntity.Get<PlayerInventory>();
+        _playerInventory = playerEntity.Get<Inventory>();
         _trustLevels = configurations.TrustLevels;
         _iconsConfiguration = configurations.IconsConfiguration;
     }

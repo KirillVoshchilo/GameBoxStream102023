@@ -13,6 +13,8 @@ public class StorageData
     private readonly float _interactTime = 0;
     private readonly InteractionComp _interactableComp = new();
     private WorldCanvasStorage _worldCanvasStorage;
+    private Inventory _playerInventory;
+    private Inventory _storageInventory;
     private UIController _uiController;
     private IAppInputSystem _appInputSystem;
 
@@ -23,4 +25,6 @@ public class StorageData
     public Vector3 InteractionIconPosition => _interactionIconTransform.position;
     public InteractIcon InteractIcon => _worldCanvasStorage.InteractIcon;
     public float InteractTime => _interactTime;
+    public Inventory PlayerInventory { get => _playerInventory; set => _playerInventory = value; }
+    public Inventory StorageInventory { get => _storageInventory; set => _storageInventory = value; }
 }

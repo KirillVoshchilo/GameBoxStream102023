@@ -21,7 +21,7 @@ namespace App.Content.UI
         private IAppInputSystem _appInputSystem;
         private LevelLoaderSystem _levelLoader;
         private Configuration _configuration;
-        private PlayerInventory _playerInventory;
+        private Inventory _playerInventory;
         private PlayerEntity _playerEntity;
 
         [Inject]
@@ -31,7 +31,7 @@ namespace App.Content.UI
             Configuration configuration)
         {
             _configuration = configuration;
-            _playerInventory = playerEntity.Get<PlayerInventory>();
+            _playerInventory = playerEntity.Get<Inventory>();
             _playerEntity = playerEntity;
             _levelLoader = levelLoader;
             appInputSystem.EscapeIsEnable = false;

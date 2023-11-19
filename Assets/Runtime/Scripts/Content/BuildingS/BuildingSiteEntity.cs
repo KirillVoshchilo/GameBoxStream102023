@@ -19,7 +19,7 @@ namespace App.Content.Buildings
         IAppInputSystem appInputSystem)
         {
             _buildingSiteData.AppInputSystem = appInputSystem;
-            _buildingSiteData.PlayerInventory = player.Get<PlayerInventory>();
+            _buildingSiteData.PlayerInventory = player.Get<Inventory>();
             _buildingSiteData.WorldCanvasStorage = worldCanvasStorage;
             _buildingSiteData.InteractableComp.OnFocusChanged.AddListener(OnInteractionFocusChanged);
             Debug.Log("Сконструировал BuildingSiteEntity.");

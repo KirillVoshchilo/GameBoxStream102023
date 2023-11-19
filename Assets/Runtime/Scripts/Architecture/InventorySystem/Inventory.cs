@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 
 
-public sealed class PlayerInventory
+public sealed class Inventory
 {
     private readonly SEvent<Cell[]> _onInventoryUpdated = new();
 
@@ -16,7 +16,7 @@ public sealed class PlayerInventory
     public Cell[] Cells => _cells;
     public SEvent<Cell[]> OnInventoryUpdated => _onInventoryUpdated;
 
-    public PlayerInventory(InventoryConfigurations data, int cellsCount)
+    public Inventory(InventoryConfigurations data, int cellsCount)
     {
         _inventoryConfigurations = data;
         _cells = new Cell[cellsCount];

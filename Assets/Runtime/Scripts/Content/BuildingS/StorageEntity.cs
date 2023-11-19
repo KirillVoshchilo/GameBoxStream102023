@@ -1,3 +1,4 @@
+using App.Architecture.AppData;
 using App.Architecture.AppInput;
 using App.Content.Entities;
 using App.Logic;
@@ -11,14 +12,19 @@ public class StorageEntity : MonoBehaviour
     [Inject]
     public void Construct(UIController uiController,
              WorldCanvasStorage worldCanvasStorage,
-             IAppInputSystem appInputSystem)
+             IAppInputSystem appInputSystem,
+             Configuration configuration)
     {
+        _storageData.StorageInventory = new Inventory(configuration.StorageInventoryConfigurations, 9);
+        FillInventory(configuration);
         _storageData.AppInputSystem = appInputSystem;
         _storageData.UIController = uiController;
         _storageData.WorldCanvasStorage = worldCanvasStorage;
         _storageData.InteractableComp.OnFocusChanged.AddListener(OnFocusChanged);
         Debug.Log("Сконструировал ShopEntity.");
     }
+
+
     public T Get<T>() where T : class
     {
         if (typeof(T) == typeof(InteractionComp))
@@ -31,6 +37,16 @@ public class StorageEntity : MonoBehaviour
         _storageData.AppInputSystem.OnInteractionPerformed.ClearListeners();
     }
 
+    private void FillInventory(Configuration configuration)
+    {
+        int count = configuration.StartInventoryConfiguration.Items.Length;
+        for (int i = 0; i < count; i++)
+        {
+            Key key = configuration.StartInventoryConfiguration.Items[i].Key;
+            int quantity = configuration.StartInventoryConfiguration.Items[i].Count;
+            _storageData.StorageInventory.AddItem(key, quantity);
+        }
+    }
     private void OnFocusChanged(bool obj)
     {
         if (obj)
