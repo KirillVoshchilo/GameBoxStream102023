@@ -1,7 +1,7 @@
 using App.Architecture.AppData;
 using App.Architecture.AppInput;
 using App.Content.UI;
-using App.Content.UI.Inventory;
+using App.Content.UI.InventoryUI;
 using App.Content.UI.Shop;
 using UnityEngine;
 using VContainer;
@@ -14,6 +14,7 @@ namespace App.Logic
         [SerializeField] private MainMenuPresenter _mainMenuPresenter;
         [SerializeField] private ShopPresenter _shopPresenter;
         [SerializeField] private PauseMenuPresenter _pauseMenuPresenter;
+        [SerializeField] private ScarecrowMenuPresenter _scareCrowMenuPresenter;
         [SerializeField] private GameObject _winCanvas;
 
         private IAppInputSystem _appInputSystem;
@@ -32,6 +33,24 @@ namespace App.Logic
             _appInputSystem.PlayerMovingIsEnable = false;
             _shopPresenter.gameObject.SetActive(true);
             _shopPresenter.ShowProducts(products);
+        }
+        public void OpenScarecrowMenu()
+        {
+            _scareCrowMenuPresenter.gameObject.SetActive(true);
+            _scareCrowMenuPresenter.Enable = true;
+            _appInputSystem.InventoryIsEnable = false;
+            _appInputSystem.EscapeIsEnable = true;
+            _appInputSystem.PlayerMovingIsEnable = false;
+            _appInputSystem.InventoryMoveIsEnable = true;
+        }
+        public void CloseScarecrowMenu()
+        {
+            _scareCrowMenuPresenter.Enable = false;
+            _scareCrowMenuPresenter.gameObject.SetActive(false);
+            _appInputSystem.InventoryIsEnable = true;
+            _appInputSystem.EscapeIsEnable = false;
+            _appInputSystem.PlayerMovingIsEnable = true;
+            _appInputSystem.InventoryMoveIsEnable = false;
         }
         public void CloseShop()
         {
@@ -64,6 +83,11 @@ namespace App.Logic
                 CloseShop();
                 return;
             }
+            if (_scareCrowMenuPresenter.gameObject.activeSelf)
+            {
+                CloseScarecrowMenu();
+                return;
+            }       
             if (_pauseMenuPresenter.gameObject.activeSelf)
                 ClosePausePanel();
             else OpenPausePanel();

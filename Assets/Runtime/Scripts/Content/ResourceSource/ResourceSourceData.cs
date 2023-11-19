@@ -21,7 +21,7 @@ namespace App.Content.Field
         [SerializeField] private float _recoverTime;
 
         private readonly InteractionComp _interactableComp = new();
-        private PlayerInventorySystem _playerInventory;
+        private PlayerInventory _playerInventory;
         private WorldCanvasStorage _worldCanvasStorage;
         private IAppInputSystem _appInputSystem;
         private bool _isRecovered = true;
@@ -35,7 +35,7 @@ namespace App.Content.Field
         public float InteractTime => _interactTime;
         public InteractionComp InteractableComp => _interactableComp;
         public Vector3 InteractionIconPosition => _interactionIconTransform.position;
-        public PlayerInventorySystem PlayerInventorySystem { get => _playerInventory; set => _playerInventory = value; }
+        public PlayerInventory PlayerInventory { get => _playerInventory; set => _playerInventory = value; }
         public WorldCanvasStorage WorldCanvasStorage { get => _worldCanvasStorage; set => _worldCanvasStorage = value; }
         public IAppInputSystem AppInputSystem { get => _appInputSystem; set => _appInputSystem = value; }
         public float RecoverTime => _recoverTime;

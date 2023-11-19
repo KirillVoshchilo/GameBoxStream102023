@@ -2,6 +2,7 @@
 using App.Architecture.AppData;
 using App.Architecture.AppInput;
 using App.Content.Entities;
+using App.Content.Player;
 using App.Logic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -14,12 +15,12 @@ namespace App.Content.Field
         [SerializeField] private ResourceSourceData _resourceSourceData;
 
         [Inject]
-        public void Construct(PlayerInventorySystem playerInventorySystem,
-            WorldCanvasStorage worldCanvasStorage,
-            IAppInputSystem appInputSystem)
+        public void Construct(WorldCanvasStorage worldCanvasStorage,
+            IAppInputSystem appInputSystem,
+            PlayerEntity playerEntity)
         {
+            _resourceSourceData.PlayerInventory = playerEntity.Get<PlayerInventory>();
             _resourceSourceData.AppInputSystem = appInputSystem;
-            _resourceSourceData.PlayerInventorySystem = playerInventorySystem;
             _resourceSourceData.WorldCanvasStorage = worldCanvasStorage;
             _resourceSourceData.InteractableComp.OnFocusChanged.AddListener(OnFocusChanged);
             Debug.Log("Сконструировал FieldEntity.");
@@ -60,7 +61,7 @@ namespace App.Content.Field
         {
             foreach (ItemCount item in _resourceSourceData.FieldRequirements)
             {
-                if (_resourceSourceData.PlayerInventorySystem.GetCount(item.Key) < item.Count)
+                if (_resourceSourceData.PlayerInventory.GetCount(item.Key) < item.Count)
                 {
                     _resourceSourceData.IsInteractable = false;
                     return;
@@ -99,7 +100,7 @@ namespace App.Content.Field
         private void OnPerformedInteraction()
         {
             _resourceSourceData.Crystal.SetActive(false);
-            _resourceSourceData.PlayerInventorySystem.AddItem(_resourceSourceData.Key, _resourceSourceData.ItemsCount);
+            _resourceSourceData.PlayerInventory.AddItem(_resourceSourceData.Key, _resourceSourceData.ItemsCount);
             CloseInteractionIcon();
             DisableInteraction();
             _resourceSourceData.IsRecovered = false;

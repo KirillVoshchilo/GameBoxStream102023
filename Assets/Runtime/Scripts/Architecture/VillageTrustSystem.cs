@@ -13,6 +13,7 @@ public sealed class VillageTrustSystem
     public float Trust => _currentTrust;
     public SEvent<float> OnTrustChanged => _onTrustChanged;
     public int CurrentTrustLevel => _currentTrustLevel;
+    public SEvent<int> OnTrustLevelChanged => _onTrustLevelChanged;
 
     [Inject]
     public VillageTrustSystem(Configuration configuration) 
@@ -26,8 +27,8 @@ public sealed class VillageTrustSystem
         int i;
         for (i = 0; i < count; i++)
         {
-            if (_currentTrust > _configuration.TrustLevels[i])
-                continue;
+            if (_currentTrust < _configuration.TrustLevels[i])
+                break;
         }
         if (_currentTrustLevel < i)
         {

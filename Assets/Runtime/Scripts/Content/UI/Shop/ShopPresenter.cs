@@ -1,5 +1,6 @@
 using App.Architecture;
 using App.Architecture.AppData;
+using App.Content.Player;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -22,14 +23,14 @@ namespace App.Content.UI.Shop
         private IconsConfiguration _iconsConfiguration;
         private Key _selectedProduct;
         private Configuration _configurations;
-        private PlayerInventorySystem _playerInventorySystem;
+        private PlayerInventory _playerInventory;
 
         [Inject]
-        public void Construct(PlayerInventorySystem playerInventorySystem,
+        public void Construct(PlayerEntity playerEntity,
             Configuration configuration)
         {
             _configurations = configuration;
-            _playerInventorySystem = playerInventorySystem;
+            _playerInventory = playerEntity.Get<PlayerInventory>();
             _buyButton.onClick.AddListener(OnBuyButtonPressed);
             _iconsConfiguration = configuration.IconsConfiguration;
         }
@@ -80,20 +81,20 @@ namespace App.Content.UI.Shop
         }
         private bool CheckProductForEvaluable(Key key)
         {
-            if (_playerInventorySystem.GetCount(key) > 0 && _configurations.ItemsOptions.Singletone.Contains(key))
+            if (_playerInventory.GetCount(key) > 0 && _configurations.ItemsOptions.Singletone.Contains(key))
                 return false;
             foreach (ItemCount itemCount in _itemsCost[key].Cost)
             {
-                if (_playerInventorySystem.GetCount(itemCount.Key) < itemCount.Count)
+                if (_playerInventory.GetCount(itemCount.Key) < itemCount.Count)
                     return false;
             }
             return true;
         }
         private void OnBuyButtonPressed()
         {
-            _playerInventorySystem.AddItem(_selectedProduct, 1);
+            _playerInventory.AddItem(_selectedProduct, 1);
             foreach (ItemCount item in _itemsCost[_selectedProduct].Cost)
-                _playerInventorySystem.RemoveItem(item.Key, item.Count);
+                _playerInventory.RemoveItem(item.Key, item.Count);
             _buyButton.interactable = CheckProductForEvaluable(_selectedProduct);
         }
     }

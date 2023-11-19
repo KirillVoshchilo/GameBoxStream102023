@@ -18,6 +18,8 @@ namespace App.Architecture.AppInput
         private readonly SEvent _onInteractionCanceled = new();
         private readonly SEvent _onEscapePressed = new();
         private readonly SEvent _onInventoryPressed = new();
+        private readonly SEvent _onInventorySelect = new();
+        private readonly SEvent<Vector2> _onMovedInInventory = new();
         private Vector2 _moveDirection;
         private Vector2 _lookDirection;
         private bool _isMoving;
@@ -25,45 +27,26 @@ namespace App.Architecture.AppInput
         private bool _escapeIsEnable = true;
         private bool _inventoryIsEnable = true;
         private bool _playerMovingIsEnable = true;
+        private bool _inventoryMoveIsEnable = true;
         private float _interactionTime;
 
-        public Vector2 MoveDirection
-            => _moveDirection;
-        public bool IsMoving
-            => _isMoving;
-        public float InteractionPercentage
-            => _interactions.Player.Interact.GetTimeoutCompletionPercentage();
-        public SEvent OnMovingStarted
-            => _onMovingStarted;
-        public SEvent OnMovingStoped
-            => _onMovingStoped;
-        public SEvent OnInteractionStarted
-            => _onInteractionStarted;
-        public SEvent OnInteractionPerformed
-            => _onInteractionPerformed;
-        public SEvent OnInteractionCanceled
-            => _onInteractionCanceled;
-        public SEvent OnEscapePressed
-            => _onEscapePressed;
-        public SEvent OnInventoryPressed
-            => _onInventoryPressed;
-        public SEvent<float> OnInteractionPercantagechanged
-            => _onInteractionPercantagechanged;
-        public bool EscapeIsEnable
-        {
-            get => _escapeIsEnable;
-            set => _escapeIsEnable = value;
-        }
-        public bool InventoryIsEnable
-        {
-            get => _inventoryIsEnable;
-            set => _inventoryIsEnable = value;
-        }
-        public bool PlayerMovingIsEnable
-        {
-            get => _playerMovingIsEnable;
-            set => _playerMovingIsEnable = value;
-        }
+        public Vector2 MoveDirection => _moveDirection;
+        public bool IsMoving => _isMoving;
+        public float InteractionPercentage => _interactions.Player.Interact.GetTimeoutCompletionPercentage();
+        public SEvent OnMovingStarted => _onMovingStarted;
+        public SEvent OnMovingStoped => _onMovingStoped;
+        public SEvent OnInteractionStarted => _onInteractionStarted;
+        public SEvent OnInteractionPerformed => _onInteractionPerformed;
+        public SEvent OnInteractionCanceled => _onInteractionCanceled;
+        public SEvent OnEscapePressed => _onEscapePressed;
+        public SEvent OnInventoryPressed => _onInventoryPressed;
+        public SEvent<float> OnInteractionPercantagechanged => _onInteractionPercantagechanged;
+        public bool EscapeIsEnable { get => _escapeIsEnable; set => _escapeIsEnable = value; }
+        public bool InventoryIsEnable { get => _inventoryIsEnable; set => _inventoryIsEnable = value; }
+        public bool PlayerMovingIsEnable { get => _playerMovingIsEnable; set => _playerMovingIsEnable = value; }
+        public SEvent<Vector2> OnMovedInInventory => _onMovedInInventory;
+        public bool InventoryMoveIsEnable { get => _inventoryMoveIsEnable; set => _inventoryMoveIsEnable = value; }
+        public SEvent OnInventorySelected => _onInventorySelect;
 
         public AppInputSystem()
         {
@@ -135,6 +118,23 @@ namespace App.Architecture.AppInput
             if (context.phase == InputActionPhase.Performed)
                 _onInventoryPressed.Invoke();
         }
+
+        public void OnInventoryMove(InputAction.CallbackContext context)
+        {
+            if (!_inventoryMoveIsEnable)
+                return;
+            Vector2 direction = context.ReadValue<Vector2>();
+            if (context.phase == InputActionPhase.Performed)
+                _onMovedInInventory.Invoke(direction);
+        }
+
+        public void OnInventorySelect(InputAction.CallbackContext context)
+        {
+            if (!_inventoryMoveIsEnable)
+                return;
+            if (context.phase == InputActionPhase.Performed)
+                _onInventorySelect.Invoke();
+        }
     }
 
     public interface IAppInputSystem
@@ -153,6 +153,9 @@ namespace App.Architecture.AppInput
         bool EscapeIsEnable { get; set; }
         bool InventoryIsEnable { get; set; }
         bool PlayerMovingIsEnable { get; set; }
+        bool InventoryMoveIsEnable { get; set; }
+        SEvent<Vector2> OnMovedInInventory { get; }
+        SEvent OnInventorySelected { get; }
 
         void SetInteractionTime(float duration);
     }

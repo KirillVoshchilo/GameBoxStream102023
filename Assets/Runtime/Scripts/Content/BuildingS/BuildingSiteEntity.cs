@@ -2,6 +2,7 @@
 using App.Architecture.AppData;
 using App.Architecture.AppInput;
 using App.Content.Entities;
+using App.Content.Player;
 using App.Logic;
 using UnityEngine;
 using VContainer;
@@ -13,12 +14,12 @@ namespace App.Content.Buildings
         [SerializeField] private BuildingSiteData _buildingSiteData;
 
         [Inject]
-        public void Construct(PlayerInventorySystem playerInventorySystem,
+        public void Construct(PlayerEntity player,
         WorldCanvasStorage worldCanvasStorage,
         IAppInputSystem appInputSystem)
         {
             _buildingSiteData.AppInputSystem = appInputSystem;
-            _buildingSiteData.PlayerInventory = playerInventorySystem;
+            _buildingSiteData.PlayerInventory = player.Get<PlayerInventory>();
             _buildingSiteData.WorldCanvasStorage = worldCanvasStorage;
             _buildingSiteData.InteractableComp.OnFocusChanged.AddListener(OnInteractionFocusChanged);
             Debug.Log("Сконструировал BuildingSiteEntity.");

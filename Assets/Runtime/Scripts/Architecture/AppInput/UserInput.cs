@@ -71,6 +71,24 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InventoryMove"",
+                    ""type"": ""Value"",
+                    ""id"": ""b7edecf8-0cd0-41ce-9543-86fc696cf4b8"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""InventorySelect"",
+                    ""type"": ""Button"",
+                    ""id"": ""05481d5e-15c5-467b-9ae2-a31cdb1f08fc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -269,6 +287,72 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""WASD composite"",
+                    ""id"": ""64be560b-9c42-471a-8c58-3d11fd61b9fc"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InventoryMove"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Up"",
+                    ""id"": ""37cd7173-b137-4f36-8fcb-1d8390967122"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""InventoryMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Down"",
+                    ""id"": ""69240301-ce09-4a59-90fe-f1fb38f01a20"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""InventoryMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Left"",
+                    ""id"": ""1ab7101e-46af-4fa8-9a45-bfd56a40aab2"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""InventoryMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Right"",
+                    ""id"": ""aeeabb40-a90f-4d15-a5e6-4864a5b18771"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""InventoryMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ab7818f9-8ac4-48c7-8949-d4541e37bf72"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InventorySelect"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -861,6 +945,8 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Esc = m_Player.FindAction("Esc", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
+        m_Player_InventoryMove = m_Player.FindAction("InventoryMove", throwIfNotFound: true);
+        m_Player_InventorySelect = m_Player.FindAction("InventorySelect", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -939,6 +1025,8 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Esc;
     private readonly InputAction m_Player_Inventory;
+    private readonly InputAction m_Player_InventoryMove;
+    private readonly InputAction m_Player_InventorySelect;
     public struct PlayerActions
     {
         private @UserInput m_Wrapper;
@@ -948,6 +1036,8 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Esc => m_Wrapper.m_Player_Esc;
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
+        public InputAction @InventoryMove => m_Wrapper.m_Player_InventoryMove;
+        public InputAction @InventorySelect => m_Wrapper.m_Player_InventorySelect;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -972,6 +1062,12 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
             @Inventory.started += instance.OnInventory;
             @Inventory.performed += instance.OnInventory;
             @Inventory.canceled += instance.OnInventory;
+            @InventoryMove.started += instance.OnInventoryMove;
+            @InventoryMove.performed += instance.OnInventoryMove;
+            @InventoryMove.canceled += instance.OnInventoryMove;
+            @InventorySelect.started += instance.OnInventorySelect;
+            @InventorySelect.performed += instance.OnInventorySelect;
+            @InventorySelect.canceled += instance.OnInventorySelect;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -991,6 +1087,12 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
             @Inventory.started -= instance.OnInventory;
             @Inventory.performed -= instance.OnInventory;
             @Inventory.canceled -= instance.OnInventory;
+            @InventoryMove.started -= instance.OnInventoryMove;
+            @InventoryMove.performed -= instance.OnInventoryMove;
+            @InventoryMove.canceled -= instance.OnInventoryMove;
+            @InventorySelect.started -= instance.OnInventorySelect;
+            @InventorySelect.performed -= instance.OnInventorySelect;
+            @InventorySelect.canceled -= instance.OnInventorySelect;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1178,6 +1280,8 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnEsc(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
+        void OnInventoryMove(InputAction.CallbackContext context);
+        void OnInventorySelect(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
