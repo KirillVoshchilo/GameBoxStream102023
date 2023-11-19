@@ -15,6 +15,7 @@ namespace App.Logic
         [SerializeField] private ShopPresenter _shopPresenter;
         [SerializeField] private PauseMenuPresenter _pauseMenuPresenter;
         [SerializeField] private ScarecrowMenuPresenter _scareCrowMenuPresenter;
+        [SerializeField] private StorageMenuPresenter _storageMenuPresenter;
         [SerializeField] private GameObject _winCanvas;
 
         private IAppInputSystem _appInputSystem;
@@ -47,6 +48,24 @@ namespace App.Logic
         {
             _scareCrowMenuPresenter.Enable = false;
             _scareCrowMenuPresenter.gameObject.SetActive(false);
+            _appInputSystem.InventoryIsEnable = true;
+            _appInputSystem.EscapeIsEnable = false;
+            _appInputSystem.PlayerMovingIsEnable = true;
+            _appInputSystem.InventoryMoveIsEnable = false;
+        }
+        public void OpenStorageMenu()
+        {
+            _storageMenuPresenter.gameObject.SetActive(true);
+            _storageMenuPresenter.Enable = true;
+            _appInputSystem.InventoryIsEnable = false;
+            _appInputSystem.EscapeIsEnable = true;
+            _appInputSystem.PlayerMovingIsEnable = false;
+            _appInputSystem.InventoryMoveIsEnable = true;
+        }
+        public void CloseStorageMenu()
+        {
+            _storageMenuPresenter.Enable = false;
+            _storageMenuPresenter.gameObject.SetActive(false);
             _appInputSystem.InventoryIsEnable = true;
             _appInputSystem.EscapeIsEnable = false;
             _appInputSystem.PlayerMovingIsEnable = true;
@@ -87,7 +106,12 @@ namespace App.Logic
             {
                 CloseScarecrowMenu();
                 return;
-            }       
+            }
+            if (_storageMenuPresenter.gameObject.activeSelf)
+            {
+                CloseStorageMenu();
+                return;
+            }
             if (_pauseMenuPresenter.gameObject.activeSelf)
                 ClosePausePanel();
             else OpenPausePanel();

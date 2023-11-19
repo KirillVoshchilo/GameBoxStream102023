@@ -1,10 +1,7 @@
 using App.Architecture.AppData;
 using App.Architecture.AppInput;
-using App.Content.Buildings;
 using App.Content.Entities;
 using App.Logic;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using VContainer;
 

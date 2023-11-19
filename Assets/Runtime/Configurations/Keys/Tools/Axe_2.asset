@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd1a214d2de6c5c4b802e417a773365a, type: 3}
-  m_Name: GreenTool
+  m_Name: Axe_2
   m_EditorClassIdentifier: 
-  _name: GreenTool
+  _name: Axe_2

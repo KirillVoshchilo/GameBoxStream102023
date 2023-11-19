@@ -6,16 +6,20 @@ namespace App.Architecture.AppData
     public class Configuration : ScriptableObject
     {
         [SerializeField] private StartInventoryConfiguration _startInventoryConfiguration;
+        [SerializeField] private StorageInventoryConfiguration _storageInventoryConfiguration;
         [SerializeField] private ItemsOptions _itemsOptions;
         [SerializeField] private IconsConfiguration _iconsConfiguration;
         [SerializeField] private TrustLevels _trustLevels;
         [SerializeField] private InventoryConfigurations _inventoryConfigurations;
+        [SerializeField] private EquipmentConfigurations _equipmentConfigurations;
 
         public StartInventoryConfiguration StartInventoryConfiguration => _startInventoryConfiguration;
         public ItemsOptions ItemsOptions => _itemsOptions;
         public IconsConfiguration IconsConfiguration => _iconsConfiguration;
         public TrustLevels TrustLevels => _trustLevels;
         public InventoryConfigurations InventoryConfigurations  => _inventoryConfigurations;
+        public EquipmentConfigurations EquipmentConfigurations => _equipmentConfigurations; 
+        public StorageInventoryConfiguration StorageInventoryConfiguration  => _storageInventoryConfiguration; 
 
         public void Construct()
             => _iconsConfiguration.Construct();
