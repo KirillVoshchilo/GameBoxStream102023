@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -2.1525145, y: 0, z: -9.227784}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4365617355884463676}
@@ -4859,7 +4859,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4045445147314563360}
@@ -4947,7 +4947,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.5
+      scalar: 3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -5000,7 +5000,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 1.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -6139,15 +6139,15 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 0.9754717, b: 0.759434, a: 0}
-        key1: {r: 1, g: 0.69803923, b: 0, a: 0.9843137}
-        key2: {r: 0.56078434, g: 0.04705883, b: 0, a: 0.44705883}
+        key0: {r: 0.9433962, g: 0.90969306, b: 0.6007476, a: 0}
+        key1: {r: 1, g: 0.69803923, b: 0, a: 0.52156866}
+        key2: {r: 0.56078434, g: 0.04705883, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
-        ctime0: 13685
+        ctime0: 14456
         ctime1: 29105
         ctime2: 59560
         ctime3: 0
@@ -6156,7 +6156,7 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 17348
+        atime1: 21395
         atime2: 65535
         atime3: 65535
         atime4: 0
