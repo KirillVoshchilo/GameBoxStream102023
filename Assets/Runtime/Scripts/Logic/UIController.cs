@@ -53,9 +53,10 @@ namespace App.Logic
             _appInputSystem.PlayerMovingIsEnable = true;
             _appInputSystem.InventoryMoveIsEnable = false;
         }
-        public void OpenStorageMenu()
+        public void OpenStorageMenu(Inventory inventory)
         {
             _storageMenuPresenter.gameObject.SetActive(true);
+            _storageMenuPresenter.SetInventory(inventory);
             _storageMenuPresenter.Enable = true;
             _appInputSystem.InventoryIsEnable = false;
             _appInputSystem.EscapeIsEnable = true;

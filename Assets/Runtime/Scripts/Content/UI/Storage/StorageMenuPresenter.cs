@@ -15,10 +15,10 @@ public class StorageMenuPresenter : MonoBehaviour
     [SerializeField] private DialogueSystem _dialogueSystem;
 
     private Inventory _playerInventory;
+    private Inventory _storageInventory;
     private IconsConfiguration _iconsConfiguration;
     private VillageTrustSystem _villageTrustSystem;
     private IAppInputSystem _appInputSystem;
-    private readonly CellPresenter[,] _inventoryMatrix = new CellPresenter[3, 3];
     private readonly CellPresenter[,] _storageMatrix = new CellPresenter[3, 3];
     private (int x, int y) _selectionPosition;
     private bool _enable;
@@ -32,6 +32,7 @@ public class StorageMenuPresenter : MonoBehaviour
             if (value)
             {
                 UpdatePlayerInventoryCells(_playerInventory.Cells);
+                UpdateStorageInventoryCells(_storageInventory.Cells);
                 PrepareInventoryMatrix();
                 SetSelection(0, 0);
                 ShowTrustQuantity(_villageTrustSystem.Trust);
@@ -45,6 +46,7 @@ public class StorageMenuPresenter : MonoBehaviour
                 _appInputSystem.OnMovedInInventory.RemoveListener(MoveSelectionSelection);
                 _appInputSystem.OnInventorySelected.RemoveListener(OnInventorySelect);
                 _playerInventory.OnInventoryUpdated.RemoveListener(UpdatePlayerInventoryCells);
+                _storageInventory.OnInventoryUpdated.RemoveListener(UpdateStorageInventoryCells);
             }
         }
     }
@@ -61,6 +63,7 @@ public class StorageMenuPresenter : MonoBehaviour
         _villageTrustSystem = villageTrustSystem;
         _playerInventory = playerEntity.Get<Inventory>();
         _iconsConfiguration = configurations.IconsConfiguration;
+
     }
     public void Clear()
     {
@@ -77,6 +80,7 @@ public class StorageMenuPresenter : MonoBehaviour
         _appInputSystem.OnMovedInInventory.AddListener(MoveSelectionSelection);
         _appInputSystem.OnInventorySelected.AddListener(OnInventorySelect);
         _playerInventory.OnInventoryUpdated.AddListener(UpdatePlayerInventoryCells);
+        _storageInventory.OnInventoryUpdated.AddListener(UpdateStorageInventoryCells);
     }
     private void OnTrustLevelChanged(int trustLevel)
     {
@@ -88,12 +92,12 @@ public class StorageMenuPresenter : MonoBehaviour
     }
     private void PrepareInventoryMatrix()
     {
-        int count = _inventoryCells.Length;
+        int count = _storageCells.Length;
         int j = 0;
         int k = 0;
         for (int i = 0; i < count; i++)
         {
-            _inventoryMatrix[j, k] = _inventoryCells[i];
+            _storageMatrix[j, k] = _storageCells[i];
             k++;
             if (k >= 3)
             {
@@ -115,9 +119,9 @@ public class StorageMenuPresenter : MonoBehaviour
     }
     private void SetSelection(int x, int y)
     {
-        _inventoryMatrix[_selectionPosition.y, _selectionPosition.x].Highlighter.TurnOffHighlight();
+        _storageMatrix[_selectionPosition.y, _selectionPosition.x].Highlighter.TurnOffHighlight();
         _selectionPosition = (x, y);
-        _inventoryMatrix[y, x].Highlighter.Highlight();
+        _storageMatrix[y, x].Highlighter.Highlight();
     }
     private void UpdatePlayerInventoryCells(Cell[] obj)
     {
@@ -130,7 +134,25 @@ public class StorageMenuPresenter : MonoBehaviour
                 _inventoryCells[i].SetCount(obj[i].Count);
                 _inventoryCells[i].SetSprite(_iconsConfiguration[obj[i].Key]);
             }
-            else  _inventoryCells[i].Clear();
+            else _inventoryCells[i].Clear();
         }
+    }
+    private void UpdateStorageInventoryCells(Cell[] obj)
+    {
+        int count = obj.Length;
+        for (int i = 0; i < count; i++)
+        {
+            if (obj[i] != null)
+            {
+                _storageCells[i].Cell = obj[i];
+                _storageCells[i].SetCount(obj[i].Count);
+                _storageCells[i].SetSprite(_iconsConfiguration[obj[i].Key]);
+            }
+            else _storageCells[i].Clear();
+        }
+    }
+    internal void SetInventory(Inventory inventory)
+    {
+        _storageInventory = inventory;
     }
 }

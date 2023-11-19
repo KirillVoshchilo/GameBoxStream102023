@@ -1372,7 +1372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea1d5ddb5babb94bbff7788daab8e4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cellPresenters:
+  _storageCells:
   - {fileID: 3766384814523562239}
   - {fileID: 9003510687827168990}
   - {fileID: 2338298620966000661}
@@ -1392,11 +1392,7 @@ MonoBehaviour:
   - {fileID: 8108579110876638648}
   - {fileID: 2065737062207347665}
   - {fileID: 4555491476080355262}
-  _currentWoodCount: {fileID: 0}
-  _currentWoodCountShort: {fileID: 0}
-  _woodRequirements: {fileID: 0}
-  _trustText: {fileID: 0}
-  _requirementResource: {fileID: 0}
+  _trustText: {fileID: 7514353912512831502}
 --- !u!1 &1662849193288334604
 GameObject:
   m_ObjectHideFlags: 0
@@ -5489,7 +5485,7 @@ GameObject:
   - component: {fileID: 3290297505869562003}
   - component: {fileID: 8284686671186566048}
   m_Layer: 5
-  m_Name: ScarecrowInventory
+  m_Name: StorageInventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

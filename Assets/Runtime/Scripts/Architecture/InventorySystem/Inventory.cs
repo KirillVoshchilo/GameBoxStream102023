@@ -39,6 +39,8 @@ public sealed class Inventory
     {
         DefineEmptyCells(key, out List<int> emptyCells, out List<int> suitableCells);
         int remainsToFold = count;
+        // тут никак не учитываются категории, только конечные конкретные ключи.
+        // это надо переделать
         int maxCountInCell = _inventoryConfigurations.GetCountInCell(key);
         foreach (int index in suitableCells)
         {

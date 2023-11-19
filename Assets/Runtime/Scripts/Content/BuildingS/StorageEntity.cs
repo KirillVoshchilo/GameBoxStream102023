@@ -5,7 +5,7 @@ using App.Logic;
 using UnityEngine;
 using VContainer;
 
-public class StorageEntity : MonoBehaviour
+public class StorageEntity : MonoBehaviour, IEntity, IDestructable
 {
     [SerializeField] private StorageData _storageData;
 
@@ -21,10 +21,8 @@ public class StorageEntity : MonoBehaviour
         _storageData.UIController = uiController;
         _storageData.WorldCanvasStorage = worldCanvasStorage;
         _storageData.InteractableComp.OnFocusChanged.AddListener(OnFocusChanged);
-        Debug.Log("Сконструировал ShopEntity.");
+        Debug.Log("Сконструировал StorageEntity.");
     }
-
-
     public T Get<T>() where T : class
     {
         if (typeof(T) == typeof(InteractionComp))
@@ -39,11 +37,11 @@ public class StorageEntity : MonoBehaviour
 
     private void FillInventory(Configuration configuration)
     {
-        int count = configuration.StartInventoryConfiguration.Items.Length;
+        int count = configuration.DefauleStorageItems.Items.Length;
         for (int i = 0; i < count; i++)
         {
-            Key key = configuration.StartInventoryConfiguration.Items[i].Key;
-            int quantity = configuration.StartInventoryConfiguration.Items[i].Count;
+            Key key = configuration.DefauleStorageItems.Items[i].Key;
+            int quantity = configuration.DefauleStorageItems.Items[i].Count;
             _storageData.StorageInventory.AddItem(key, quantity);
         }
     }
@@ -77,5 +75,5 @@ public class StorageEntity : MonoBehaviour
         _storageData.InteractIcon.HoldMode = false;
     }
     private void OnPerformedInteraction()
-        => _storageData.UIController.OpenStorageMenu();
+        => _storageData.UIController.OpenStorageMenu(_storageData.StorageInventory);
 }
