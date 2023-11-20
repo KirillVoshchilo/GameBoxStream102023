@@ -31,7 +31,7 @@ namespace App.Content.Field
         public Key Key => _key;
         public int ItemsCount => _itemsCount;
         public GameObject Crystal => _crystal;
-        public ItemCount[] FieldRequirements => _fieldRequirements.Requirements;
+        public Alternatives[] Alternatives => _fieldRequirements.Alternatives;
         public float InteractTime => _interactTime;
         public InteractionComp InteractableComp => _interactableComp;
         public Vector3 InteractionIconPosition => _interactionIconTransform.position;

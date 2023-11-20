@@ -63,7 +63,7 @@ namespace App.Content.Buildings
         {
             _buildingSiteData.RequirementsPanel.SetPosition(_buildingSiteData.RequirementsPanelPosition);
             _buildingSiteData.RequirementsPanel.gameObject.SetActive(true);
-            _buildingSiteData.RequirementsPanel.FillWithItems(_buildingSiteData.BuildRequirements);
+            _buildingSiteData.RequirementsPanel.FillWithItems(_buildingSiteData.Alternatives[0].Requirements);
             _buildingSiteData.RequirementsPanel.IsEnable = true;
         }
         private void CloseRequirementsPanel()
@@ -81,7 +81,7 @@ namespace App.Content.Buildings
             => _buildingSiteData.AppInputSystem.OnInteractionPerformed.RemoveListener(OnInteractionPerformed);
         private void OnInteractionPerformed()
         {
-            foreach (ItemCount item in _buildingSiteData.BuildRequirements)
+            foreach (ItemCount item in _buildingSiteData.Alternatives[0].Requirements)
                 _buildingSiteData.PlayerInventory.RemoveItem(item.Key, item.Count);
             _buildingSiteData.BuildingFactory.Parent = _buildingSiteData.BuilderTransform;
             _buildingSiteData.BuildingFactory.Create();
@@ -105,7 +105,7 @@ namespace App.Content.Buildings
         }
         private void CheckInteractable()
         {
-            foreach (ItemCount item in _buildingSiteData.BuildRequirements)
+            foreach (ItemCount item in _buildingSiteData.Alternatives[0].Requirements)
             {
                 if (_buildingSiteData.PlayerInventory.GetCount(item.Key) < item.Count)
                 {

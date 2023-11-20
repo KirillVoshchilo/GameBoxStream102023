@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 6174130740493375282}
   - component: {fileID: 7622223126690591382}
   m_Layer: 0
-  m_Name: Tree
+  m_Name: Tree_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -250,7 +250,16 @@ MonoBehaviour:
     _itemsCount: 1
     _crystal: {fileID: 543565968862324057}
     _fieldRequirements:
-      _requirements: []
+      _alternatives:
+      - _requirements:
+        - _name: {fileID: 11400000, guid: 8dd837ea2376b6d43a00e51c868ca679, type: 2}
+          _count: 1
+      - _requirements:
+        - _name: {fileID: 11400000, guid: 9699edb0a014f4f4e8af30dea41cd212, type: 2}
+          _count: 1
+      - _requirements:
+        - _name: {fileID: 11400000, guid: f99b7f2c77c0af8409f915ab1f8ddc95, type: 2}
+          _count: 1
     _interactionIconTransform: {fileID: 6998585607843009409}
     _interactTime: 1
     _recoverTime: -1

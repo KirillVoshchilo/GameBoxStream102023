@@ -26,7 +26,7 @@ namespace App.Content.Buildings
         private Inventory _playerInventory;
         private WorldCanvasStorage _worldCanvasStorage;
 
-        public ItemCount[] BuildRequirements => _buildRequirements.Requirements;
+        public Alternatives[] Alternatives => _buildRequirements.Alternatives;
         public Vector3 RequirementsPanelPosition => _requirementsPanelTransform.position;
         public AScriptableFactory BuildingFactory => _buildingFactory;
         public Transform BuilderTransform => _builderTransform;

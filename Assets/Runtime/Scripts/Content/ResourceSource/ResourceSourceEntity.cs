@@ -59,15 +59,24 @@ namespace App.Content.Field
         }
         private void CheckInteractable()
         {
-            foreach (ItemCount item in _resourceSourceData.FieldRequirements)
+            foreach (Alternatives alternative in _resourceSourceData.Alternatives)
             {
-                if (_resourceSourceData.PlayerInventory.GetCount(item.Key) < item.Count)
+                if (CheckRequirements(alternative))
                 {
-                    _resourceSourceData.IsInteractable = false;
+                    _resourceSourceData.IsInteractable = true;
                     return;
                 }
             }
-            _resourceSourceData.IsInteractable = true;
+            _resourceSourceData.IsInteractable = false;
+        }
+        private bool CheckRequirements(Alternatives alternative)
+        {
+            foreach (ItemCount item in alternative.Requirements)
+            {
+                if (_resourceSourceData.PlayerInventory.GetCount(item.Key) < item.Count)
+                    return false;
+            }
+            return true;
         }
         private void DisableInteraction()
         {
