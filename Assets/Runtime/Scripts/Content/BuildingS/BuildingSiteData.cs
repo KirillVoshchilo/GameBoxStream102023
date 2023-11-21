@@ -23,15 +23,15 @@ namespace App.Content.Buildings
         private readonly InteractionComp _interactableComp = new();
         private bool _isInteractable;
         private IAppInputSystem _appInputSystem;
-        private PlayerInventorySystem _playerInventory;
+        private Inventory _playerInventory;
         private WorldCanvasStorage _worldCanvasStorage;
 
-        public ItemCount[] BuildRequirements => _buildRequirements.Requirements;
+        public Alternatives[] Alternatives => _buildRequirements.Alternatives;
         public Vector3 RequirementsPanelPosition => _requirementsPanelTransform.position;
         public AScriptableFactory BuildingFactory => _buildingFactory;
         public Transform BuilderTransform => _builderTransform;
         public IAppInputSystem AppInputSystem { get => _appInputSystem; set => _appInputSystem = value; }
-        public PlayerInventorySystem PlayerInventory { get => _playerInventory; set => _playerInventory = value; }
+        public Inventory PlayerInventory { get => _playerInventory; set => _playerInventory = value; }
         public WorldCanvasStorage WorldCanvasStorage { get => _worldCanvasStorage; set => _worldCanvasStorage = value; }
         public RequirementsPanel RequirementsPanel => _worldCanvasStorage.RequirementsPanel;
         public InteractIcon InteractIcon => _worldCanvasStorage.InteractIcon;

@@ -1,5 +1,4 @@
-﻿using App.Architecture.AppData;
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace App.Content.Entities
@@ -7,9 +6,9 @@ namespace App.Content.Entities
     [Serializable]
     public sealed class InteractionRequirementsComp
     {
-        [SerializeField] private ItemCount[] _requirements;
-
-        public ItemCount[] Requirements
-            => _requirements;
+        [SerializeField] private Alternatives[] _alternatives;
+        
+        public Alternatives[] Alternatives
+            => _alternatives;
     }
 }

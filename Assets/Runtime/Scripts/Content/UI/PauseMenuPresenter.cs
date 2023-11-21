@@ -15,7 +15,7 @@ namespace App.Content.UI
 
         private IAppInputSystem _appInputSystem;
         private UIController _uiController;
-        private PlayerInventorySystem _playerInventorySystem;
+        private Inventory _playerInventory;
         private PlayerEntity _playerEntity;
         private LevelLoaderSystem _levelLoader;
 
@@ -23,11 +23,10 @@ namespace App.Content.UI
         public void Construct(IAppInputSystem appInputSystem,
             LevelLoaderSystem levelLoader,
             PlayerEntity playerEntity,
-            PlayerInventorySystem playerInventorySystem,
             UIController uiController)
         {
             _uiController = uiController;
-            _playerInventorySystem = playerInventorySystem;
+            _playerInventory = playerEntity.Get<Inventory>();
             _playerEntity = playerEntity;
             _levelLoader = levelLoader;
             _appInputSystem = appInputSystem;
@@ -44,7 +43,7 @@ namespace App.Content.UI
         }
         private void OnCloseAppClicked()
         {
-            _playerInventorySystem.Clear();
+            _playerInventory.Clear();
             _playerEntity.GetComponent<Rigidbody>().useGravity = false;
             _levelLoader.UnloadScene(LevelLoaderSystem.FIRST_LEVEL);
             _uiController.OpenMainMenu();

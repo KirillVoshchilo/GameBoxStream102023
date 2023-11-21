@@ -1,5 +1,5 @@
 {
-    "name": "GameBox-ArcadeIdle",
+    "name": "UserInput",
     "maps": [
         {
             "name": "Player",
@@ -45,6 +45,24 @@
                     "name": "Inventory",
                     "type": "Button",
                     "id": "0ea9a3b4-943f-4012-b5a8-399e510cdfad",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "InventoryMove",
+                    "type": "Value",
+                    "id": "b7edecf8-0cd0-41ce-9543-86fc696cf4b8",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "InventorySelect",
+                    "type": "Button",
+                    "id": "05481d5e-15c5-467b-9ae2-a31cdb1f08fc",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -247,6 +265,72 @@
                     "processors": "",
                     "groups": "",
                     "action": "Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "WASD composite",
+                    "id": "64be560b-9c42-471a-8c58-3d11fd61b9fc",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InventoryMove",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Up",
+                    "id": "37cd7173-b137-4f36-8fcb-1d8390967122",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "InventoryMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Down",
+                    "id": "69240301-ce09-4a59-90fe-f1fb38f01a20",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "InventoryMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Left",
+                    "id": "1ab7101e-46af-4fa8-9a45-bfd56a40aab2",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "InventoryMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Right",
+                    "id": "aeeabb40-a90f-4d15-a5e6-4864a5b18771",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "InventoryMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "ab7818f9-8ac4-48c7-8949-d4541e37bf72",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InventorySelect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

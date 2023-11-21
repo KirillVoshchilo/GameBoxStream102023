@@ -21,18 +21,17 @@ namespace App.Content.UI
         private IAppInputSystem _appInputSystem;
         private LevelLoaderSystem _levelLoader;
         private Configuration _configuration;
-        private PlayerInventorySystem _playerInventorySystem;
+        private Inventory _playerInventory;
         private PlayerEntity _playerEntity;
 
         [Inject]
         public void Construct(IAppInputSystem appInputSystem,
             LevelLoaderSystem levelLoader,
             PlayerEntity playerEntity,
-            PlayerInventorySystem playerInventorySystem,
             Configuration configuration)
         {
             _configuration = configuration;
-            _playerInventorySystem = playerInventorySystem;
+            _playerInventory = playerEntity.Get<Inventory>();
             _playerEntity = playerEntity;
             _levelLoader = levelLoader;
             appInputSystem.EscapeIsEnable = false;
@@ -57,7 +56,7 @@ namespace App.Content.UI
             {
                 Key key = _configuration.StartInventoryConfiguration.Items[i].Key;
                 int quantity = _configuration.StartInventoryConfiguration.Items[i].Count;
-                _playerInventorySystem.AddItem(key, quantity);
+                _playerInventory.AddItem(key, quantity);
             }
             _playerEntity.GetComponent<Rigidbody>().useGravity = true;
             _appInputSystem.EscapeIsEnable = true;

@@ -27,6 +27,8 @@ namespace App.Architecture.Scopes
             builder.RegisterComponent(_camerasStorage);
             builder.Register<LevelLoaderSystem>(Lifetime.Singleton)
                 .AsSelf();
+            builder.Register<VillageTrustSystem>(Lifetime.Singleton)
+                .AsSelf();
             builder.RegisterBuildCallback((container) =>
             {
                 IAppInputSystem appInputSystem = container.Resolve<IAppInputSystem>();

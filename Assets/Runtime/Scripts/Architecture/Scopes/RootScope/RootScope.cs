@@ -11,8 +11,6 @@ namespace App.Architecture.Scopes
         {
             builder.Register<AppInputSystem>(Lifetime.Singleton)
                 .As<IAppInputSystem>();
-            builder.Register<PlayerInventorySystem>(Lifetime.Singleton)
-                .AsSelf();
             Debug.Log("Сконфигурировал RootScope.");
         }
     }

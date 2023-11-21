@@ -1,4 +1,5 @@
 ﻿using App.Architecture;
+using App.Architecture.AppData;
 using App.Architecture.AppInput;
 using App.Content.Entities;
 using App.Logic;
@@ -37,12 +38,12 @@ namespace App.Content.Player
         [Inject]
         public void Construct(IAppInputSystem appInputSystem,
             CamerasStorage camerasStorage,
-            PlayerInventorySystem playerInventorySystem)
+            Configuration configuration)
         {
             _playerData.Walker = new(_playerData.Rigidbody);
             _playerData.AppInputSystem = appInputSystem;
             _playerData.MainCameraTransform = camerasStorage.MainCamera.transform;
-            _playerData.PlayerInventorySystem = playerInventorySystem;
+            _playerData.PlayerInventory = new Inventory(configuration.PlayerInventoryConfigurations, 9);
             _moveHandler = new PlayerMoveHandler(_playerData)
             {
                 IsEnable = true
@@ -55,6 +56,8 @@ namespace App.Content.Player
         {
             if (typeof(T) == typeof(WalkerData))
                 return _playerData.Walker as T;
+            if (typeof(T) == typeof(Inventory))
+                return _playerData.PlayerInventory as T;
             return null;
         }
 
