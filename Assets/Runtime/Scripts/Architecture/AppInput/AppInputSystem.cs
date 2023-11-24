@@ -19,6 +19,7 @@ namespace App.Architecture.AppInput
         private readonly SEvent _onEscapePressed = new();
         private readonly SEvent _onInventoryPressed = new();
         private readonly SEvent _onInventorySelect = new();
+        private readonly SEvent _onBonfireBuilded = new();
         private readonly SEvent<Vector2> _onMovedInInventory = new();
         private Vector2 _moveDirection;
         private Vector2 _lookDirection;
@@ -47,6 +48,7 @@ namespace App.Architecture.AppInput
         public SEvent<Vector2> OnMovedInInventory => _onMovedInInventory;
         public bool InventoryMoveIsEnable { get => _inventoryMoveIsEnable; set => _inventoryMoveIsEnable = value; }
         public SEvent OnInventorySelected => _onInventorySelect;
+        public SEvent OnBonfireBuilded => _onBonfireBuilded;
 
         public AppInputSystem()
         {
@@ -135,6 +137,14 @@ namespace App.Architecture.AppInput
             if (context.phase == InputActionPhase.Performed)
                 _onInventorySelect.Invoke();
         }
+
+        public void OnBuildBonfire(InputAction.CallbackContext context)
+        {
+            if (!_playerMovingIsEnable)
+                return;
+            if (context.phase == InputActionPhase.Performed)
+                _onBonfireBuilded.Invoke();
+        }
     }
 
     public interface IAppInputSystem
@@ -156,6 +166,7 @@ namespace App.Architecture.AppInput
         bool InventoryMoveIsEnable { get; set; }
         SEvent<Vector2> OnMovedInInventory { get; }
         SEvent OnInventorySelected { get; }
+        SEvent OnBonfireBuilded { get; }
 
         void SetInteractionTime(float duration);
     }

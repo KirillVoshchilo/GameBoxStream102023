@@ -1,5 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
+using System;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace App.Content.Player
 {
@@ -48,10 +50,18 @@ namespace App.Content.Player
             while (_playerData.Walker.IsMoving && _isEnable)
             {
                 Move();
+                Rotate();
                 await UniTask.DelayFrame(1);
             }
             _playerData.Walker.IsMoving = false;
         }
+
+        private void Rotate()
+        {
+            Vector3 target = _playerData.Transform.position + _playerData.Walker.MovingDirection;
+            _playerData.Transform.LookAt(target);
+        }
+
         private float CalculateSpeed()
         {
             float resultSpeed = _playerData.Walker.MovingSpeed;

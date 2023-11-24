@@ -17,12 +17,15 @@ namespace App.Logic
         [SerializeField] private ScarecrowMenuPresenter _scareCrowMenuPresenter;
         [SerializeField] private StorageMenuPresenter _storageMenuPresenter;
         [SerializeField] private GameObject _winCanvas;
+        [SerializeField] private GameObject _defeatCanvas;
+        [SerializeField] private FreezeScreenEffect _freezeScreenEffect;
 
         private IAppInputSystem _appInputSystem;
 
         [Inject]
         public void Construct(IAppInputSystem appInputSystem)
         {
+            _mainMenuPresenter.UIController = this;
             _appInputSystem = appInputSystem;
             _appInputSystem.OnEscapePressed.AddListener(OnEscapePressed);
             _appInputSystem.OnInventoryPressed.AddListener(OnInventoryPressed);
@@ -84,12 +87,19 @@ namespace App.Logic
         {
             _mainMenuPresenter.gameObject.SetActive(true);
             _pauseMenuPresenter.gameObject.SetActive(false);
+            _freezeScreenEffect.gameObject.SetActive(false);
             _appInputSystem.EscapeIsEnable = false;
         }
         public void CloseWinCanvas()
             => _winCanvas.SetActive(false);
         public void ShowWinCanvas()
             => _winCanvas.SetActive(true);
+        public void OpenDefeatCanvas()
+            => _defeatCanvas.SetActive(true);
+        public void CloseDefeatCanvas()
+            => _defeatCanvas.SetActive(false);
+        public void ShowFreezeEffect()
+            => _freezeScreenEffect.gameObject.SetActive(true);
 
         private void OnEscapePressed()
         {

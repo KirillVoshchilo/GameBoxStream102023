@@ -1,9 +1,8 @@
-using App.Architecture;
 using App.Architecture.AppInput;
 using App.Components;
 using App.Content.Entities;
+using App.Logic;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace App.Content.Player
@@ -15,10 +14,12 @@ namespace App.Content.Player
         [SerializeField] private Transform _transform;
         [SerializeField] private float _defaultMovingSpeed;
         [SerializeField] private TriggerComponent _triggerComponent;
-        [SerializeField] private float _defaultHeatValue;
+        [SerializeField] private HeatData _heatData;
+        [SerializeField] private Transform _bonfireTargetPosition;
+        [SerializeField] private float _buildCheckcolliderSize;
+        [SerializeField] private InteractionRequirementsComp _bonfireBuildRequirements;
 
-        private readonly Dictionary<string, float> _heatMultipliers = new();
-        private float _currentHeat;
+        private BonfireFactory _bonfireFactory;
         private Inventory _playerInventory;
         private Transform _mainCameraTransform;
         private InteractionComp _interactionEntity;
@@ -35,9 +36,11 @@ namespace App.Content.Player
         public IAppInputSystem AppInputSystem { get => _appInputSystem; set => _appInputSystem = value; }
         public Inventory PlayerInventory { get => _playerInventory; set => _playerInventory = value; }
         public bool IsEnable { get => _isEnable; set => _isEnable = value; }
-        public float DefaultHeatValue => _defaultHeatValue;
-        public float CurrentHeat { get => _currentHeat; set => _currentHeat = value; }
-        public Dictionary<string, float> HeatMultipliers => _heatMultipliers;
         public WalkerData Walker { get => _walker; set => _walker = value; }
+        public Transform BonfireTargetPosition => _bonfireTargetPosition;
+        public HeatData HeatData { get => _heatData; set => _heatData = value; }
+        public InteractionRequirementsComp BonfireBuildRequirements => _bonfireBuildRequirements;
+        public float BuildCheckcolliderSize => _buildCheckcolliderSize;
+        public BonfireFactory BonfireFactory { get => _bonfireFactory; set => _bonfireFactory = value; }
     }
 }

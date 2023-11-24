@@ -1,7 +1,6 @@
 using App.Architecture.AppData;
 using App.Architecture.AppInput;
 using App.Content.Entities;
-using App.Content.Player;
 using App.Logic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -12,12 +11,16 @@ public class BonfireEntity : MonoBehaviour, IEntity, IDestructable
 
     public void Construct(WorldCanvasStorage worldCanvasStorage,
               IAppInputSystem appInputSystem,
-              PlayerEntity playerEntity)
+              Inventory playerInventory,
+              BonfireFactory bonfireFactory)
     {
-        _bonfireData.PlayerInventory = playerEntity.Get<Inventory>();
+        _bonfireData.BonfireFactory = bonfireFactory;
+        _bonfireData.PlayerInventory = playerInventory;
         _bonfireData.AppInputSystem = appInputSystem;
         _bonfireData.WorldCanvasStorage = worldCanvasStorage;
         _bonfireData.InteractableComp.OnFocusChanged.AddListener(OnFocusChanged);
+        _bonfireData.CurrentLifetime = _bonfireData.DefaultLifetime;
+        _bonfireData.HeatCenter.Construct();
         ExtinguishingProcess()
             .Forget();
         Debug.Log("Сконструировал FieldEntity.");
@@ -27,25 +30,33 @@ public class BonfireEntity : MonoBehaviour, IEntity, IDestructable
         if (typeof(T) == typeof(InteractionComp))
             return _bonfireData.InteractableComp as T;
         if (typeof(T) == typeof(InteractionRequirementsComp))
-            return _bonfireData as T;
+            return _bonfireData.InteractionRequirements as T;
         return null;
     }
     public void Destruct()
     {
+        _bonfireData.CurrentLifetime = 0;
         _bonfireData.InteractableComp.OnFocusChanged.ClearListeners();
         _bonfireData.AppInputSystem.OnInteractionStarted.ClearListeners();
         _bonfireData.AppInputSystem.OnInteractionCanceled.ClearListeners();
         _bonfireData.AppInputSystem.OnInteractionPerformed.ClearListeners();
+        _bonfireData.HeatCenter.Destruct();
     }
-
 
     private async UniTask ExtinguishingProcess()
     {
         while (_bonfireData.CurrentLifetime > 0)
         {
-            await UniTask.Delay(1000);
-            _bonfireData.CurrentLifetime--;
+            _bonfireData.CurrentLifetime -= 1 * Time.deltaTime;
+            UpdateLightView();
+            await UniTask.NextFrame();
         }
+        _bonfireData.BonfireFactory.RemoveBonfire(this);
+    }
+    private void UpdateLightView()
+    {
+        float currentScale = _bonfireData.MinLightScale + (_bonfireData.CurrentLifetime / _bonfireData.DefaultLifetime * (_bonfireData.MaxLightScale - _bonfireData.MinLightScale));
+        _bonfireData.HeatCenter.HeatZone.transform.localScale = new Vector3(currentScale, currentScale, currentScale);
     }
     private void OnFocusChanged(bool value)
     {
@@ -114,7 +125,6 @@ public class BonfireEntity : MonoBehaviour, IEntity, IDestructable
     }
     private void OnPerformedInteraction()
     {
-        _bonfireData.RootObject.SetActive(false);
         foreach (ItemCount item in _bonfireData.Alternatives[0].Requirements)
             _bonfireData.PlayerInventory.RemoveItem(item.Key, item.Count);
         _bonfireData.CurrentLifetime = _bonfireData.DefaultLifetime;

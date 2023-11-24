@@ -23,13 +23,19 @@ namespace App.Content.UI
         private Configuration _configuration;
         private Inventory _playerInventory;
         private PlayerEntity _playerEntity;
+        private UIController _uiController;
+        private DefeatController _defeatController;
+
+        public UIController UIController { set => _uiController = value; }
 
         [Inject]
         public void Construct(IAppInputSystem appInputSystem,
             LevelLoaderSystem levelLoader,
             PlayerEntity playerEntity,
-            Configuration configuration)
+            Configuration configuration,
+            DefeatController defeatController)
         {
+            _defeatController = defeatController;
             _configuration = configuration;
             _playerInventory = playerEntity.Get<Inventory>();
             _playerEntity = playerEntity;
@@ -49,6 +55,7 @@ namespace App.Content.UI
             => _descriptionPanel.SetActive(false);
         private void OnStartNewGameButton()
         {
+            _defeatController.IsEnable = true;
             _levelLoader.LoadScene(LevelLoaderSystem.FIRST_LEVEL, OnCompleteLoading)
                 .Forget();
             int count = _configuration.StartInventoryConfiguration.Items.Length;
@@ -59,10 +66,14 @@ namespace App.Content.UI
                 _playerInventory.AddItem(key, quantity);
             }
             _playerEntity.GetComponent<Rigidbody>().useGravity = true;
+            HeatData heatData = _playerEntity.Get<HeatData>();
+            heatData.CurrentHeat = heatData.DefaultHeatValue;
+            heatData.IsFreezing = true;
             _appInputSystem.EscapeIsEnable = true;
             _appInputSystem.InventoryIsEnable = true;
             _appInputSystem.PlayerMovingIsEnable = true;
             gameObject.SetActive(false);
+            _uiController.ShowFreezeEffect();
         }
         private void OnCompleteLoading(LevelStorage storage)
             => _playerEntity.transform.position = storage.PlayerTransform.position;

@@ -18,13 +18,19 @@ namespace App.Content.UI
         private Inventory _playerInventory;
         private PlayerEntity _playerEntity;
         private LevelLoaderSystem _levelLoader;
+        private DefeatController _defeatController;
+        private BonfireFactory _bonusFactory;
 
         [Inject]
         public void Construct(IAppInputSystem appInputSystem,
             LevelLoaderSystem levelLoader,
             PlayerEntity playerEntity,
-            UIController uiController)
+            UIController uiController,
+            DefeatController defeatController,
+            BonfireFactory bonfireFactory)
         {
+            _bonusFactory = bonfireFactory;
+            _defeatController = defeatController;
             _uiController = uiController;
             _playerInventory = playerEntity.Get<Inventory>();
             _playerEntity = playerEntity;
@@ -43,6 +49,8 @@ namespace App.Content.UI
         }
         private void OnCloseAppClicked()
         {
+            _bonusFactory.ClearAll();
+            _defeatController.IsEnable = false;
             _playerInventory.Clear();
             _playerEntity.GetComponent<Rigidbody>().useGravity = false;
             _levelLoader.UnloadScene(LevelLoaderSystem.FIRST_LEVEL);

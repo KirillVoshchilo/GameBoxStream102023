@@ -14,9 +14,11 @@ public class BonfireData
     [SerializeField] private InteractionRequirementsComp _interactionRequirements;
     [SerializeField] private Transform _interactionIconTransform;
     [SerializeField] private float _interactTime;
-    [SerializeField] private float _recoverTime;
-    [SerializeField] private TriggerComponent _playerSearcher;
+    [SerializeField] private float _maxLightScale;
+    [SerializeField] private float _minLightScale;
+    [SerializeField] private HeatCetner _heatCenter;
 
+    private BonfireFactory _bonfireFactory;
     private float _currentLifetime;
     private readonly InteractionComp _interactableComp = new();
     private Inventory _playerInventory;
@@ -33,10 +35,14 @@ public class BonfireData
     public Inventory PlayerInventory { get => _playerInventory; set => _playerInventory = value; }
     public WorldCanvasStorage WorldCanvasStorage { get => _worldCanvasStorage; set => _worldCanvasStorage = value; }
     public IAppInputSystem AppInputSystem { get => _appInputSystem; set => _appInputSystem = value; }
-    public float RecoverTime => _recoverTime;
     public bool IsInteracting { get => _isInteracting; set => _isInteracting = value; }
     public InteractIcon InteractIcon => _worldCanvasStorage.InteractIcon;
     public bool IsInteractable { get => _isInteractable; set => _isInteractable = value; }
     public float CurrentLifetime { get => _currentLifetime; set => _currentLifetime = value; }
     public float DefaultLifetime => _defaultLifetime;
+    public float MaxLightScale  => _maxLightScale;
+    public float MinLightScale => _minLightScale;
+    public HeatCetner HeatCenter { get => _heatCenter; set => _heatCenter = value; }
+    public InteractionRequirementsComp InteractionRequirements  => _interactionRequirements;
+    public BonfireFactory BonfireFactory { get => _bonfireFactory; set => _bonfireFactory = value; }
 }

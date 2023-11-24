@@ -16,6 +16,7 @@ namespace App.Architecture.Scopes
         [SerializeField] private UIController _uiController;
         [SerializeField] private Configuration _configuration;
         [SerializeField] private ShopFactory[] _shopFactories;
+        [SerializeField] private BonfireFactory _bonfireFactory;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -25,9 +26,12 @@ namespace App.Architecture.Scopes
             builder.RegisterComponent(_playerEntity);
             builder.RegisterComponent(_uiController);
             builder.RegisterComponent(_camerasStorage);
+            builder.RegisterComponent(_bonfireFactory);
             builder.Register<LevelLoaderSystem>(Lifetime.Singleton)
                 .AsSelf();
             builder.Register<VillageTrustSystem>(Lifetime.Singleton)
+                .AsSelf();
+            builder.Register<DefeatController>(Lifetime.Singleton)
                 .AsSelf();
             builder.RegisterBuildCallback((container) =>
             {

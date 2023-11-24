@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1657399033430302614
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3237652433990620235}
+  m_Layer: 0
+  m_Name: BonfirePosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3237652433990620235
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657399033430302614}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.946, z: 1.987}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1766945130134326204}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1678817492823290607
 GameObject:
   m_ObjectHideFlags: 0
@@ -34,6 +65,7 @@ Transform:
   m_Children:
   - {fileID: 747578137605512712}
   - {fileID: 7835941008082431251}
+  - {fileID: 3237652433990620235}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &479201228180638219
@@ -76,6 +108,17 @@ MonoBehaviour:
     _transform: {fileID: 1766945130134326204}
     _defaultMovingSpeed: 0.16
     _triggerComponent: {fileID: 99686410314752231}
+    _heatData:
+      _defaultHeatValue: 50
+      _defaultFreezingRate: 1
+    _bonfireTargetPosition: {fileID: 3237652433990620235}
+    _buildCheckcolliderSize: 1
+    _bonfireBuildRequirements:
+      _alternatives:
+      - _requirements:
+        - _name: {fileID: 11400000, guid: 933464c970329e343bda27afa9cd09e6, type: 2}
+          _count: 2
+    _bonfirePrefab: {fileID: 7004837220252259577, guid: 02137f2504142d546ab0884f06b718e7, type: 3}
 --- !u!54 &5438980569326656613
 Rigidbody:
   m_ObjectHideFlags: 0
