@@ -109,7 +109,7 @@ MonoBehaviour:
     _defaultMovingSpeed: 0.16
     _triggerComponent: {fileID: 99686410314752231}
     _heatData:
-      _defaultHeatValue: 50
+      _defaultHeatValue: 30
       _defaultFreezingRate: 1
     _bonfireTargetPosition: {fileID: 3237652433990620235}
     _buildCheckcolliderSize: 1
@@ -118,7 +118,6 @@ MonoBehaviour:
       - _requirements:
         - _name: {fileID: 11400000, guid: 933464c970329e343bda27afa9cd09e6, type: 2}
           _count: 2
-    _bonfirePrefab: {fileID: 7004837220252259577, guid: 02137f2504142d546ab0884f06b718e7, type: 3}
 --- !u!54 &5438980569326656613
 Rigidbody:
   m_ObjectHideFlags: 0
