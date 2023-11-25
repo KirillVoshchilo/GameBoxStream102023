@@ -89,6 +89,15 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BuildBonfire"",
+                    ""type"": ""Button"",
+                    ""id"": ""d1aa732e-00a5-490b-9c47-d4e0a260fb5b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -353,6 +362,17 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""InventorySelect"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bda854da-fd58-4349-b74a-14ad0cc983fe"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BuildBonfire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -947,6 +967,7 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         m_Player_InventoryMove = m_Player.FindAction("InventoryMove", throwIfNotFound: true);
         m_Player_InventorySelect = m_Player.FindAction("InventorySelect", throwIfNotFound: true);
+        m_Player_BuildBonfire = m_Player.FindAction("BuildBonfire", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1027,6 +1048,7 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Inventory;
     private readonly InputAction m_Player_InventoryMove;
     private readonly InputAction m_Player_InventorySelect;
+    private readonly InputAction m_Player_BuildBonfire;
     public struct PlayerActions
     {
         private @UserInput m_Wrapper;
@@ -1038,6 +1060,7 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputAction @InventoryMove => m_Wrapper.m_Player_InventoryMove;
         public InputAction @InventorySelect => m_Wrapper.m_Player_InventorySelect;
+        public InputAction @BuildBonfire => m_Wrapper.m_Player_BuildBonfire;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1068,6 +1091,9 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
             @InventorySelect.started += instance.OnInventorySelect;
             @InventorySelect.performed += instance.OnInventorySelect;
             @InventorySelect.canceled += instance.OnInventorySelect;
+            @BuildBonfire.started += instance.OnBuildBonfire;
+            @BuildBonfire.performed += instance.OnBuildBonfire;
+            @BuildBonfire.canceled += instance.OnBuildBonfire;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1093,6 +1119,9 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
             @InventorySelect.started -= instance.OnInventorySelect;
             @InventorySelect.performed -= instance.OnInventorySelect;
             @InventorySelect.canceled -= instance.OnInventorySelect;
+            @BuildBonfire.started -= instance.OnBuildBonfire;
+            @BuildBonfire.performed -= instance.OnBuildBonfire;
+            @BuildBonfire.canceled -= instance.OnBuildBonfire;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1282,6 +1311,7 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
         void OnInventory(InputAction.CallbackContext context);
         void OnInventoryMove(InputAction.CallbackContext context);
         void OnInventorySelect(InputAction.CallbackContext context);
+        void OnBuildBonfire(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

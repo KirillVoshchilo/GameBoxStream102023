@@ -13,6 +13,9 @@ namespace App.Content.Player
         [SerializeField] private PlayerData _playerData;
 
         private PlayerMoveHandler _moveHandler;
+        private HeatHandler _heatHandler;
+        private BonfireBuildHandler _bonfireBuildHandler;
+
 
         public bool IsEnable
         {
@@ -38,12 +41,17 @@ namespace App.Content.Player
         [Inject]
         public void Construct(IAppInputSystem appInputSystem,
             CamerasStorage camerasStorage,
-            Configuration configuration)
+            Configuration configuration,
+            BonfireFactory bonfireFactory)
         {
+            _playerData.BonfireFactory = bonfireFactory;
+            _heatHandler = new(_playerData);
             _playerData.Walker = new(_playerData.Rigidbody);
             _playerData.AppInputSystem = appInputSystem;
+            _bonfireBuildHandler = new(_playerData);
             _playerData.MainCameraTransform = camerasStorage.MainCamera.transform;
             _playerData.PlayerInventory = new Inventory(configuration.PlayerInventoryConfigurations, 9);
+            bonfireFactory.PlayerInventory = _playerData.PlayerInventory;
             _moveHandler = new PlayerMoveHandler(_playerData)
             {
                 IsEnable = true
@@ -58,6 +66,8 @@ namespace App.Content.Player
                 return _playerData.Walker as T;
             if (typeof(T) == typeof(Inventory))
                 return _playerData.PlayerInventory as T;
+            if (typeof(T) == typeof(HeatData))
+                return _playerData.HeatData as T;
             return null;
         }
 
@@ -88,6 +98,15 @@ namespace App.Content.Player
                 interactableComp.IsInFocus = true;
                 _playerData.InteractionEntity = interactableComp;
             }
+        }
+
+        private void OnDrawGizmos()
+        {
+            // Draw a yellow sphere at the transform's position
+            if (_playerData.Walker == null)
+                return;
+            Gizmos.color = new Color(1, 1, 1, 0.3f);
+            Gizmos.DrawSphere(_playerData.BonfireTargetPosition.position, _playerData.BuildCheckcolliderSize);
         }
     }
 }
