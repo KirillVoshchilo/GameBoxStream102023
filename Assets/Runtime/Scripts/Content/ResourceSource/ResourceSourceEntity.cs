@@ -23,7 +23,6 @@ namespace App.Content.Field
             _resourceSourceData.AppInputSystem = appInputSystem;
             _resourceSourceData.WorldCanvasStorage = worldCanvasStorage;
             _resourceSourceData.InteractableComp.OnFocusChanged.AddListener(OnFocusChanged);
-            Debug.Log("Сконструировал FieldEntity.");
         }
         public T Get<T>() where T : class
         {

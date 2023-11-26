@@ -21,6 +21,7 @@ public sealed class SnowSquareData
     private Material _snowPlaneMaterial;
     private Collider _hitCollider = null;
     private bool _isDrawingStarted;
+    private bool _hasHeightMap;
 
     public CustomRenderTexture SnowHightMapExample => _snowHightMapExample;
     public MeshRenderer PlaneMeshRenderer => _planeMeshRenderer;
@@ -35,5 +36,5 @@ public sealed class SnowSquareData
     public bool IsDrawingStarted { get => _isDrawingStarted; set => _isDrawingStarted = value; }
     public float SearchingGroundDistance => _searchingGroundDistance;
     public float InfluenceOnSpeed => _influenceOnSpeed;
-
+    public bool HasHeightMap { get => _hasHeightMap; set => _hasHeightMap = value; }
 }

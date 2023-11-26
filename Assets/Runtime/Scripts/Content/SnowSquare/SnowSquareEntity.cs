@@ -20,18 +20,18 @@ public sealed class SnowSquareEntity : MonoBehaviour, IEntity
             name = $"{gameObject.name} Snow Plane"
         };
         _snowSquareData.PlaneMeshRenderer.material = _snowSquareData.SnowPlaneMaterial;
-        _snowSquareData.SnowHeightMap = new(_snowSquareData.SnowHightMapExample.width, _snowSquareData.SnowHightMapExample.height, _snowSquareData.SnowHightMapExample.format, RenderTextureReadWrite.sRGB)
-        {
-            updateMode = CustomRenderTextureUpdateMode.OnDemand,
-            doubleBuffered = true,
-            material = _snowSquareData.HeightMapUpdate,
-            initializationMode = CustomRenderTextureUpdateMode.OnLoad,
-            name = $"{gameObject.name} Snow Height Map"
-        };
-        _snowSquareData.SnowPlaneMaterial.SetTexture(ShaderKeys.HeightMapInShader, _snowSquareData.SnowHeightMap);
+
     }
+
+
     private void OnCollisionStay(Collision collision)
     {
+        if (!_snowSquareData.HasHeightMap)
+        {
+            Debug.Log("СОздал карту высот");
+            CreateHeightMap();
+            _snowSquareData.HasHeightMap = true;
+        }
         if (_snowSquareData.IsDrawingStarted)
             return;
         if (!collision.gameObject.TryGetComponent(out IEntity entity))
@@ -50,7 +50,6 @@ public sealed class SnowSquareEntity : MonoBehaviour, IEntity
         _snowSquareData.IsDrawingStarted = false;
         _snowSquareData.Drawer = null;
     }
-
     public void ResetHeight()
     {
         ResetProcess()
@@ -63,6 +62,18 @@ public sealed class SnowSquareEntity : MonoBehaviour, IEntity
         return null;
     }
 
+    private void CreateHeightMap()
+    {
+        _snowSquareData.SnowHeightMap = new(_snowSquareData.SnowHightMapExample.width, _snowSquareData.SnowHightMapExample.height, _snowSquareData.SnowHightMapExample.format, RenderTextureReadWrite.sRGB)
+        {
+            updateMode = CustomRenderTextureUpdateMode.OnDemand,
+            doubleBuffered = true,
+            material = _snowSquareData.HeightMapUpdate,
+            initializationMode = CustomRenderTextureUpdateMode.OnLoad,
+            name = $"{gameObject.name} Snow Height Map"
+        };
+        _snowSquareData.SnowPlaneMaterial.SetTexture(ShaderKeys.HeightMapInShader, _snowSquareData.SnowHeightMap);
+    }
     private async UniTask ResetProcess()
     {
         _snowSquareData.HeightMapUpdate.SetFloat(ShaderKeys.RestoreAmount, 1);
