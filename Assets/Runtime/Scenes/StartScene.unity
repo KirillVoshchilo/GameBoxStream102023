@@ -2250,10 +2250,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6199910738503882437, guid: cb31d957821ee2e4f86c507e70fa77d0, type: 3}
-      propertyPath: _playerData._heatData._defaultHeatValue
-      value: 10000
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
