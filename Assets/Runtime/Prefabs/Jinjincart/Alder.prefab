@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1063890418506282354}
@@ -73,7 +73,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _resourceSourceData:
     _key: {fileID: 11400000, guid: 8cb786425129ec54496f5ab38651c247, type: 2}
-    _itemsCount: 1
+    _itemsCount: 7
     _crystal: {fileID: 398676449918349256}
     _fieldRequirements:
       _alternatives:

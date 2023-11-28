@@ -80,7 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _resourceSourceData:
     _key: {fileID: 11400000, guid: 8cb786425129ec54496f5ab38651c247, type: 2}
-    _itemsCount: 1
+    _itemsCount: 14
     _crystal: {fileID: 4918422254980519371}
     _fieldRequirements:
       _alternatives:

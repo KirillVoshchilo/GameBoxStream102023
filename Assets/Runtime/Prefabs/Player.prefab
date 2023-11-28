@@ -106,7 +106,7 @@ MonoBehaviour:
   _playerData:
     _rigidbody: {fileID: 5438980569326656613}
     _transform: {fileID: 1766945130134326204}
-    _defaultMovingSpeed: 0.16
+    _defaultMovingSpeed: 0.22
     _triggerComponent: {fileID: 99686410314752231}
     _heatData:
       _defaultHeatValue: 10000
@@ -117,7 +117,7 @@ MonoBehaviour:
       _alternatives:
       - _requirements:
         - _name: {fileID: 11400000, guid: 933464c970329e343bda27afa9cd09e6, type: 2}
-          _count: 2
+          _count: 7
 --- !u!54 &5438980569326656613
 Rigidbody:
   m_ObjectHideFlags: 0
