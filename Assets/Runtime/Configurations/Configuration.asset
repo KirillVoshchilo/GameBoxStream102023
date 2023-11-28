@@ -16,6 +16,8 @@ MonoBehaviour:
     _items:
     - _name: {fileID: 11400000, guid: 8dd837ea2376b6d43a00e51c868ca679, type: 2}
       _count: 1
+    - _name: {fileID: 11400000, guid: 933464c970329e343bda27afa9cd09e6, type: 2}
+      _count: 14
   _defaultStorageItems:
     _items:
     - _name: {fileID: 11400000, guid: 9699edb0a014f4f4e8af30dea41cd212, type: 2}
