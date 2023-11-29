@@ -20,15 +20,17 @@ namespace App.Architecture.AppInput
         private readonly SEvent _onInventoryPressed = new();
         private readonly SEvent _onInventorySelect = new();
         private readonly SEvent _onBonfireBuilded = new();
+        private readonly SEvent _onGoNext = new();
         private readonly SEvent<Vector2> _onMovedInInventory = new();
         private Vector2 _moveDirection;
         private Vector2 _lookDirection;
         private bool _isMoving;
         private bool _isLooking;
-        private bool _escapeIsEnable = true;
-        private bool _inventoryIsEnable = true;
-        private bool _playerMovingIsEnable = true;
-        private bool _inventoryMoveIsEnable = true;
+        private bool _escapeIsEnable = false;
+        private bool _inventoryIsEnable = false;
+        private bool _playerMovingIsEnable = false;
+        private bool _isGoNextEnable = false;
+        private bool _inventoryMoveIsEnable = false;
         private float _interactionTime;
 
         public Vector2 MoveDirection => _moveDirection;
@@ -44,11 +46,26 @@ namespace App.Architecture.AppInput
         public SEvent<float> OnInteractionPercantagechanged => _onInteractionPercantagechanged;
         public bool EscapeIsEnable { get => _escapeIsEnable; set => _escapeIsEnable = value; }
         public bool InventoryIsEnable { get => _inventoryIsEnable; set => _inventoryIsEnable = value; }
-        public bool PlayerMovingIsEnable { get => _playerMovingIsEnable; set => _playerMovingIsEnable = value; }
+        public bool PlayerMovingIsEnable
+        {
+            get => _playerMovingIsEnable;
+            set
+            {
+                _playerMovingIsEnable = value;
+                if (!value)
+                {
+                    _isMoving = false;
+                    _onMovingStoped.Invoke();
+                }
+                    
+            }
+        }
         public SEvent<Vector2> OnMovedInInventory => _onMovedInInventory;
         public bool InventoryMoveIsEnable { get => _inventoryMoveIsEnable; set => _inventoryMoveIsEnable = value; }
         public SEvent OnInventorySelected => _onInventorySelect;
         public SEvent OnBonfireBuilded => _onBonfireBuilded;
+        public SEvent OnGoNext => _onGoNext;
+        public bool IsGoNextEnable { get => _isGoNextEnable; set => _isGoNextEnable = value; }
 
         public AppInputSystem()
         {
@@ -145,6 +162,14 @@ namespace App.Architecture.AppInput
             if (context.phase == InputActionPhase.Performed)
                 _onBonfireBuilded.Invoke();
         }
+
+        public void OnGoNextSlide(InputAction.CallbackContext context)
+        {
+            if (!_isGoNextEnable)
+                return;
+            if (context.phase == InputActionPhase.Performed)
+                _onGoNext.Invoke();
+        }
     }
 
     public interface IAppInputSystem
@@ -167,6 +192,8 @@ namespace App.Architecture.AppInput
         SEvent<Vector2> OnMovedInInventory { get; }
         SEvent OnInventorySelected { get; }
         SEvent OnBonfireBuilded { get; }
+        SEvent OnGoNext { get; }
+        bool IsGoNextEnable { get; set; }
 
         void SetInteractionTime(float duration);
     }

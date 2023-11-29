@@ -9,12 +9,13 @@ namespace App.Logic
     {
         [SerializeField] private Transform _playerTransform;
         [SerializeField] private GameObject[] _autoInjectObjects;
+        [SerializeField] private ScarecrowEntity _scarecrowEntity;
+        [SerializeField] private GameObject _snowContainer;
 
         private readonly HashSet<IDestructable> _destructables = new();
 
-
-        public Transform PlayerTransform
-            => _playerTransform;
+        public Transform PlayerTransform => _playerTransform;
+        public ScarecrowEntity ScarecrowEntity => _scarecrowEntity;
 
         public void Construct(LifetimeScope lifeTimeScope)
             => AutoInjectAll(lifeTimeScope);
@@ -26,6 +27,9 @@ namespace App.Logic
 
         private void AutoInjectAll(LifetimeScope lifeTimeScope)
         {
+            // проверить, что работает
+            AllSnowController allSnowController = lifeTimeScope.Container.Resolve(typeof(AllSnowController)) as AllSnowController;
+            allSnowController.SnowSquareEntities = _snowContainer.GetComponentsInChildren<SnowSquareEntity>();
             if (_autoInjectObjects == null)
                 return;
             foreach (GameObject target in _autoInjectObjects)

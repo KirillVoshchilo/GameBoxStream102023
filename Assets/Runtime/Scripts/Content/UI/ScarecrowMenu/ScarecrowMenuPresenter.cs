@@ -15,7 +15,9 @@ public class ScarecrowMenuPresenter : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _trustText;
     [SerializeField] private DialogueSystem _dialogueSystem;
     [SerializeField] private Key _requirementResource;
+    [SerializeField] private Transform _dialogeTransform;
 
+    private SlideShow _dialoge;
     private Inventory _playerInventory;
     private IconsConfiguration _iconsConfiguration;
     private VillageTrustSystem _villageTrustSystem;
@@ -24,6 +26,7 @@ public class ScarecrowMenuPresenter : MonoBehaviour
     private readonly CellPresenter[,] _cellsMatrix = new CellPresenter[3, 3];
     private (int x, int y) _selectionPosition;
     private bool _enable;
+    private int _currentLevel;
 
     public bool Enable
     {
@@ -51,6 +54,20 @@ public class ScarecrowMenuPresenter : MonoBehaviour
             }
         }
     }
+    public SlideShow Dialoge
+    {
+        get => _dialoge;
+        set
+        {
+            if (value == null)
+                return;
+            if (_dialoge != null)
+                Destroy(_dialoge.gameObject);
+            _dialoge = Instantiate(value, _dialogeTransform);
+            _dialoge.IsLoop = true;
+        }
+    }
+    public int CurrentLevel { get => _currentLevel; set => _currentLevel = value; }
 
     private async UniTask DefferedSubscribes()
     {
@@ -79,7 +96,7 @@ public class ScarecrowMenuPresenter : MonoBehaviour
         if (_villageTrustSystem.CurrentTrustLevel > 0)
         {
             int previousLevel = Mathf.Clamp(_villageTrustSystem.CurrentTrustLevel - 1, 0, _villageTrustSystem.CurrentTrustLevel);
-            difference -= _trustLevels[previousLevel];
+            difference -= _trustLevels[previousLevel].Trust;
         }
         _currentWoodCountShort.text = difference.ToString();
         _currentWoodCount.text = $"В наличии {difference}";
@@ -89,11 +106,11 @@ public class ScarecrowMenuPresenter : MonoBehaviour
     {
         if (trustLevel >= _trustLevels.Length)
             return;
-        float goal = _trustLevels[trustLevel];
+        float goal = _trustLevels[trustLevel].Trust;
         if (trustLevel > 0)
         {
             int previousLevel = Mathf.Clamp(trustLevel - 1, 0, trustLevel);
-            goal -= _trustLevels[previousLevel];
+            goal -= _trustLevels[previousLevel].Trust;
         }
         _woodRequirements.text = $"{goal} дров.";
     }
@@ -113,6 +130,8 @@ public class ScarecrowMenuPresenter : MonoBehaviour
 
     private void PushMaterials()
     {
+        if (_villageTrustSystem.CurrentTrustLevel == _trustLevels[_currentLevel].Trust)
+            return;
         Cell cell = _cellsMatrix[_selectionPosition.y, _selectionPosition.x].Cell;
         if (cell == null)
             return;
@@ -136,7 +155,7 @@ public class ScarecrowMenuPresenter : MonoBehaviour
     private int GetRequiredWood()
     {
         int currentLevel = _villageTrustSystem.CurrentTrustLevel;
-        return (int)(_trustLevels[currentLevel] - _villageTrustSystem.Trust);
+        return (int)(_trustLevels[currentLevel].Trust - _villageTrustSystem.Trust);
     }
     public void Clear()
     {

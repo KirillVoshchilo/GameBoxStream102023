@@ -18,31 +18,16 @@ namespace App.Content.UI
         [SerializeField] private Button _closeDescriptionButton;
         [SerializeField] private GameObject _descriptionPanel;
 
-        private IAppInputSystem _appInputSystem;
-        private LevelLoaderSystem _levelLoader;
-        private Configuration _configuration;
-        private Inventory _playerInventory;
-        private PlayerEntity _playerEntity;
         private UIController _uiController;
-        private DefeatController _defeatController;
+        private LevelsController _levelsController;
 
         public UIController UIController { set => _uiController = value; }
 
         [Inject]
-        public void Construct(IAppInputSystem appInputSystem,
-            LevelLoaderSystem levelLoader,
-            PlayerEntity playerEntity,
-            Configuration configuration,
-            DefeatController defeatController)
+        public void Construct(LevelsController levelsController)
         {
-            _defeatController = defeatController;
-            _configuration = configuration;
-            _playerInventory = playerEntity.Get<Inventory>();
-            _playerEntity = playerEntity;
-            _levelLoader = levelLoader;
-            appInputSystem.EscapeIsEnable = false;
-            appInputSystem.PlayerMovingIsEnable = false;
-            _appInputSystem = appInputSystem;
+            _levelsController = levelsController;
+
             _closeAppButton.onClick.AddListener(OnCloseAppClicked);
             _startGameButton.onClick.AddListener(OnStartNewGameButton);
             _closeDescriptionButton.onClick.AddListener(OnCloseDescriptionClicked);
@@ -55,28 +40,10 @@ namespace App.Content.UI
             => _descriptionPanel.SetActive(false);
         private void OnStartNewGameButton()
         {
-            _defeatController.IsEnable = true;
-            _levelLoader.LoadScene(LevelLoaderSystem.FIRST_LEVEL, OnCompleteLoading)
-                .Forget();
-            int count = _configuration.StartInventoryConfiguration.Items.Length;
-            for (int i = 0; i < count; i++)
-            {
-                Key key = _configuration.StartInventoryConfiguration.Items[i].Key;
-                int quantity = _configuration.StartInventoryConfiguration.Items[i].Count;
-                _playerInventory.AddItem(key, quantity);
-            }
-            _playerEntity.GetComponent<Rigidbody>().useGravity = true;
-            HeatData heatData = _playerEntity.Get<HeatData>();
-            heatData.CurrentHeat = heatData.DefaultHeatValue;
-            heatData.IsFreezing = true;
-            _appInputSystem.EscapeIsEnable = true;
-            _appInputSystem.InventoryIsEnable = true;
-            _appInputSystem.PlayerMovingIsEnable = true;
-            gameObject.SetActive(false);
-            _uiController.ShowFreezeEffect();
+            _uiController.CloseMainMenu();
+            _levelsController.StartFirstLevel();
         }
-        private void OnCompleteLoading(LevelStorage storage)
-            => _playerEntity.transform.position = storage.PlayerTransform.position;
+
         private void OnCloseAppClicked()
             => Application.Quit();
     }

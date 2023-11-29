@@ -20,7 +20,6 @@ public sealed class SnowSquareEntity : MonoBehaviour, IEntity
             name = $"{gameObject.name} Snow Plane"
         };
         _snowSquareData.PlaneMeshRenderer.material = _snowSquareData.SnowPlaneMaterial;
-
     }
 
 
@@ -52,6 +51,9 @@ public sealed class SnowSquareEntity : MonoBehaviour, IEntity
     }
     public void ResetHeight()
     {
+        if (_snowSquareData.SnowHeightMap == null)
+            return;
+        _snowSquareData.VirtualHeightMap.ResetHeight();
         ResetProcess()
             .Forget();
     }
@@ -81,6 +83,9 @@ public sealed class SnowSquareEntity : MonoBehaviour, IEntity
         await UniTask.DelayFrame(2);
         _snowSquareData.HeightMapUpdate.SetFloat(ShaderKeys.RestoreAmount, 0);
         _snowSquareData.SnowHeightMap.Update();
+        _snowSquareData.SnowHeightMap.Release();
+        _snowSquareData.SnowHeightMap = null;
+        _snowSquareData.HasHeightMap = false;
     }
     private async UniTask DrawProcess()
     {
@@ -173,6 +178,12 @@ public sealed class SnowSquareEntity : MonoBehaviour, IEntity
     }
     private void Draw(Vector2 hitTextureCoord)
     {
+        if (!_snowSquareData.HasHeightMap)
+        {
+            Debug.Log("СОздал карту высот");
+            CreateHeightMap();
+            _snowSquareData.HasHeightMap = true;
+        }
         float angle = _snowSquareData.Drawer.EulerRotation.y;
         _snowSquareData.HeightMapUpdate.SetVector(ShaderKeys.DrawPosition, hitTextureCoord);
         _snowSquareData.VirtualHeightMap.SetHeightByCoordinates(hitTextureCoord, 0);

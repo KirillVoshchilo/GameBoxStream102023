@@ -11,6 +11,8 @@ namespace App.Architecture.Scopes
         {
             builder.Register<AppInputSystem>(Lifetime.Singleton)
                 .As<IAppInputSystem>();
+            builder.Register<LevelTimer>(Lifetime.Singleton)
+                .AsSelf();
             Debug.Log("Сконфигурировал RootScope.");
         }
     }

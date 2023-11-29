@@ -22,8 +22,7 @@ namespace App.Architecture
 
         public async UniTask LoadScene(string scene, Action<LevelStorage> onComplete)
         {
-            SceneManager.LoadScene(scene, LoadSceneMode.Additive);
-            await UniTask.Yield();
+            await SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
             _currentLoadedLevel = GameObject.FindAnyObjectByType<LevelStorage>();
             _currentLoadedLevel.Construct(_container);
             onComplete?.Invoke(_currentLoadedLevel);

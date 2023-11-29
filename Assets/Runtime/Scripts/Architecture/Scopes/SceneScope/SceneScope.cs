@@ -33,6 +33,12 @@ namespace App.Architecture.Scopes
                 .AsSelf();
             builder.Register<DefeatController>(Lifetime.Singleton)
                 .AsSelf();
+            builder.Register<LevelsController>(Lifetime.Singleton)
+                .AsSelf();
+            builder.Register<AllSnowController>(Lifetime.Singleton)
+                .AsSelf();
+            builder.Register<FinishController>(Lifetime.Singleton)
+                .AsSelf();
             builder.RegisterBuildCallback((container) =>
             {
                 IAppInputSystem appInputSystem = container.Resolve<IAppInputSystem>();

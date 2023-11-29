@@ -36,7 +36,7 @@ namespace App.Content.UI
             _playerEntity = playerEntity;
             _levelLoader = levelLoader;
             _appInputSystem = appInputSystem;
-            _closeAppButton.onClick.AddListener(OnCloseAppClicked);
+            _closeAppButton.onClick.AddListener(OnEndGameClicked);
             _continueButton.onClick.AddListener(OnContinueClicked);
         }
 
@@ -47,7 +47,7 @@ namespace App.Content.UI
             _appInputSystem.PlayerMovingIsEnable = true;
             gameObject.SetActive(false);
         }
-        private void OnCloseAppClicked()
+        private void OnEndGameClicked()
         {
             _bonusFactory.ClearAll();
             _defeatController.IsEnable = false;

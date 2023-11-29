@@ -6,12 +6,12 @@ namespace App.Architecture.AppData
     [Serializable]
     public sealed class TrustLevels
     {
-        [SerializeField] private float[] _trustLevels;
+        [SerializeField] private TrustLevel[] _values;
 
-        public float this[int value]
-            => _trustLevels[value];
-
+        public TrustLevel this[int value]
+            => _values[value];
         public int Length
-            => _trustLevels.Length;
+            => _values.Length;
+        public TrustLevel[] Values => _values;
     }
 }

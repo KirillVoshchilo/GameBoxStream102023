@@ -64,6 +64,8 @@ namespace App.Content.Buildings
             _shopData.InteractIcon.HoldMode = false;
         }
         private void OnPerformedInteraction()
-            => _shopData.UIController.OpenShop(_shopData.PriceList);
+        {
+        //    _shopData.UIController.OpenShop(_shopData.PriceList);
+        } 
     }
 }

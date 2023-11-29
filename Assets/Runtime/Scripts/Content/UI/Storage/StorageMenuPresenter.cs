@@ -13,8 +13,9 @@ public class StorageMenuPresenter : MonoBehaviour
     [SerializeField] private CellPresenter[] _storageCells;
     [SerializeField] private CellPresenter[] _inventoryCells;
     [SerializeField] private TextMeshProUGUI _trustText;
-    [SerializeField] private DialogueSystem _dialogueSystem;
+    [SerializeField] private Transform _dialogeTransform;
 
+    private SlideShow _dialoge;
     private Inventory _playerInventory;
     private Inventory _storageInventory;
     private IconsConfiguration _iconsConfiguration;
@@ -51,6 +52,19 @@ public class StorageMenuPresenter : MonoBehaviour
                 _playerInventory.OnInventoryUpdated.RemoveListener(UpdatePlayerInventoryCells);
                 _storageInventory.OnInventoryUpdated.RemoveListener(UpdateStorageInventoryCells);
             }
+        }
+    }
+    public SlideShow Dialoge
+    {
+        get => _dialoge;
+        set
+        {
+            if (value == null)
+                return;
+            if (_dialoge != null)
+                Destroy(_dialoge.gameObject);
+            _dialoge = Instantiate(value, _dialogeTransform);
+            _dialoge.IsLoop = true;
         }
     }
 

@@ -9,11 +9,15 @@ public sealed class ScarecrowEntity : MonoBehaviour, IEntity, IDestructable
 {
     [SerializeField] private ScarecrowData _scarecrowData;
 
+    public GameObject ScarecrowModel { get => _scarecrowData.ScarecrowModel; set => _scarecrowData.ScarecrowModel = value; }
+    public GameObject ModelParent => _scarecrowData.ModelParent;
+
     [Inject]
     public void Construct(UIController uiController,
           WorldCanvasStorage worldCanvasStorage,
           IAppInputSystem appInputSystem)
     {
+        Destroy(_scarecrowData.EditorTemporaryMesh);
         _scarecrowData.AppInputSystem = appInputSystem;
         _scarecrowData.UIController = uiController;
         _scarecrowData.WorldCanvasStorage = worldCanvasStorage;

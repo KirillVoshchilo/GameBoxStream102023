@@ -98,6 +98,15 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GoNextSlide"",
+                    ""type"": ""Button"",
+                    ""id"": ""67c26afd-0f96-462b-94c0-9d02d89f9b99"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -373,6 +382,17 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""BuildBonfire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""17a2c128-2317-434b-a12c-2a46e919b1a7"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GoNextSlide"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -968,6 +988,7 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
         m_Player_InventoryMove = m_Player.FindAction("InventoryMove", throwIfNotFound: true);
         m_Player_InventorySelect = m_Player.FindAction("InventorySelect", throwIfNotFound: true);
         m_Player_BuildBonfire = m_Player.FindAction("BuildBonfire", throwIfNotFound: true);
+        m_Player_GoNextSlide = m_Player.FindAction("GoNextSlide", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1049,6 +1070,7 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_InventoryMove;
     private readonly InputAction m_Player_InventorySelect;
     private readonly InputAction m_Player_BuildBonfire;
+    private readonly InputAction m_Player_GoNextSlide;
     public struct PlayerActions
     {
         private @UserInput m_Wrapper;
@@ -1061,6 +1083,7 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
         public InputAction @InventoryMove => m_Wrapper.m_Player_InventoryMove;
         public InputAction @InventorySelect => m_Wrapper.m_Player_InventorySelect;
         public InputAction @BuildBonfire => m_Wrapper.m_Player_BuildBonfire;
+        public InputAction @GoNextSlide => m_Wrapper.m_Player_GoNextSlide;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1094,6 +1117,9 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
             @BuildBonfire.started += instance.OnBuildBonfire;
             @BuildBonfire.performed += instance.OnBuildBonfire;
             @BuildBonfire.canceled += instance.OnBuildBonfire;
+            @GoNextSlide.started += instance.OnGoNextSlide;
+            @GoNextSlide.performed += instance.OnGoNextSlide;
+            @GoNextSlide.canceled += instance.OnGoNextSlide;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1122,6 +1148,9 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
             @BuildBonfire.started -= instance.OnBuildBonfire;
             @BuildBonfire.performed -= instance.OnBuildBonfire;
             @BuildBonfire.canceled -= instance.OnBuildBonfire;
+            @GoNextSlide.started -= instance.OnGoNextSlide;
+            @GoNextSlide.performed -= instance.OnGoNextSlide;
+            @GoNextSlide.canceled -= instance.OnGoNextSlide;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1312,6 +1341,7 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
         void OnInventoryMove(InputAction.CallbackContext context);
         void OnInventorySelect(InputAction.CallbackContext context);
         void OnBuildBonfire(InputAction.CallbackContext context);
+        void OnGoNextSlide(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

@@ -27,7 +27,7 @@ public sealed class VillageTrustSystem
         int i;
         for (i = 0; i < count; i++)
         {
-            if (_currentTrust < _configuration.TrustLevels[i])
+            if (_currentTrust < _configuration.TrustLevels[i].Trust)
                 break;
         }
         if (_currentTrustLevel < i)

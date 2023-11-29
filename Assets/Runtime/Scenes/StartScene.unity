@@ -324,6 +324,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -330
       objectReference: {fileID: 0}
+    - target: {fileID: 1457511047760354037, guid: 013ad782fd93b03419590ea43fa6b814, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1597526094212048215, guid: 013ad782fd93b03419590ea43fa6b814, type: 3}
       propertyPath: m_Name
       value: ScarecrowCanvas
@@ -797,7 +801,10 @@ PrefabInstance:
       value: -330
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1457511047760354037, guid: 013ad782fd93b03419590ea43fa6b814, type: 3}
+    - {fileID: 8055155832668932380, guid: 013ad782fd93b03419590ea43fa6b814, type: 3}
+    - {fileID: 5125234475787645773, guid: 013ad782fd93b03419590ea43fa6b814, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 013ad782fd93b03419590ea43fa6b814, type: 3}
@@ -918,17 +925,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2979898730888344372, guid: de12cc0c36280194b8c16e58296bb7ef, type: 3}
   m_PrefabInstance: {fileID: 5595121285081938028}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &760978349 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3979186601998111559, guid: de12cc0c36280194b8c16e58296bb7ef, type: 3}
-  m_PrefabInstance: {fileID: 5595121285081938028}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f43606afec14344d9de400f5110763f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &1014226362 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3943398342551466321, guid: 67c71c394b2a64e4bbc89043fcf43b76, type: 3}
@@ -2224,7 +2220,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1766945130134326204, guid: cb31d957821ee2e4f86c507e70fa77d0, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.8048361
       objectReference: {fileID: 0}
     - target: {fileID: 1766945130134326204, guid: cb31d957821ee2e4f86c507e70fa77d0, type: 3}
       propertyPath: m_LocalRotation.x
@@ -2232,7 +2228,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1766945130134326204, guid: cb31d957821ee2e4f86c507e70fa77d0, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.59349716
       objectReference: {fileID: 0}
     - target: {fileID: 1766945130134326204, guid: cb31d957821ee2e4f86c507e70fa77d0, type: 3}
       propertyPath: m_LocalRotation.z
@@ -2249,6 +2245,10 @@ PrefabInstance:
     - target: {fileID: 1766945130134326204, guid: cb31d957821ee2e4f86c507e70fa77d0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6199910738503882437, guid: cb31d957821ee2e4f86c507e70fa77d0, type: 3}
+      propertyPath: _playerData._heatData._defaultHeatValue
+      value: 120
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3223,7 +3223,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inventoryPresenter: {fileID: 232119872}
   _mainMenuPresenter: {fileID: 8675231200056143248}
-  _shopPresenter: {fileID: 760978349}
   _pauseMenuPresenter: {fileID: 45266890361604560}
   _scareCrowMenuPresenter: {fileID: 188077752}
   _storageMenuPresenter: {fileID: 1380892556}
@@ -3268,7 +3267,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1591109580144080037}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0704746, y: 0.8719139, z: -0.46629837, w: -0.13177782}
+  m_LocalRotation: {x: -0.07047462, y: 0.87191385, z: -0.4662984, w: -0.13177785}
   m_LocalPosition: {x: 6.71, y: 9.02, z: 7.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4492,7 +4491,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1894165525925910501}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0704746, y: 0.8719139, z: -0.46629837, w: -0.13177782}
+  m_LocalRotation: {x: -0.07047462, y: 0.87191385, z: -0.4662984, w: -0.13177785}
   m_LocalPosition: {x: 6.71, y: 9.02, z: 7.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
