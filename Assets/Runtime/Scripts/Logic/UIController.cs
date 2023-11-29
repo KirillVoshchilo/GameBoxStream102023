@@ -151,17 +151,21 @@ namespace App.Logic
         }
         private void CloseInventory()
         {
-            _appInputSystem.PlayerMovingIsEnable = true;
-            _inventoryPresenter.Clear();
+            _appInputSystem.IsGoNextEnable = false;
+            _inventoryPresenter.Enable = false;
             _inventoryPresenter.gameObject.SetActive(false);
+            _appInputSystem.EscapeIsEnable = false;
             _appInputSystem.PlayerMovingIsEnable = true;
+            _appInputSystem.InventoryMoveIsEnable = false;
         }
         private void OpenInventory()
         {
-            _appInputSystem.EscapeIsEnable = true;
             _inventoryPresenter.gameObject.SetActive(true);
-            _inventoryPresenter.FillWithItems();
+            _appInputSystem.IsGoNextEnable = true;
+            _inventoryPresenter.Enable = true;
+            _appInputSystem.EscapeIsEnable = true;
             _appInputSystem.PlayerMovingIsEnable = false;
+            _appInputSystem.InventoryMoveIsEnable = true;
         }
     }
 }

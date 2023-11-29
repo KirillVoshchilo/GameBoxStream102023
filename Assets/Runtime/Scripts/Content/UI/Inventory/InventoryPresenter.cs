@@ -1,7 +1,7 @@
-using App.Architecture;
 using App.Architecture.AppData;
 using App.Content.Player;
-using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using VContainer;
 
@@ -9,12 +9,32 @@ namespace App.Content.UI.InventoryUI
 {
     public sealed class InventoryPresenter : MonoBehaviour
     {
-        [SerializeField] private InventoryItemPresenter _prefab;
-        [SerializeField] private Transform _content;
+        [SerializeField] private CellPresenter[] _inventoryCells;
+        [SerializeField] private TextMeshProUGUI _trustText;
+        [SerializeField] private TextMeshProUGUI _timer;
 
-        private readonly List<InventoryItemPresenter> _itemsList = new();
         private Inventory _playerInventory;
         private IconsConfiguration _iconsConfiguration;
+        private bool _enable;
+
+        public bool Enable
+        {
+            get => _enable;
+            set
+            {
+                _enable = value;
+                if (value)
+                {
+                    UpdatePlayerInventoryCells(_playerInventory.Cells);
+                    DefferedSubscribes()
+                        .Forget();
+                }
+                else
+                {
+                    _playerInventory.OnInventoryUpdated.RemoveListener(UpdatePlayerInventoryCells);
+                }
+            }
+        }
 
         [Inject]
         public void Construct(PlayerEntity playerEntity,
@@ -23,26 +43,25 @@ namespace App.Content.UI.InventoryUI
             _playerInventory = playerEntity.Get<Inventory>();
             _iconsConfiguration = configurations.IconsConfiguration;
         }
-        public void FillWithItems()
+
+        private async UniTask DefferedSubscribes()
         {
-            foreach (Cell cell in _playerInventory.Cells)
-            {
-                if (cell == null)
-                    continue;
-                InventoryItemPresenter presenter = Instantiate(_prefab, _content);
-                presenter.Count = cell.Count;
-                presenter.Name = cell.Key.Value;
-                presenter.Icon = _iconsConfiguration[cell.Key];
-                _itemsList.Add(presenter);
-            }
+            await UniTask.NextFrame();
+            _playerInventory.OnInventoryUpdated.AddListener(UpdatePlayerInventoryCells);
         }
-        public void Clear()
+        private void UpdatePlayerInventoryCells(Cell[] obj)
         {
-            InventoryItemPresenter[] array = _itemsList.ToArray();
-            int count = array.Length;
+            int count = obj.Length;
             for (int i = 0; i < count; i++)
-                Destroy(array[i].gameObject);
-            _itemsList.Clear();
+            {
+                if (obj[i] != null)
+                {
+                    _inventoryCells[i].Cell = obj[i];
+                    _inventoryCells[i].SetCount(obj[i].Count);
+                    _inventoryCells[i].SetSprite(_iconsConfiguration[obj[i].Key]);
+                }
+                else _inventoryCells[i].Clear();
+            }
         }
     }
 }
