@@ -1,6 +1,7 @@
 using App.Architecture.AppData;
 using App.Content.Player;
 using Cysharp.Threading.Tasks;
+using System;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -9,6 +10,7 @@ namespace App.Content.UI.InventoryUI
 {
     public sealed class InventoryPresenter : MonoBehaviour
     {
+        private const string TIME_FORMAT = "00";
         [SerializeField] private CellPresenter[] _inventoryCells;
         [SerializeField] private TextMeshProUGUI _trustText;
         [SerializeField] private TextMeshProUGUI _timer;
@@ -16,6 +18,7 @@ namespace App.Content.UI.InventoryUI
         private Inventory _playerInventory;
         private IconsConfiguration _iconsConfiguration;
         private bool _enable;
+        private LevelTimer _levelTimer;
 
         public bool Enable
         {
@@ -38,10 +41,21 @@ namespace App.Content.UI.InventoryUI
 
         [Inject]
         public void Construct(PlayerEntity playerEntity,
-            Configuration configurations)
+            Configuration configurations,
+            LevelTimer levelTimer)
         {
+            _levelTimer = levelTimer;
+            levelTimer.OnTimeHasChanged.AddListener(ShowTime);
             _playerInventory = playerEntity.Get<Inventory>();
             _iconsConfiguration = configurations.IconsConfiguration;
+        }
+
+        private void ShowTime(float obj)
+        {
+            int value = (int)obj;
+            int seconds = value % 60;
+            int minutes = (value - seconds) / 60;
+            _timer.text = $"{minutes.ToString(TIME_FORMAT)}:{seconds.ToString(TIME_FORMAT)}";
         }
 
         private async UniTask DefferedSubscribes()
