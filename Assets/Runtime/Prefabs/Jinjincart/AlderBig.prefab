@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3304215006789563829}
   - component: {fileID: 8668855354840642973}
+  - component: {fileID: 5173377232397024881}
   m_Layer: 0
   m_Name: AlderBig
   m_TagString: Untagged
@@ -59,6 +60,29 @@ MonoBehaviour:
     _interactionIconTransform: {fileID: 6079888566663873873}
     _interactTime: 1
     _recoverTime: -1
+--- !u!136 &5173377232397024881
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1330277100790076114}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 9.85
+  m_Direction: 1
+  m_Center: {x: 0, y: 5, z: 0}
 --- !u!1 &9186209736909085853
 GameObject:
   m_ObjectHideFlags: 0
