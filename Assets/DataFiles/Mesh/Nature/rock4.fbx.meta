@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 755eb4b50fe3469479fabd6256f6faf2
+guid: dfe23a07cf86da849918208257722fc9
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,63 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Bear
-    second: {fileID: 2100000, guid: ead5647f7743daa46bf96d1064fb2353, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Black
-    second: {fileID: 2100000, guid: ead5647f7743daa46bf96d1064fb2353, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Black2q
-    second: {fileID: 2100000, guid: ead5647f7743daa46bf96d1064fb2353, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Dark_blue
-    second: {fileID: 2100000, guid: ead5647f7743daa46bf96d1064fb2353, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Eye
-    second: {fileID: 2100000, guid: ead5647f7743daa46bf96d1064fb2353, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Grey
-    second: {fileID: 2100000, guid: ead5647f7743daa46bf96d1064fb2353, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Hair
-    second: {fileID: 2100000, guid: ead5647f7743daa46bf96d1064fb2353, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.006
-    second: {fileID: 2100000, guid: ead5647f7743daa46bf96d1064fb2353, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Skin3
-    second: {fileID: 2100000, guid: ead5647f7743daa46bf96d1064fb2353, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: black
-    second: {fileID: 2100000, guid: ead5647f7743daa46bf96d1064fb2353, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: standardSurface1
-    second: {fileID: 2100000, guid: ead5647f7743daa46bf96d1064fb2353, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: white
-    second: {fileID: 2100000, guid: ead5647f7743daa46bf96d1064fb2353, type: 2}
+      name: Material3
+    second: {fileID: 2100000, guid: 68398fd69cd695346afb578ebd0ab4b5, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
