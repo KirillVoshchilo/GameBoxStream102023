@@ -7,6 +7,7 @@ using VContainer;
 
 public class FinishController
 {
+    private readonly FallingSnowController _fallingSnowController;
     private readonly LevelsController _levelsController;
     private readonly Configuration _configuration;
     private readonly IAppInputSystem _appInputSystem;
@@ -25,8 +26,10 @@ public class FinishController
         AllSnowController allSnowController,
         UIController uiController,
         LevelTimer levelTimer,
-        VillageTrustSystem villageTrustSystem)
-    { 
+        VillageTrustSystem villageTrustSystem,
+        FallingSnowController fallingSnowController)
+    {
+        _fallingSnowController = fallingSnowController;
         _levelsController = levelsController;
         _configuration = configuration;
         _appInputSystem = appInputSystem;
@@ -77,6 +80,7 @@ public class FinishController
     }
     private void StopGame()
     {
+        _fallingSnowController.StopSnowing();
         _uiController.CloseCurrentOpenedGamePanel();
         _levelTimer.OnTimeIsOver.ClearListeners();
         _levelTimer.PauseTimer();

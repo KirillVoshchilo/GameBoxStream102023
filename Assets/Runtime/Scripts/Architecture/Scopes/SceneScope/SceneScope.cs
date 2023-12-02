@@ -2,7 +2,6 @@ using App.Architecture.AppData;
 using App.Architecture.AppInput;
 using App.Content.Player;
 using App.Logic;
-using System.Diagnostics.Contracts;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -18,6 +17,7 @@ namespace App.Architecture.Scopes
         [SerializeField] private Configuration _configuration;
         [SerializeField] private ShopFactory[] _shopFactories;
         [SerializeField] private BonfireFactory _bonfireFactory;
+        [SerializeField] private FallingSnowController _fallingSnowController;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -25,6 +25,7 @@ namespace App.Architecture.Scopes
             builder.RegisterComponent(_configuration);
             builder.RegisterComponent(_worldCanvasStorage);
             builder.RegisterComponent(_playerEntity);
+            builder.RegisterComponent(_fallingSnowController);
             builder.RegisterComponent(_uiController);
             builder.RegisterComponent(_camerasStorage);
             builder.RegisterComponent(_bonfireFactory);

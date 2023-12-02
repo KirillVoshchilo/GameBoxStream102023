@@ -9,6 +9,7 @@ using UnityEngine;
 
 public class LevelsController
 {
+    private readonly FallingSnowController _fallingSnowController;
     private readonly Configuration _configuration;
     private readonly PlayerEntity _playerEntity;
     private readonly VillageTrustSystem _villageTrustSystem;
@@ -41,8 +42,10 @@ public class LevelsController
         LevelLoaderSystem levelLoader,
         DefeatController defeatController,
         LevelTimer levelTimer,
-        AllSnowController allSnowController)
+        AllSnowController allSnowController,
+        FallingSnowController fallingSnowController)
     {
+        _fallingSnowController = fallingSnowController;
         _configuration = configuration;
         _playerEntity = playerEntity;
         _villageTrustSystem = villageTrustSystem;
@@ -113,6 +116,7 @@ public class LevelsController
     }
     private void StartGame()
     {
+        _fallingSnowController.StartSnowing();
         _allSnowController.ResetSnowEntities();
         _playerEntity.transform.position = _levelStorage.PlayerTransform.position;
         _defeatController.IsEnable = true;
@@ -133,6 +137,7 @@ public class LevelsController
     }
     private void OnTimeHasGone()
     {
+        _fallingSnowController.StopSnowing();
         _uiController.CloseCurrentOpenedGamePanel();
         int nextLevel = _currentLevel + 1;
         _levelTimer.OnTimeIsOver.RemoveListener(OnTimeHasGone);

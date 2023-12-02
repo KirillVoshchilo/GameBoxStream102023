@@ -909,6 +909,21 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2979898730888344372, guid: de12cc0c36280194b8c16e58296bb7ef, type: 3}
   m_PrefabInstance: {fileID: 5595121285081938028}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &865645349 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 171063647953667450, guid: a282359e8be7d824ea5a0bd7d203dce8, type: 3}
+  m_PrefabInstance: {fileID: 6042077643857803144}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &903761958 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1444794335668266078, guid: a282359e8be7d824ea5a0bd7d203dce8, type: 3}
+  m_PrefabInstance: {fileID: 6042077643857803144}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &903761959 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5738662636350629960, guid: a282359e8be7d824ea5a0bd7d203dce8, type: 3}
+  m_PrefabInstance: {fileID: 6042077643857803144}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1014226362 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3943398342551466321, guid: 67c71c394b2a64e4bbc89043fcf43b76, type: 3}
@@ -2041,6 +2056,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2072680240}
   m_CullTransparentMesh: 1
+--- !u!1 &2080644765
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2080644766}
+  - component: {fileID: 2080644767}
+  m_Layer: 0
+  m_Name: FallingSnowController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2080644766
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080644765}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 903761959}
+  m_Father: {fileID: 6274135779634953164}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2080644767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080644765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1935246f33ecf654bb119c73cec10b7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fallingSnow: {fileID: 903761958}
+  _fallingSimpleSnow: {fileID: 865645349}
 --- !u!114 &45266890361604560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2213,10 +2275,6 @@ PrefabInstance:
     - target: {fileID: 1766945130134326204, guid: cb31d957821ee2e4f86c507e70fa77d0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6199910738503882437, guid: cb31d957821ee2e4f86c507e70fa77d0, type: 3}
-      propertyPath: _playerData._heatData._defaultHeatValue
-      value: 120
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3122,7 +3180,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1591109580144080037}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.07047462, y: 0.87191385, z: -0.4662984, w: -0.13177785}
+  m_LocalRotation: {x: -0.0704746, y: 0.8719139, z: -0.46629837, w: -0.13177782}
   m_LocalPosition: {x: 6.71, y: 9.02, z: 7.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4397,6 +4455,63 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1001 &6042077643857803144
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2080644766}
+    m_Modifications:
+    - target: {fileID: 822288530490993045, guid: a282359e8be7d824ea5a0bd7d203dce8, type: 3}
+      propertyPath: m_Name
+      value: FallingDownSnow
+      objectReference: {fileID: 0}
+    - target: {fileID: 5738662636350629960, guid: a282359e8be7d824ea5a0bd7d203dce8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.6788144
+      objectReference: {fileID: 0}
+    - target: {fileID: 5738662636350629960, guid: a282359e8be7d824ea5a0bd7d203dce8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.8879366
+      objectReference: {fileID: 0}
+    - target: {fileID: 5738662636350629960, guid: a282359e8be7d824ea5a0bd7d203dce8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.3317313
+      objectReference: {fileID: 0}
+    - target: {fileID: 5738662636350629960, guid: a282359e8be7d824ea5a0bd7d203dce8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5738662636350629960, guid: a282359e8be7d824ea5a0bd7d203dce8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5738662636350629960, guid: a282359e8be7d824ea5a0bd7d203dce8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5738662636350629960, guid: a282359e8be7d824ea5a0bd7d203dce8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5738662636350629960, guid: a282359e8be7d824ea5a0bd7d203dce8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5738662636350629960, guid: a282359e8be7d824ea5a0bd7d203dce8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5738662636350629960, guid: a282359e8be7d824ea5a0bd7d203dce8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a282359e8be7d824ea5a0bd7d203dce8, type: 3}
 --- !u!114 &6103396627035125851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4551,6 +4666,7 @@ Transform:
   - {fileID: 8597381050307482572}
   - {fileID: 6159808299586238536}
   - {fileID: 1120181699}
+  - {fileID: 2080644766}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &6319910063347160291
@@ -4679,7 +4795,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1894165525925910501}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.07047462, y: 0.87191385, z: -0.4662984, w: -0.13177785}
+  m_LocalRotation: {x: -0.0704746, y: 0.8719139, z: -0.46629837, w: -0.13177782}
   m_LocalPosition: {x: 6.71, y: 9.02, z: 7.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5482,6 +5598,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d40c47cbca4b8e94c8b8f3ca307ad8f7, type: 2}
   - {fileID: 11400000, guid: f1dc0bf6b1e8e724792d9aa2b570354c, type: 2}
   _bonfireFactory: {fileID: 65795619}
+  _fallingSnowController: {fileID: 2080644767}
 --- !u!222 &8112078836599743300
 CanvasRenderer:
   m_ObjectHideFlags: 0
