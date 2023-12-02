@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3446513464390408786}
   - component: {fileID: 6938197305561138300}
+  - component: {fileID: 6034891719664678774}
   m_Layer: 0
   m_Name: FirMedium
   m_TagString: Untagged
@@ -93,6 +94,29 @@ MonoBehaviour:
     _interactionIconTransform: {fileID: 8373329521629513215}
     _interactTime: 1
     _recoverTime: -1
+--- !u!136 &6034891719664678774
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6506013410188254972}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 5
+  m_Direction: 1
+  m_Center: {x: 0, y: 2.5, z: 0}
 --- !u!1001 &4001215155341670105
 PrefabInstance:
   m_ObjectHideFlags: 0
