@@ -1,4 +1,5 @@
 using App.Architecture.AppInput;
+using App.Content.Player;
 using App.Content.UI;
 using App.Content.UI.InventoryUI;
 using UnityEngine;
@@ -16,6 +17,7 @@ namespace App.Logic
         [SerializeField] private GameObject _winCanvas;
         [SerializeField] private GameObject _defeatCanvas;
         [SerializeField] private FreezeScreenEffect _freezeScreenEffect;
+        [SerializeField] private HeatData _playerHeat;
 
         private IAppInputSystem _appInputSystem;
 
@@ -23,8 +25,10 @@ namespace App.Logic
         public StorageMenuPresenter StorageMenuPresenter => _storageMenuPresenter;
 
         [Inject]
-        public void Construct(IAppInputSystem appInputSystem)
+        public void Construct(IAppInputSystem appInputSystem,
+            PlayerEntity playerEntity)
         {
+            _playerHeat = playerEntity.Get<HeatData>();
             _mainMenuPresenter.UIController = this;
             _appInputSystem = appInputSystem;
             _appInputSystem.OnEscapePressed.AddListener(OnEscClicked);
@@ -32,6 +36,8 @@ namespace App.Logic
         }
         public void OpenScarecrowMenu()
         {
+            _playerHeat.CurrentHeat = _playerHeat.DefaultHeatValue;
+            _playerHeat.IsFreezing = false;
             _scareCrowMenuPresenter.gameObject.SetActive(true);
             _scareCrowMenuPresenter.Enable = true;
             _appInputSystem.IsGoNextEnable = true;
@@ -44,6 +50,7 @@ namespace App.Logic
         }
         public void CloseScarecrowMenu()
         {
+            _playerHeat.IsFreezing = true;
             _appInputSystem.OnGoNext.RemoveListener(_scareCrowMenuPresenter.Dialoge.ShowNext);
             _appInputSystem.IsGoNextEnable = false;
             _scareCrowMenuPresenter.Enable = false;
@@ -55,6 +62,8 @@ namespace App.Logic
         }
         public void OpenStorageMenu(Inventory inventory)
         {
+            _playerHeat.CurrentHeat = _playerHeat.DefaultHeatValue;
+            _playerHeat.IsFreezing = false;
             _storageMenuPresenter.gameObject.SetActive(true);
             _storageMenuPresenter.SetInventory(inventory);
             _appInputSystem.IsGoNextEnable = true;
@@ -68,6 +77,7 @@ namespace App.Logic
         }
         public void CloseStorageMenu()
         {
+            _playerHeat.IsFreezing = true;
             _appInputSystem.OnGoNext.RemoveListener(_storageMenuPresenter.Dialoge.ShowNext);
             _appInputSystem.IsGoNextEnable = false;
             _storageMenuPresenter.Enable = false;
