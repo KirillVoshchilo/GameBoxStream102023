@@ -109,7 +109,7 @@ MonoBehaviour:
     _defaultMovingSpeed: 0.12
     _triggerComponent: {fileID: 99686410314752231}
     _heatData:
-      _defaultHeatValue: 5
+      _defaultHeatValue: 60
       _defaultFreezingRate: 1
     _bonfireTargetPosition: {fileID: 3237652433990620235}
     _buildCheckcolliderSize: 1

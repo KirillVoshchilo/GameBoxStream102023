@@ -3081,6 +3081,9 @@ MonoBehaviour:
   _winCanvas: {fileID: 4790215525643840440}
   _defeatCanvas: {fileID: 1537054595}
   _freezeScreenEffect: {fileID: 103089858}
+  _playerHeat:
+    _defaultHeatValue: 0
+    _defaultFreezingRate: 0
 --- !u!114 &2456305298301051922
 MonoBehaviour:
   m_ObjectHideFlags: 0
