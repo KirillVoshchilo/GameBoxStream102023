@@ -2,6 +2,7 @@ using App.Architecture.AppData;
 using App.Architecture.AppInput;
 using App.Content.Player;
 using App.Logic;
+using System.Diagnostics.Contracts;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -41,6 +42,8 @@ namespace App.Architecture.Scopes
                 .AsSelf();
             builder.RegisterBuildCallback((container) =>
             {
+                FinishController finishController = container.Resolve<FinishController>();
+                finishController.Construct();
                 IAppInputSystem appInputSystem = container.Resolve<IAppInputSystem>();
                 foreach (ShopFactory shopFactory in _shopFactories)
                     shopFactory.Construct(appInputSystem, _uiController, _worldCanvasStorage);

@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6062832025918833343}
   - component: {fileID: 7352554031783533540}
+  - component: {fileID: 969867287382403355}
+  - component: {fileID: 8790413196263005998}
   m_Layer: 0
   m_Name: Mi8
   m_TagString: Untagged
@@ -48,12 +50,38 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.1327167, y: 2.2555084, z: 2.377572}
-  m_Center: {x: 0.043594122, y: 1.2555089, z: -0.026156485}
+  m_Size: {x: 12.074703, y: 2.2555084, z: 8.339783}
+  m_Center: {x: 1.8664904, y: 1.2555089, z: -0.24136055}
+--- !u!114 &969867287382403355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6234446856979978916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16c4b328857252246853888a2a66a4dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8790413196263005998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6234446856979978916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5482db7d931c9e44ba5cefa4c208d6d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _helicopterData:
+    _triggerComponent: {fileID: 969867287382403355}
 --- !u!1001 &9122553301673668506
 PrefabInstance:
   m_ObjectHideFlags: 0

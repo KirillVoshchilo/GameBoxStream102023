@@ -130,7 +130,7 @@ public class ScarecrowMenuPresenter : MonoBehaviour
 
     private void PushMaterials()
     {
-        if (_villageTrustSystem.CurrentTrustLevel == _trustLevels[_currentLevel].Trust)
+        if (_villageTrustSystem.Trust == _trustLevels[_currentLevel].Trust)
             return;
         Cell cell = _cellsMatrix[_selectionPosition.y, _selectionPosition.x].Cell;
         if (cell == null)

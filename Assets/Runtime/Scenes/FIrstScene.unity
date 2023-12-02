@@ -479,7 +479,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6062832025918833343, guid: a5f6f650c74754c4485dfec78bd94866, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 147.2
+      value: 5.42
       objectReference: {fileID: 0}
     - target: {fileID: 6062832025918833343, guid: a5f6f650c74754c4485dfec78bd94866, type: 3}
       propertyPath: m_LocalPosition.y
@@ -487,7 +487,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6062832025918833343, guid: a5f6f650c74754c4485dfec78bd94866, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 45.6
+      value: -10.31
       objectReference: {fileID: 0}
     - target: {fileID: 6062832025918833343, guid: a5f6f650c74754c4485dfec78bd94866, type: 3}
       propertyPath: m_LocalRotation.w
@@ -529,6 +529,11 @@ PrefabInstance:
 --- !u!4 &356841159 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6062832025918833343, guid: a5f6f650c74754c4485dfec78bd94866, type: 3}
+  m_PrefabInstance: {fileID: 356841158}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &356841160 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6234446856979978916, guid: a5f6f650c74754c4485dfec78bd94866, type: 3}
   m_PrefabInstance: {fileID: 356841158}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &437514250
@@ -853,6 +858,7 @@ MonoBehaviour:
   - {fileID: 1128422627}
   - {fileID: 2575040259950108474}
   - {fileID: 7704106689768389140}
+  - {fileID: 356841160}
   _scarecrowEntity: {fileID: 1128422628}
   _snowContainer: {fileID: 7704106689768389140}
 --- !u!1 &705507993

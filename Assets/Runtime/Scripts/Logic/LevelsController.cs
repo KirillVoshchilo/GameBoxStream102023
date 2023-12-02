@@ -19,7 +19,7 @@ public class LevelsController
     private readonly LevelLoaderSystem _levelLoader;
     private readonly Inventory _playerInventory;
     private readonly DefeatController _defeatController;
-    private readonly FinishController _finishController;
+    private FinishController _finishController;
     private readonly AllSnowController _allSnowController;
     private int _currentLevel;
     private bool _isLevelLoaded;
@@ -31,7 +31,7 @@ public class LevelsController
 
     public SEvent OnAllLevelsFinished => _onAllLevelsFinished;
     public SEvent OnLevelFinished => _onLevelFinished;
-
+    public FinishController FinishController { get => _finishController; set => _finishController = value; }
 
     public LevelsController(Configuration configuration,
         PlayerEntity playerEntity,
@@ -41,7 +41,6 @@ public class LevelsController
         LevelLoaderSystem levelLoader,
         DefeatController defeatController,
         LevelTimer levelTimer,
-        FinishController finishController,
         AllSnowController allSnowController)
     {
         _configuration = configuration;
@@ -55,7 +54,6 @@ public class LevelsController
         _levelLoader.LoadScene(LevelLoaderSystem.FIRST_LEVEL, OnCompleteLoading)
             .Forget();
         _levelTimer = levelTimer;
-        _finishController = finishController;
         _allSnowController = allSnowController;
     }
 
@@ -145,7 +143,7 @@ public class LevelsController
         heatData.CurrentHeat = heatData.DefaultHeatValue;
         heatData.IsFreezing = false;
         if (nextLevel >= _configuration.LevelsConfigurations.Count)
-            _finishController.EndGame();
+            _finishController.EndTimeFinish();
         else StartLevel(nextLevel);
     }
     private void ConfigureControl()

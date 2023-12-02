@@ -2,7 +2,6 @@
 using App.Content.Player;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public sealed class SnowSquareEntity : MonoBehaviour, IEntity
 {
@@ -27,7 +26,6 @@ public sealed class SnowSquareEntity : MonoBehaviour, IEntity
     {
         if (!_snowSquareData.HasHeightMap)
         {
-            Debug.Log("СОздал карту высот");
             CreateHeightMap();
             _snowSquareData.HasHeightMap = true;
         }
@@ -180,7 +178,6 @@ public sealed class SnowSquareEntity : MonoBehaviour, IEntity
     {
         if (!_snowSquareData.HasHeightMap)
         {
-            Debug.Log("СОздал карту высот");
             CreateHeightMap();
             _snowSquareData.HasHeightMap = true;
         }
