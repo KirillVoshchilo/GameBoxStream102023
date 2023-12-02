@@ -15,7 +15,7 @@ namespace App.Content.Player
         private PlayerMoveHandler _moveHandler;
         private HeatHandler _heatHandler;
         private BonfireBuildHandler _bonfireBuildHandler;
-
+        private PlayerAnimatorHandler _playerAnimatorHandler;
 
         public bool IsEnable
         {
@@ -49,6 +49,7 @@ namespace App.Content.Player
             _playerData.Walker = new(_playerData.Rigidbody);
             _playerData.AppInputSystem = appInputSystem;
             _bonfireBuildHandler = new(_playerData);
+            _playerAnimatorHandler = new(_playerData);
             _playerData.MainCameraTransform = camerasStorage.MainCamera.transform;
             _playerData.PlayerInventory = new Inventory(configuration.PlayerInventoryConfigurations, 9);
             bonfireFactory.PlayerInventory = _playerData.PlayerInventory;

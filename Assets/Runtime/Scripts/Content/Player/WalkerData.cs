@@ -10,12 +10,10 @@ namespace App.Content.Player
         private readonly Dictionary<string, float> _speedMultipliers = new();
         private readonly SEvent _onMovingStarted = new();
         private readonly SEvent _onMovingStopped = new();
+        private readonly SEvent<float> _onSpeedChanged = new();
         private bool _isMoving;
         private float _movingSpeed;
         private Vector3 _movingDIrection;
-
-        public WalkerData(Rigidbody rigidbody)
-            => _rigidbody = rigidbody;
 
         public Dictionary<string, float> SpeedMultipliers => _speedMultipliers;
         public bool IsMoving
@@ -29,7 +27,17 @@ namespace App.Content.Player
                 else _onMovingStopped.Invoke();
             }
         }
-        public float MovingSpeed { get => _movingSpeed; set => _movingSpeed = value; }
+        public float MovingSpeed
+        {
+            get => _movingSpeed;
+            set
+            {
+                if (_movingSpeed == value)
+                    return;
+                _movingSpeed = value;
+                _onSpeedChanged.Invoke(value);
+            }
+        }
         public Rigidbody Rigidbody => _rigidbody;
         public Transform Transform => _rigidbody.transform;
         public Vector3 Position => _rigidbody.position;
@@ -37,5 +45,9 @@ namespace App.Content.Player
         public Vector3 MovingDirection { get => _movingDIrection; set => _movingDIrection = value; }
         public SEvent OnMovingStarted => _onMovingStarted;
         public SEvent OnMovingStopped => _onMovingStopped;
+        public SEvent<float> OnSpeedChanged => _onSpeedChanged;
+
+        public WalkerData(Rigidbody rigidbody)
+            => _rigidbody = rigidbody;
     }
 }

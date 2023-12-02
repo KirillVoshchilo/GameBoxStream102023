@@ -18,6 +18,7 @@ namespace App.Content.Player
         [SerializeField] private Transform _bonfireTargetPosition;
         [SerializeField] private float _buildCheckcolliderSize;
         [SerializeField] private InteractionRequirementsComp _bonfireBuildRequirements;
+        [SerializeField] private Animator _animator;
 
         private BonfireFactory _bonfireFactory;
         private Inventory _playerInventory;
@@ -42,5 +43,6 @@ namespace App.Content.Player
         public InteractionRequirementsComp BonfireBuildRequirements => _bonfireBuildRequirements;
         public float BuildCheckcolliderSize => _buildCheckcolliderSize;
         public BonfireFactory BonfireFactory { get => _bonfireFactory; set => _bonfireFactory = value; }
+        public Animator Animator  => _animator;
     }
 }

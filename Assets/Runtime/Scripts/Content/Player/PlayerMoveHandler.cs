@@ -64,7 +64,7 @@ namespace App.Content.Player
 
         private float CalculateSpeed()
         {
-            float resultSpeed = _playerData.Walker.MovingSpeed;
+            float resultSpeed = _playerData.DefaultMovingSpeed;
             foreach (float multiplier in _playerData.Walker.SpeedMultipliers.Values)
                 resultSpeed *= multiplier;
             return resultSpeed;
@@ -76,8 +76,8 @@ namespace App.Content.Player
             target += _playerData.AppInputSystem.MoveDirection.x * _playerData.MainCameraTransform.right;
             target += _playerData.AppInputSystem.MoveDirection.y * forwarDirection.normalized;
             _playerData.Walker.MovingDirection = (target - _playerData.Transform.position).normalized;
-            float speed = CalculateSpeed();
-            _playerData.Rigidbody.MovePosition((_playerData.Walker.MovingDirection * speed) + _playerData.Transform.position);
+            _playerData.Walker.MovingSpeed = CalculateSpeed();
+            _playerData.Rigidbody.MovePosition((_playerData.Walker.MovingDirection * _playerData.Walker.MovingSpeed) + _playerData.Transform.position);
         }
     }
 }
