@@ -1,3 +1,4 @@
+using App.Architecture.AppData;
 using App.Architecture.AppInput;
 using App.Components;
 using App.Content.Entities;
@@ -19,7 +20,10 @@ namespace App.Content.Player
         [SerializeField] private float _buildCheckcolliderSize;
         [SerializeField] private InteractionRequirementsComp _bonfireBuildRequirements;
         [SerializeField] private Animator _animator;
+        [SerializeField] private Transform _axeParent;
+        [SerializeField] private Key _axeCategory;
 
+        private Configuration _configuration;
         private BonfireFactory _bonfireFactory;
         private Inventory _playerInventory;
         private Transform _mainCameraTransform;
@@ -27,6 +31,7 @@ namespace App.Content.Player
         private IAppInputSystem _appInputSystem;
         private bool _isEnable;
         private WalkerData _walker;
+        private GameObject _currentAxeModel;
 
         public Transform MainCameraTransform { get => _mainCameraTransform; set => _mainCameraTransform = value; }
         public InteractionComp InteractionEntity { get => _interactionEntity; set => _interactionEntity = value; }
@@ -43,6 +48,10 @@ namespace App.Content.Player
         public InteractionRequirementsComp BonfireBuildRequirements => _bonfireBuildRequirements;
         public float BuildCheckcolliderSize => _buildCheckcolliderSize;
         public BonfireFactory BonfireFactory { get => _bonfireFactory; set => _bonfireFactory = value; }
-        public Animator Animator  => _animator;
+        public Animator Animator => _animator;
+        public Transform AxeParent => _axeParent;
+        public GameObject CurrentAxeModel { get => _currentAxeModel; set => _currentAxeModel = value; }
+        public Configuration Configuration { get => _configuration; set => _configuration = value; }
+        public Key AxeCategory  => _axeCategory;
     }
 }

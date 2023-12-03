@@ -15,6 +15,7 @@ namespace App.Architecture.AppData
         [SerializeField] private EquipmentConfigurations _equipmentConfigurations;
         [SerializeField] private LevelsConfigurations _levelsConfigurations;
         [SerializeField] private FinalCutScenes _finalCutScenes;
+        [SerializeField] private Models _models;
 
         public StartInventoryConfiguration StartInventoryConfiguration => _startInventoryConfiguration;
         public ItemsOptions ItemsOptions => _itemsOptions;
@@ -25,7 +26,8 @@ namespace App.Architecture.AppData
         public StorageInventoryConfiguration DefauleStorageItems  => _defaultStorageItems;
         public InventoryConfigurations StorageInventoryConfigurations => _storageInventoryConfigurations;
         public LevelsConfigurations LevelsConfigurations => _levelsConfigurations;
-        public FinalCutScenes FinalCutScenes => _finalCutScenes; 
+        public FinalCutScenes FinalCutScenes => _finalCutScenes;
+        public Models Models => _models;
 
         public void Construct()
             => _iconsConfiguration.Construct();

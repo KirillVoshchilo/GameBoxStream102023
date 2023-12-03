@@ -24,6 +24,7 @@ namespace App.Content.Field
             _resourceSourceData.WorldCanvasStorage = worldCanvasStorage;
             _resourceSourceData.InteractableComp.OnFocusChanged.AddListener(OnFocusChanged);
             _resourceSourceData.InteractableComp.Transform = _resourceSourceData.Crystal.transform;
+            _resourceSourceData.InteractableComp.Entity = this;
         }
         public T Get<T>() where T : class
         {
@@ -112,6 +113,7 @@ namespace App.Content.Field
             _resourceSourceData.PlayerInventory.AddItem(_resourceSourceData.Key, _resourceSourceData.ItemsCount);
             CloseInteractionIcon();
             DisableInteraction();
+            _resourceSourceData.InteractableComp.IsInFocus = false;
             _resourceSourceData.IsRecovered = false;
             Recover()
                 .Forget();
