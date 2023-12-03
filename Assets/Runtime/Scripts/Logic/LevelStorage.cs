@@ -27,7 +27,6 @@ namespace App.Logic
 
         private void AutoInjectAll(LifetimeScope lifeTimeScope)
         {
-            // проверить, что работает
             AllSnowController allSnowController = lifeTimeScope.Container.Resolve(typeof(AllSnowController)) as AllSnowController;
             allSnowController.SnowSquareEntities = _snowContainer.GetComponentsInChildren<SnowSquareEntity>();
             if (_autoInjectObjects == null)

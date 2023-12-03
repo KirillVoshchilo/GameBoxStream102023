@@ -18,6 +18,7 @@ namespace App.Content.UI.InventoryUI
         private Inventory _playerInventory;
         private IconsConfiguration _iconsConfiguration;
         private bool _enable;
+        private VillageTrustSystem _villageTrustSystem;
         private LevelTimer _levelTimer;
 
         public bool Enable
@@ -31,6 +32,7 @@ namespace App.Content.UI.InventoryUI
                     UpdatePlayerInventoryCells(_playerInventory.Cells);
                     DefferedSubscribes()
                         .Forget();
+                    _trustText.text = $"Доверие: {_villageTrustSystem.Trust}";
                 }
                 else
                 {
@@ -42,8 +44,10 @@ namespace App.Content.UI.InventoryUI
         [Inject]
         public void Construct(PlayerEntity playerEntity,
             Configuration configurations,
-            LevelTimer levelTimer)
+            LevelTimer levelTimer,
+            VillageTrustSystem villageTrustSystem)
         {
+            _villageTrustSystem = villageTrustSystem;
             _levelTimer = levelTimer;
             levelTimer.OnTimeHasChanged.AddListener(ShowTime);
             _playerInventory = playerEntity.Get<Inventory>();

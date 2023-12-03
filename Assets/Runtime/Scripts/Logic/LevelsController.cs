@@ -29,6 +29,7 @@ public class LevelsController
     private SlideShow _currentCutScene;
     private LevelConfiguration _currentLevelConfiguration;
     private readonly LevelTimer _levelTimer;
+    private readonly BonfireFactory _bonusFactory;
 
     public SEvent OnAllLevelsFinished => _onAllLevelsFinished;
     public SEvent OnLevelFinished => _onLevelFinished;
@@ -43,8 +44,10 @@ public class LevelsController
         DefeatController defeatController,
         LevelTimer levelTimer,
         AllSnowController allSnowController,
-        FallingSnowController fallingSnowController)
+        FallingSnowController fallingSnowController,
+        BonfireFactory bonfireFactory)
     {
+        _bonusFactory = bonfireFactory;
         _fallingSnowController = fallingSnowController;
         _configuration = configuration;
         _playerEntity = playerEntity;
@@ -116,6 +119,7 @@ public class LevelsController
     }
     private void StartGame()
     {
+        _bonusFactory.ClearAll();
         _fallingSnowController.StartSnowing();
         _allSnowController.ResetSnowEntities();
         _playerEntity.transform.position = _levelStorage.PlayerTransform.position;
