@@ -9,8 +9,6 @@ namespace App.Content.Player
     {
         private PlayerData _playerData;
 
-
-
         public BonfireBuildHandler(PlayerData playerData)
         {
             _playerData = playerData;
