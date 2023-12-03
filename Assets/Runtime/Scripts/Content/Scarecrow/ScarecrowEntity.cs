@@ -47,7 +47,7 @@ public sealed class ScarecrowEntity : MonoBehaviour, IEntity, IDestructable
         else
         {
             CloseInteractionIcon();
-            _scarecrowData.AppInputSystem.OnInteractionPerformed.ClearListeners();
+            _scarecrowData.AppInputSystem.OnInteractionPerformed.RemoveListener(OnPerformedInteraction);
         }
     }
     private void CloseInteractionIcon()

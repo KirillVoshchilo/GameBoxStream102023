@@ -1,7 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace App.Content.Player
 {
@@ -35,8 +34,20 @@ namespace App.Content.Player
             _playerData = playerBlackboard;
             _playerData.Walker.IsMoving = false;
             _playerData.Walker.MovingSpeed = _playerData.DefaultMovingSpeed;
+            _playerData.AppInputSystem.OnInteractionStarted.AddListener(RotateToInteraction);
         }
 
+        private void RotateToInteraction()
+        {
+            if (_playerData.InteractionEntity == null)
+                return;
+            if (_playerData.InteractionEntity.Transform == null)
+                return;
+            Vector3 target = _playerData.Transform.position;
+            target.x = _playerData.InteractionEntity.Transform.position.x;
+            target.z = _playerData.InteractionEntity.Transform.position.z;
+            _playerData.Transform.LookAt(target);
+        }
         private void StartMove()
         {
             _playerData.Walker.IsMoving = true;

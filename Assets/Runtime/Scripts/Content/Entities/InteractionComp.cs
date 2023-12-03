@@ -1,5 +1,6 @@
 ﻿using App.Simples;
 using System;
+using UnityEngine;
 
 namespace App.Content.Entities
 {
@@ -8,6 +9,7 @@ namespace App.Content.Entities
     {
         private bool _isInFocus;
         private readonly SEvent<bool> _onFocusChanged = new();
+        private Transform _transform;
 
         public bool IsInFocus
         {
@@ -20,5 +22,6 @@ namespace App.Content.Entities
         }
         public SEvent<bool> OnFocusChanged
             => _onFocusChanged;
+        public Transform Transform { get => _transform; set => _transform = value; }
     }
 }

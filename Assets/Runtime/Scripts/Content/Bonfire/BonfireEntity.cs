@@ -36,10 +36,10 @@ public class BonfireEntity : MonoBehaviour, IEntity, IDestructable
     public void Destruct()
     {
         _bonfireData.CurrentLifetime = 0;
-        _bonfireData.InteractableComp.OnFocusChanged.ClearListeners();
-        _bonfireData.AppInputSystem.OnInteractionStarted.ClearListeners();
-        _bonfireData.AppInputSystem.OnInteractionCanceled.ClearListeners();
-        _bonfireData.AppInputSystem.OnInteractionPerformed.ClearListeners();
+        _bonfireData.InteractableComp.OnFocusChanged.RemoveListener(OnFocusChanged);
+        _bonfireData.AppInputSystem.OnInteractionStarted.RemoveListener(OnStartedInteracrtion);
+        _bonfireData.AppInputSystem.OnInteractionCanceled.RemoveListener(OnCancelInteraction);
+        _bonfireData.AppInputSystem.OnInteractionPerformed.RemoveListener(OnPerformedInteraction);
         _bonfireData.HeatCenter.Destruct();
     }
 
@@ -97,9 +97,9 @@ public class BonfireEntity : MonoBehaviour, IEntity, IDestructable
     }
     private void DisableInteraction()
     {
-        _bonfireData.AppInputSystem.OnInteractionStarted.ClearListeners();
-        _bonfireData.AppInputSystem.OnInteractionCanceled.ClearListeners();
-        _bonfireData.AppInputSystem.OnInteractionPerformed.ClearListeners();
+        _bonfireData.AppInputSystem.OnInteractionStarted.RemoveListener(OnStartedInteracrtion);
+        _bonfireData.AppInputSystem.OnInteractionCanceled.RemoveListener(OnCancelInteraction);
+        _bonfireData.AppInputSystem.OnInteractionPerformed.RemoveListener(OnPerformedInteraction);
     }
     private void EnableInteraction()
     {

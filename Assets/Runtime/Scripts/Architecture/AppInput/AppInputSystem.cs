@@ -32,9 +32,11 @@ namespace App.Architecture.AppInput
         private bool _isGoNextEnable = false;
         private bool _inventoryMoveIsEnable = false;
         private float _interactionTime;
+        private bool _isInteracting;
 
         public Vector2 MoveDirection => _moveDirection;
         public bool IsMoving => _isMoving;
+        public bool IsInteracting => _isInteracting;
         public float InteractionPercentage => _interactions.Player.Interact.GetTimeoutCompletionPercentage();
         public SEvent OnMovingStarted => _onMovingStarted;
         public SEvent OnMovingStoped => _onMovingStoped;
@@ -57,7 +59,7 @@ namespace App.Architecture.AppInput
                     _isMoving = false;
                     _onMovingStoped.Invoke();
                 }
-                    
+
             }
         }
         public SEvent<Vector2> OnMovedInInventory => _onMovedInInventory;
@@ -83,6 +85,8 @@ namespace App.Architecture.AppInput
         {
             if (!_playerMovingIsEnable)
                 return;
+            if (_isInteracting)
+                return;
             _moveDirection = context.ReadValue<Vector2>();
             if (_moveDirection != Vector2.zero && !_isMoving)
             {
@@ -101,13 +105,25 @@ namespace App.Architecture.AppInput
                 return;
             _onInteractionPercantagechanged.Invoke(_interactions.Player.Interact.GetTimeoutCompletionPercentage());
             if (context.phase == InputActionPhase.Canceled)
+            {
                 _onInteractionCanceled.Invoke();
+                _isInteracting = false;
+            }
             if (context.phase == InputActionPhase.Started)
+            {
                 _onInteractionStarted.Invoke();
+                _isInteracting = true;
+            }
             if (context.phase == InputActionPhase.Started && _interactionTime == 0)
+            {
+                _isInteracting = false;
                 _onInteractionPerformed.Invoke();
+            }
             else if (context.phase == InputActionPhase.Performed)
+            {
+                _isInteracting = false;
                 _onInteractionPerformed.Invoke();
+            }
         }
         public void OnLook(InputAction.CallbackContext context)
         {
@@ -194,6 +210,7 @@ namespace App.Architecture.AppInput
         SEvent OnBonfireBuilded { get; }
         SEvent OnGoNext { get; }
         bool IsGoNextEnable { get; set; }
+        bool IsInteracting { get; }
 
         void SetInteractionTime(float duration);
     }
