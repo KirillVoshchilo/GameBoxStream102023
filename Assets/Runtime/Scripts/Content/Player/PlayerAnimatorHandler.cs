@@ -1,5 +1,6 @@
 using App.Content.Field;
 using App.Content.Player;
+using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ public class PlayerAnimatorHandler
 
     private readonly PlayerData _playerData;
     private readonly WalkerData _playerWalkerData;
+    private float _targetBlendSpeed;
+    private float _currentBlendSpeed;
 
     public PlayerAnimatorHandler(PlayerData playerData)
     {
@@ -71,13 +74,31 @@ public class PlayerAnimatorHandler
 
     private void OnMovingSpeedChanged(float obj)
     {
-        float animationSpeed = Mathf.Clamp(obj / _playerData.DefaultMovingSpeed, 0, 1);
-        _playerData.Animator.SetFloat(WALK_BLEND, animationSpeed);
+        _targetBlendSpeed = Mathf.Clamp(obj / _playerData.DefaultMovingSpeed, 0, 1);
+    }
+    private async UniTask ChangeSpeedProcess()
+    {
+        while (_playerWalkerData.IsMoving)
+        {
+            if (_currentBlendSpeed < _targetBlendSpeed)
+            {
+                _currentBlendSpeed = Mathf.Clamp(_currentBlendSpeed + Time.deltaTime, 0, _targetBlendSpeed);
+                _playerData.Animator.SetFloat(WALK_BLEND, _currentBlendSpeed);
+            }
+            if (_currentBlendSpeed > _targetBlendSpeed)
+            {
+                _currentBlendSpeed = Mathf.Clamp(_currentBlendSpeed - Time.deltaTime, _targetBlendSpeed, _currentBlendSpeed);
+                _playerData.Animator.SetFloat(WALK_BLEND, _currentBlendSpeed);
+            }
+            await UniTask.NextFrame();
+        }
     }
 
     private void OnMovingStarted()
     {
         _playerData.Animator.SetBool(IS_MOVING, true);
+        ChangeSpeedProcess()
+            .Forget();
     }
     private void OnMovingEnded()
     {
