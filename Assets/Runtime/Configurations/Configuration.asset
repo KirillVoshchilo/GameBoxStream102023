@@ -138,3 +138,11 @@ MonoBehaviour:
     _almostBadEnd: {fileID: 8356858981788448534, guid: 82d62b17224c0cb44ad5a7fdde24d1e3, type: 3}
     _badEnd: {fileID: 8356858981788448534, guid: 311dfe4ae7fac0d4591525909880d422, type: 3}
     _escapeFinal: {fileID: 8356858981788448534, guid: 7cda3efe34aa6b246b1ba585a73efdc1, type: 3}
+  _models:
+    _values:
+    - _key: {fileID: 11400000, guid: 8dd837ea2376b6d43a00e51c868ca679, type: 2}
+      _mesh: {fileID: 919132149155446097, guid: a4b55d811da7f694583312b2e96ea875, type: 3}
+    - _key: {fileID: 11400000, guid: 9699edb0a014f4f4e8af30dea41cd212, type: 2}
+      _mesh: {fileID: 919132149155446097, guid: 2499dd74aa736054ebbfd128d8da1c1f, type: 3}
+    - _key: {fileID: 11400000, guid: f99b7f2c77c0af8409f915ab1f8ddc95, type: 2}
+      _mesh: {fileID: 919132149155446097, guid: 9b9ca3d5595d1384c805d75316bed60d, type: 3}

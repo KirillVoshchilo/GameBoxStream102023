@@ -3,6 +3,7 @@ using App.Architecture.AppData;
 using App.Architecture.AppInput;
 using App.Content.Entities;
 using App.Logic;
+using System;
 using UnityEngine;
 using VContainer;
 
@@ -15,7 +16,8 @@ namespace App.Content.Player
         private PlayerMoveHandler _moveHandler;
         private HeatHandler _heatHandler;
         private BonfireBuildHandler _bonfireBuildHandler;
-
+        private PlayerAnimatorHandler _playerAnimatorHandler;
+        private EquipmentViewHandler _equipmentViewHandler;
 
         public bool IsEnable
         {
@@ -37,18 +39,19 @@ namespace App.Content.Player
                 }
             }
         }
-
         [Inject]
         public void Construct(IAppInputSystem appInputSystem,
             CamerasStorage camerasStorage,
             Configuration configuration,
             BonfireFactory bonfireFactory)
         {
+            _playerData.Configuration = configuration;
             _playerData.BonfireFactory = bonfireFactory;
             _heatHandler = new(_playerData);
             _playerData.Walker = new(_playerData.Rigidbody);
             _playerData.AppInputSystem = appInputSystem;
             _bonfireBuildHandler = new(_playerData);
+            _playerAnimatorHandler = new(_playerData);
             _playerData.MainCameraTransform = camerasStorage.MainCamera.transform;
             _playerData.PlayerInventory = new Inventory(configuration.PlayerInventoryConfigurations, 9);
             bonfireFactory.PlayerInventory = _playerData.PlayerInventory;
@@ -56,6 +59,7 @@ namespace App.Content.Player
             {
                 IsEnable = true
             };
+            _equipmentViewHandler = new EquipmentViewHandler(_playerData);
             _playerData.TriggerComponent.OnExit.AddListener(OnExitEntity);
             _playerData.TriggerComponent.OnEnter.AddListener(OnEnterEntity);
             Debug.Log("Сконструировал PlayerEntity.");
@@ -96,8 +100,14 @@ namespace App.Content.Player
                 if (_playerData.InteractionEntity != null)
                     _playerData.InteractionEntity.IsInFocus = false;
                 interactableComp.IsInFocus = true;
+                interactableComp.OnFocusChanged.AddListener(OnInteractionCompFocusChanged);
                 _playerData.InteractionEntity = interactableComp;
             }
+        }
+        private void OnInteractionCompFocusChanged(bool obj)
+        {
+            _playerData.InteractionEntity.OnFocusChanged.RemoveListener(OnInteractionCompFocusChanged);
+            _playerData.InteractionEntity = null;
         }
 
         private void OnDrawGizmos()

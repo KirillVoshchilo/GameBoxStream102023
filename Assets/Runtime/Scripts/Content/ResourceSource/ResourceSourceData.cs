@@ -43,5 +43,6 @@ namespace App.Content.Field
         public bool IsInteracting { get => _isInteracting; set => _isInteracting = value; }
         public InteractIcon InteractIcon => _worldCanvasStorage.InteractIcon;
         public bool IsInteractable { get => _isInteractable; set => _isInteractable = value; }
+        public InteractionRequirementsComp FieldRequirements => _fieldRequirements; 
     }
 }

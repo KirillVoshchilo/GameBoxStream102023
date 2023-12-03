@@ -23,13 +23,15 @@ namespace App.Content.Field
             _resourceSourceData.AppInputSystem = appInputSystem;
             _resourceSourceData.WorldCanvasStorage = worldCanvasStorage;
             _resourceSourceData.InteractableComp.OnFocusChanged.AddListener(OnFocusChanged);
+            _resourceSourceData.InteractableComp.Transform = _resourceSourceData.Crystal.transform;
+            _resourceSourceData.InteractableComp.Entity = this;
         }
         public T Get<T>() where T : class
         {
             if (typeof(T) == typeof(InteractionComp))
                 return _resourceSourceData.InteractableComp as T;
             if (typeof(T) == typeof(InteractionRequirementsComp))
-                return _resourceSourceData as T;
+                return _resourceSourceData.FieldRequirements as T;
             return null;
         }
         public void Destruct()
@@ -79,9 +81,9 @@ namespace App.Content.Field
         }
         private void DisableInteraction()
         {
-            _resourceSourceData.AppInputSystem.OnInteractionStarted.ClearListeners();
-            _resourceSourceData.AppInputSystem.OnInteractionCanceled.ClearListeners();
-            _resourceSourceData.AppInputSystem.OnInteractionPerformed.ClearListeners();
+            _resourceSourceData.AppInputSystem.OnInteractionStarted.RemoveListener(OnStartedInteracrtion);
+            _resourceSourceData.AppInputSystem.OnInteractionCanceled.RemoveListener(OnCancelInteraction);
+            _resourceSourceData.AppInputSystem.OnInteractionPerformed.RemoveListener(OnPerformedInteraction);
         }
         private void EnableInteraction()
         {
@@ -111,6 +113,7 @@ namespace App.Content.Field
             _resourceSourceData.PlayerInventory.AddItem(_resourceSourceData.Key, _resourceSourceData.ItemsCount);
             CloseInteractionIcon();
             DisableInteraction();
+            _resourceSourceData.InteractableComp.IsInFocus = false;
             _resourceSourceData.IsRecovered = false;
             Recover()
                 .Forget();

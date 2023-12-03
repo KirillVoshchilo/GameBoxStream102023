@@ -1,3 +1,4 @@
+using App.Architecture.AppData;
 using App.Architecture.AppInput;
 using App.Components;
 using App.Content.Entities;
@@ -18,7 +19,12 @@ namespace App.Content.Player
         [SerializeField] private Transform _bonfireTargetPosition;
         [SerializeField] private float _buildCheckcolliderSize;
         [SerializeField] private InteractionRequirementsComp _bonfireBuildRequirements;
+        [SerializeField] private Animator _animator;
+        [SerializeField] private Transform _axeParent;
+        [SerializeField] private Key _axeCategory;
+        [SerializeField] private PlayerAnimationsEvents _playerAnimationsEvents;
 
+        private Configuration _configuration;
         private BonfireFactory _bonfireFactory;
         private Inventory _playerInventory;
         private Transform _mainCameraTransform;
@@ -26,6 +32,7 @@ namespace App.Content.Player
         private IAppInputSystem _appInputSystem;
         private bool _isEnable;
         private WalkerData _walker;
+        private GameObject _currentAxeModel;
 
         public Transform MainCameraTransform { get => _mainCameraTransform; set => _mainCameraTransform = value; }
         public InteractionComp InteractionEntity { get => _interactionEntity; set => _interactionEntity = value; }
@@ -42,5 +49,55 @@ namespace App.Content.Player
         public InteractionRequirementsComp BonfireBuildRequirements => _bonfireBuildRequirements;
         public float BuildCheckcolliderSize => _buildCheckcolliderSize;
         public BonfireFactory BonfireFactory { get => _bonfireFactory; set => _bonfireFactory = value; }
+        public Animator Animator => _animator;
+        public Transform AxeParent => _axeParent;
+        public GameObject CurrentAxeModel { get => _currentAxeModel; set => _currentAxeModel = value; }
+        public Configuration Configuration { get => _configuration; set => _configuration = value; }
+        public Key AxeCategory => _axeCategory;
+        public PlayerAnimationsEvents PlayerAnimationsEvents => _playerAnimationsEvents;
+        public bool CanBuildBonfire
+        {
+            get
+            {
+                if (!CheckRequirements())
+                    return false;
+                if (!CheckSpace())
+                    return false;
+                return true;
+            }
+        }
+
+
+        private bool CheckAlternative(Alternatives alternatives)
+        {
+            foreach (ItemCount itemCount in alternatives.Requirements)
+            {
+                if (_playerInventory.GetCount(itemCount.Key) < itemCount.Count)
+                    return false;
+            }
+            return true;
+        }
+        private bool CheckRequirements()
+        {
+            foreach (Alternatives alt in _bonfireBuildRequirements.Alternatives)
+            {
+                if (CheckAlternative(alt))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        private bool CheckSpace()
+        {
+            Vector3 position = _bonfireTargetPosition.position;
+            RaycastHit[] hitsInfo = Physics.SphereCastAll(position, _buildCheckcolliderSize, Vector3.down, 1);
+            foreach (RaycastHit hitInfo in hitsInfo)
+            {
+                if (!hitInfo.collider.gameObject.TryGetComponent(out SnowSquareEntity snowSquareEntity))
+                    return false;
+            }
+            return true;
+        }
     }
 }

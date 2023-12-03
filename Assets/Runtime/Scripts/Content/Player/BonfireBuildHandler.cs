@@ -9,17 +9,17 @@ namespace App.Content.Player
     {
         private PlayerData _playerData;
 
+
+
         public BonfireBuildHandler(PlayerData playerData)
         {
             _playerData = playerData;
-            playerData.AppInputSystem.OnBonfireBuilded.AddListener(OnBuildBonfire);
+            _playerData.PlayerAnimationsEvents.OnBonfireSetted.AddListener(OnBonfireSetted);
         }
 
-        private void OnBuildBonfire()
+        private void OnBonfireSetted()
         {
             if (!CheckRequirements(out Alternatives alternative))
-                return;
-            if (!CheckSpace())
                 return;
             foreach (ItemCount item in alternative.Requirements)
             {
@@ -50,19 +50,5 @@ namespace App.Content.Player
             }
             return true;
         }
-
-        private bool CheckSpace()
-        {
-            Vector3 position = _playerData.BonfireTargetPosition.position;
-            RaycastHit[] hitsInfo = Physics.SphereCastAll(position, _playerData.BuildCheckcolliderSize, Vector3.down, 1);
-            foreach (RaycastHit hitInfo in hitsInfo)
-            {
-                if (!hitInfo.collider.gameObject.TryGetComponent(out SnowSquareEntity snowSquareEntity))
-                    return false;
-            }
-            return true;
-        }
-
-
     }
 }

@@ -56,7 +56,7 @@ public class StorageEntity : MonoBehaviour, IEntity, IDestructable
         else
         {
             CloseInteractionIcon();
-            _storageData.AppInputSystem.OnInteractionPerformed.ClearListeners();
+            _storageData.AppInputSystem.OnInteractionPerformed.RemoveListener(OnPerformedInteraction);
         }
     }
     private void CloseInteractionIcon()
