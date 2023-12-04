@@ -16,6 +16,6 @@ namespace App.Architecture.AppData
         public SlideShow ScarecrowDialogs => _scarecrowDialogs;
         public SlideShow StorageDialogs => _storageDialogs;
         public float DayTimeRange => _dayTimeRange;
-        public SlideShow StorageDialogeWithTip  => _storageDialogeWithTip; 
+        public SlideShow StorageDialogeWithTip => _storageDialogeWithTip;
     }
 }

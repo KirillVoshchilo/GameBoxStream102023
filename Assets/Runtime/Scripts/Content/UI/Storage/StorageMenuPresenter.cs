@@ -20,6 +20,7 @@ public class StorageMenuPresenter : MonoBehaviour
     private Inventory _storageInventory;
     private IconsConfiguration _iconsConfiguration;
     private VillageTrustSystem _villageTrustSystem;
+    private AudioController _audioController;
     private EquipmentConfigurations _equipmentConfigurations;
     private StorageInventoryConfiguration _storageInventoryConfiguration;
     private InventoryConfigurations _playerInventoryConfigurations;
@@ -72,8 +73,10 @@ public class StorageMenuPresenter : MonoBehaviour
     public void Construct(PlayerEntity playerEntity,
         Configuration configurations,
         VillageTrustSystem villageTrustSystem,
-        IAppInputSystem appInputSystem)
+        IAppInputSystem appInputSystem,
+        AudioController audioController)
     {
+        _audioController = audioController;
         _equipmentConfigurations = configurations.EquipmentConfigurations;
         _playerInventoryConfigurations = configurations.PlayerInventoryConfigurations;
         _appInputSystem = appInputSystem;
@@ -120,6 +123,7 @@ public class StorageMenuPresenter : MonoBehaviour
                 }
             }
         }
+        _audioController.AudioData.SoundTracks.ItemTransfer.Play();
         _storageInventory.RemoveItem(cell.Key, toAdd);
         _playerInventory.AddItem(cell.Key, toAdd);
     }
@@ -174,6 +178,7 @@ public class StorageMenuPresenter : MonoBehaviour
     }
     private void SetSelection(int x, int y)
     {
+        _audioController.AudioData.SoundTracks.ChangingCells.Play();
         _storageMatrix[_selectionPosition.y, _selectionPosition.x].Highlighter.TurnOffHighlight();
         _selectionPosition = (x, y);
         _storageMatrix[y, x].Highlighter.Highlight();

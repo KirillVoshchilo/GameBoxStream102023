@@ -86,6 +86,7 @@ public class FinishController
         _levelTimer.PauseTimer();
         _appInputSystem.EscapeIsEnable = false;
         _appInputSystem.InventoryIsEnable = false;
+        _appInputSystem.InteractionIsEnable = false;
         _appInputSystem.PlayerMovingIsEnable = false;
         HeatData heatData = _playerEntity.Get<HeatData>();
         heatData.CurrentHeat = heatData.DefaultHeatValue;

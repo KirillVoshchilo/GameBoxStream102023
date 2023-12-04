@@ -29,6 +29,7 @@ public class LevelsController
     private SlideShow _currentCutScene;
     private LevelConfiguration _currentLevelConfiguration;
     private readonly LevelTimer _levelTimer;
+    private readonly AudioController _audioController;
     private readonly BonfireFactory _bonusFactory;
 
     public SEvent OnAllLevelsFinished => _onAllLevelsFinished;
@@ -45,8 +46,10 @@ public class LevelsController
         LevelTimer levelTimer,
         AllSnowController allSnowController,
         FallingSnowController fallingSnowController,
-        BonfireFactory bonfireFactory)
+        BonfireFactory bonfireFactory,
+        AudioController audioController)
     {
+        _audioController = audioController;
         _bonusFactory = bonfireFactory;
         _fallingSnowController = fallingSnowController;
         _configuration = configuration;
@@ -107,24 +110,38 @@ public class LevelsController
         _appInputSystem.IsGoNextEnable = true;
         _currentCutScene.OnSlidShowEnded.AddListener(CloseCurrentCutScene);
         _appInputSystem.OnGoNext.AddListener(_currentCutScene.ShowNext);
+        _appInputSystem.OnGoNext.AddListener(_audioController.AudioData.SoundTracks.CutSceneChanging.Play);
         _currentCutScene.ShowFirst();
     }
     private void CloseCurrentCutScene()
     {
         _currentCutScene.OnSlidShowEnded.RemoveListener(CloseCurrentCutScene);
         _appInputSystem.OnGoNext.RemoveListener(_currentCutScene.ShowNext);
+        _appInputSystem.OnGoNext.RemoveListener(_audioController.AudioData.SoundTracks.CutSceneChanging.Play);
         _appInputSystem.IsGoNextEnable = false;
         Object.Destroy(_currentCutScene.gameObject);
         StartGame();
     }
     private void StartGame()
     {
+        if (_currentLevel == 0)
+        {
+            _levelStorage.HelicopterEntity.IsEnable = false;
+            _appInputSystem.EscapeIsEnable = true;
+            _appInputSystem.InventoryIsEnable = false;
+            _appInputSystem.PlayerMovingIsEnable = true;
+            _appInputSystem.InteractionIsEnable = false;
+        }
+        else
+        {
+            ConfigureControl();
+            _levelStorage.HelicopterEntity.IsEnable = true;
+        }
         _bonusFactory.ClearAll();
         _fallingSnowController.StartSnowing();
         _allSnowController.ResetSnowEntities();
-        _playerEntity.transform.position = _levelStorage.PlayerTransform.position;
+        _playerEntity.transform.position = _levelStorage.PlayerSpawnPosition[_currentLevel].position;
         _defeatController.IsEnable = true;
-        ConfigureControl();
         _playerEntity.GetComponent<Rigidbody>().useGravity = true;
         ConfigureHeat();
         _uiController.ShowFreezeEffect();
@@ -148,6 +165,7 @@ public class LevelsController
         _appInputSystem.EscapeIsEnable = false;
         _appInputSystem.InventoryIsEnable = false;
         _appInputSystem.PlayerMovingIsEnable = false;
+        _appInputSystem.InteractionIsEnable = false;
         HeatData heatData = _playerEntity.Get<HeatData>();
         heatData.CurrentHeat = heatData.DefaultHeatValue;
         heatData.IsFreezing = false;
@@ -157,6 +175,7 @@ public class LevelsController
     }
     private void ConfigureControl()
     {
+        _appInputSystem.InteractionIsEnable = true;
         _appInputSystem.EscapeIsEnable = true;
         _appInputSystem.InventoryIsEnable = true;
         _appInputSystem.PlayerMovingIsEnable = true;

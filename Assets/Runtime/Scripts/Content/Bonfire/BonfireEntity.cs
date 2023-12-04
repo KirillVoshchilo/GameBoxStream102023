@@ -20,6 +20,8 @@ public class BonfireEntity : MonoBehaviour, IEntity, IDestructable
         _bonfireData.WorldCanvasStorage = worldCanvasStorage;
         _bonfireData.InteractableComp.OnFocusChanged.AddListener(OnFocusChanged);
         _bonfireData.CurrentLifetime = _bonfireData.DefaultLifetime;
+        _bonfireData.BurningFire.Play();
+        _bonfireData.KindlingBonfire.Play();
         _bonfireData.HeatCenter.Construct();
         ExtinguishingProcess()
             .Forget();
@@ -128,6 +130,7 @@ public class BonfireEntity : MonoBehaviour, IEntity, IDestructable
         foreach (ItemCount item in _bonfireData.Alternatives[0].Requirements)
             _bonfireData.PlayerInventory.RemoveItem(item.Key, item.Count);
         _bonfireData.CurrentLifetime = _bonfireData.DefaultLifetime;
+        _bonfireData.FireRefresh.Play();
         CloseInteractionIcon();
         DisableInteraction();
     }

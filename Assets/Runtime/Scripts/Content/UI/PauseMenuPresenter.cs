@@ -45,6 +45,7 @@ namespace App.Content.UI
             _appInputSystem.EscapeIsEnable = true;
             _appInputSystem.InventoryIsEnable = true;
             _appInputSystem.PlayerMovingIsEnable = true;
+            _appInputSystem.InteractionIsEnable = true;
             gameObject.SetActive(false);
         }
         private void OnEndGameClicked()

@@ -22,6 +22,7 @@ public class ScarecrowMenuPresenter : MonoBehaviour
     private IconsConfiguration _iconsConfiguration;
     private VillageTrustSystem _villageTrustSystem;
     private TrustLevels _trustLevels;
+    private AudioController _audioController;
     private IAppInputSystem _appInputSystem;
     private readonly CellPresenter[,] _cellsMatrix = new CellPresenter[3, 3];
     private (int x, int y) _selectionPosition;
@@ -119,8 +120,10 @@ public class ScarecrowMenuPresenter : MonoBehaviour
     public void Construct(PlayerEntity playerEntity,
         Configuration configurations,
         VillageTrustSystem villageTrustSystem,
-        IAppInputSystem appInputSystem)
+        IAppInputSystem appInputSystem,
+        AudioController audioController)
     {
+        _audioController = audioController;
         _appInputSystem = appInputSystem;
         _villageTrustSystem = villageTrustSystem;
         _playerInventory = playerEntity.Get<Inventory>();
@@ -148,6 +151,7 @@ public class ScarecrowMenuPresenter : MonoBehaviour
             toRemove = GetRequiredWood();
             toRemove = Mathf.Clamp(toRemove, 0, cell.Count);
         }
+        _audioController.AudioData.SoundTracks.ItemTransfer.Play();
         _villageTrustSystem.AddTrust(toRemove);
         _playerInventory.RemoveItemFromCell(cell.Key, toRemove, cellIndex);
     }
@@ -193,6 +197,7 @@ public class ScarecrowMenuPresenter : MonoBehaviour
     }
     private void SetSelection(int x, int y)
     {
+        _audioController.AudioData.SoundTracks.ChangingCells.Play();
         _cellsMatrix[_selectionPosition.y, _selectionPosition.x].Highlighter.TurnOffHighlight();
         _selectionPosition = (x, y);
         _cellsMatrix[y, x].Highlighter.Highlight();

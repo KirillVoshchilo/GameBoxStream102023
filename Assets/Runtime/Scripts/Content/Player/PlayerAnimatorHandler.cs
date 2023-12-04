@@ -32,6 +32,7 @@ public class PlayerAnimatorHandler
 
     private void OnBonfireBuilded()
     {
+        _playerData.AppInputSystem.InteractionIsEnable = true;
         _playerData.AppInputSystem.PlayerMovingIsEnable = true;
         _playerData.AppInputSystem.InventoryIsEnable = true;
     }
@@ -43,6 +44,7 @@ public class PlayerAnimatorHandler
         _playerData.Animator.SetTrigger(BUILD_BONFIRE_TRIGGER);
         _playerData.AppInputSystem.PlayerMovingIsEnable = false;
         _playerData.AppInputSystem.InventoryIsEnable = false;
+        _playerData.AppInputSystem.InteractionIsEnable = false;
     }
     private void OnInteractionPerformed()
     {

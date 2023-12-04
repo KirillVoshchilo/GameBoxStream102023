@@ -32,6 +32,7 @@ namespace App.Architecture.AppInput
         private bool _isBuildBonfireEnable = false;
         private bool _isGoNextEnable = false;
         private bool _inventoryMoveIsEnable = false;
+        private bool _interactionIsEnable = false;
         private float _interactionTime;
         private bool _isInteracting;
 
@@ -69,6 +70,15 @@ namespace App.Architecture.AppInput
         public SEvent OnBonfireBuilded => _onBonfireBuilded;
         public SEvent OnGoNext => _onGoNext;
         public bool IsGoNextEnable { get => _isGoNextEnable; set => _isGoNextEnable = value; }
+        public bool InteractionIsEnable
+        {
+            get => _interactionIsEnable;
+            set
+            {
+                Debug.Log("что-то");
+                _interactionIsEnable = value;
+            }
+        }
 
         public AppInputSystem()
         {
@@ -102,7 +112,7 @@ namespace App.Architecture.AppInput
         }
         public void OnInteract(InputAction.CallbackContext context)
         {
-            if (!_playerMovingIsEnable)
+            if (!_interactionIsEnable)
                 return;
             _onInteractionPercantagechanged.Invoke(_interactions.Player.Interact.GetTimeoutCompletionPercentage());
             if (context.phase == InputActionPhase.Canceled)
@@ -212,6 +222,7 @@ namespace App.Architecture.AppInput
         SEvent OnGoNext { get; }
         bool IsGoNextEnable { get; set; }
         bool IsInteracting { get; }
+        bool InteractionIsEnable { get; set; }
 
         void SetInteractionTime(float duration);
     }

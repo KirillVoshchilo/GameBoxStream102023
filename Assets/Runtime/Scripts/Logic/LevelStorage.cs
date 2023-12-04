@@ -7,15 +7,17 @@ namespace App.Logic
 {
     public sealed class LevelStorage : MonoBehaviour
     {
-        [SerializeField] private Transform _playerTransform;
+        [SerializeField] private Transform[] _playerSpawnPosition;
         [SerializeField] private GameObject[] _autoInjectObjects;
         [SerializeField] private ScarecrowEntity _scarecrowEntity;
         [SerializeField] private GameObject _snowContainer;
+        [SerializeField] private HelicopterEntity _helicopterEntity;
 
         private readonly HashSet<IDestructable> _destructables = new();
 
-        public Transform PlayerTransform => _playerTransform;
+        public Transform[] PlayerSpawnPosition => _playerSpawnPosition;
         public ScarecrowEntity ScarecrowEntity => _scarecrowEntity;
+        public HelicopterEntity HelicopterEntity => _helicopterEntity;
 
         public void Construct(LifetimeScope lifeTimeScope)
             => AutoInjectAll(lifeTimeScope);

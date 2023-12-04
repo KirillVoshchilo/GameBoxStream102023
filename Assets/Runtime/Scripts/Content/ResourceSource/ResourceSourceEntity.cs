@@ -36,14 +36,16 @@ namespace App.Content.Field
         }
         public void Destruct()
         {
-            _resourceSourceData.InteractableComp.OnFocusChanged.ClearListeners();
-            _resourceSourceData.AppInputSystem.OnInteractionStarted.ClearListeners();
-            _resourceSourceData.AppInputSystem.OnInteractionCanceled.ClearListeners();
-            _resourceSourceData.AppInputSystem.OnInteractionPerformed.ClearListeners();
+            _resourceSourceData.InteractableComp.OnFocusChanged.RemoveListener(OnFocusChanged);
+            _resourceSourceData.AppInputSystem.OnInteractionStarted.RemoveListener(OnStartedInteracrtion);
+            _resourceSourceData.AppInputSystem.OnInteractionCanceled.RemoveListener(OnCancelInteraction);
+            _resourceSourceData.AppInputSystem.OnInteractionPerformed.RemoveListener(OnPerformedInteraction);
         }
 
         private void OnFocusChanged(bool value)
         {
+            if (!_resourceSourceData.AppInputSystem.InteractionIsEnable)
+                return;
             CheckInteractable();
             if (value && _resourceSourceData.IsRecovered && _resourceSourceData.IsInteractable)
             {

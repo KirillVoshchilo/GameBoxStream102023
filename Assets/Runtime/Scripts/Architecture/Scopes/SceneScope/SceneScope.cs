@@ -18,11 +18,13 @@ namespace App.Architecture.Scopes
         [SerializeField] private ShopFactory[] _shopFactories;
         [SerializeField] private BonfireFactory _bonfireFactory;
         [SerializeField] private FallingSnowController _fallingSnowController;
+        [SerializeField] private AudioController _audioController;
 
         protected override void Configure(IContainerBuilder builder)
         {
             _configuration.Construct();
             builder.RegisterComponent(_configuration);
+            builder.RegisterComponent(_audioController);
             builder.RegisterComponent(_worldCanvasStorage);
             builder.RegisterComponent(_playerEntity);
             builder.RegisterComponent(_fallingSnowController);

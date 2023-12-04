@@ -15,6 +15,7 @@ namespace App.Content.UI.WorldCanvases
         [SerializeField] private GameObject _progressBar;
         [SerializeField] private Image _progressImage;
         [SerializeField] private Canvas _canvas;
+        [SerializeField] private AudioSource _hitSound;
 
         private Transform _mainCameraTransform;
         private bool _isEnable;
@@ -59,7 +60,10 @@ namespace App.Content.UI.WorldCanvases
         }
 
         public void SetPosition(Vector3 position)
-            => transform.position = position;
+        {
+            _hitSound.Play();
+            transform.position = position;
+        }
         public void OpenTip()
             => _buttonTip.SetActive(true);
         public void OpenProgress()

@@ -1,5 +1,4 @@
 using App.Architecture.AppInput;
-using App.Components;
 using App.Content.Entities;
 using App.Content.UI.WorldCanvases;
 using App.Logic;
@@ -17,6 +16,9 @@ public class BonfireData
     [SerializeField] private float _maxLightScale;
     [SerializeField] private float _minLightScale;
     [SerializeField] private HeatCetner _heatCenter;
+    [SerializeField] private AudioSource _kindlingBonfire;
+    [SerializeField] private AudioSource _burningFire;
+    [SerializeField] private AudioSource _fireRefresh;
 
     private BonfireFactory _bonfireFactory;
     private float _currentLifetime;
@@ -40,9 +42,12 @@ public class BonfireData
     public bool IsInteractable { get => _isInteractable; set => _isInteractable = value; }
     public float CurrentLifetime { get => _currentLifetime; set => _currentLifetime = value; }
     public float DefaultLifetime => _defaultLifetime;
-    public float MaxLightScale  => _maxLightScale;
+    public float MaxLightScale => _maxLightScale;
     public float MinLightScale => _minLightScale;
     public HeatCetner HeatCenter { get => _heatCenter; set => _heatCenter = value; }
-    public InteractionRequirementsComp InteractionRequirements  => _interactionRequirements;
+    public InteractionRequirementsComp InteractionRequirements => _interactionRequirements;
     public BonfireFactory BonfireFactory { get => _bonfireFactory; set => _bonfireFactory = value; }
+    public AudioSource KindlingBonfire  => _kindlingBonfire; 
+    public AudioSource BurningFire => _burningFire;
+    public AudioSource FireRefresh  => _fireRefresh;
 }

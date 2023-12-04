@@ -20,14 +20,16 @@ namespace App.Content.UI
 
         private UIController _uiController;
         private LevelsController _levelsController;
+        private AudioController _audioController;
 
         public UIController UIController { set => _uiController = value; }
 
         [Inject]
-        public void Construct(LevelsController levelsController)
+        public void Construct(LevelsController levelsController,
+            AudioController audioController)
         {
+            _audioController = audioController;
             _levelsController = levelsController;
-
             _closeAppButton.onClick.AddListener(OnCloseAppClicked);
             _startGameButton.onClick.AddListener(OnStartNewGameButton);
             _closeDescriptionButton.onClick.AddListener(OnCloseDescriptionClicked);
@@ -35,16 +37,26 @@ namespace App.Content.UI
         }
 
         private void OnDescriptionClicked()
-            => _descriptionPanel.SetActive(true);
+        {
+            _descriptionPanel.SetActive(true);
+            _audioController.AudioData.SoundTracks.Button.Play();
+        }
         private void OnCloseDescriptionClicked()
-            => _descriptionPanel.SetActive(false);
+        {
+            _audioController.AudioData.SoundTracks.Button.Play();
+            _descriptionPanel.SetActive(false);
+        }
         private void OnStartNewGameButton()
         {
+            _audioController.AudioData.SoundTracks.Button.Play();
             _uiController.CloseMainMenu();
             _levelsController.StartFirstLevel();
         }
 
         private void OnCloseAppClicked()
-            => Application.Quit();
+        {
+            _audioController.AudioData.SoundTracks.Button.Play();
+            Application.Quit();
+        }
     }
 }
