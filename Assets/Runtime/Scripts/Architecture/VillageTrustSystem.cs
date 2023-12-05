@@ -19,6 +19,23 @@ public sealed class VillageTrustSystem
     public VillageTrustSystem(Configuration configuration) 
         => _configuration = configuration;
 
+    public void ResetTrust()
+    {
+        _currentTrust = 0;
+        _onTrustChanged.Invoke(_currentTrust);
+        int count = _configuration.TrustLevels.Length;
+        int i;
+        for (i = 0; i < count; i++)
+        {
+            if (_currentTrust < _configuration.TrustLevels[i].Trust)
+                break;
+        }
+        if (_currentTrustLevel < i)
+        {
+            _currentTrustLevel = i;
+            _onTrustLevelChanged.Invoke(_currentTrustLevel);
+        }
+    }
     public void AddTrust(float value)
     {
         _currentTrust += value;

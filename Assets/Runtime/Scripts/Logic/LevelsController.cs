@@ -75,9 +75,24 @@ public class LevelsController
             SetInitialInventory();
         }
     }
+    public void ResetLevelController()
+    {
+        _villageTrustSystem.ResetTrust();
+        _fallingSnowController.StopSnowing();
+        _uiController.CloseCurrentOpenedGamePanel();
+        _levelTimer.OnTimeIsOver.RemoveListener(OnTimeHasGone);
+        _appInputSystem.EscapeIsEnable = false;
+        _appInputSystem.InventoryIsEnable = false;
+        _appInputSystem.PlayerMovingIsEnable = false;
+        _appInputSystem.InteractionIsEnable = false;
+        HeatData heatData = _playerEntity.Get<HeatData>();
+        heatData.CurrentHeat = heatData.DefaultHeatValue;
+        heatData.IsFreezing = false;
+    }
 
     public void StartLevel(int levelIndex)
     {
+        Debug.Log($"SHow {levelIndex}");
         _currentLevel = levelIndex;
         _currentLevelConfiguration = _configuration.LevelsConfigurations[levelIndex];
         ShowCutScene(_currentLevelConfiguration.CutScene);
@@ -158,6 +173,7 @@ public class LevelsController
     }
     private void OnTimeHasGone()
     {
+        Debug.Log("Время прошло");
         _fallingSnowController.StopSnowing();
         _uiController.CloseCurrentOpenedGamePanel();
         int nextLevel = _currentLevel + 1;

@@ -17,8 +17,9 @@ namespace App.Content.UI
         private UIController _uiController;
         private Inventory _playerInventory;
         private PlayerEntity _playerEntity;
-        private LevelLoaderSystem _levelLoader;
+        private LevelTimer _levelTimer;
         private DefeatController _defeatController;
+        private LevelsController _levelsController;
         private BonfireFactory _bonusFactory;
 
         [Inject]
@@ -27,14 +28,15 @@ namespace App.Content.UI
             PlayerEntity playerEntity,
             UIController uiController,
             DefeatController defeatController,
-            BonfireFactory bonfireFactory)
+            BonfireFactory bonfireFactory,
+            LevelsController levelsController)
         {
+            _levelsController = levelsController;
             _bonusFactory = bonfireFactory;
             _defeatController = defeatController;
             _uiController = uiController;
             _playerInventory = playerEntity.Get<Inventory>();
             _playerEntity = playerEntity;
-            _levelLoader = levelLoader;
             _appInputSystem = appInputSystem;
             _closeAppButton.onClick.AddListener(OnEndGameClicked);
             _continueButton.onClick.AddListener(OnContinueClicked);
@@ -52,9 +54,11 @@ namespace App.Content.UI
         {
             _bonusFactory.ClearAll();
             _defeatController.IsEnable = false;
+            _levelsController.ResetLevelController();
             _playerInventory.Clear();
+            _levelTimer.OnTimeHasChanged.ClearListeners();
+            _levelTimer.OnTimeIsOver.ClearListeners();
             _playerEntity.GetComponent<Rigidbody>().useGravity = false;
-            _levelLoader.UnloadScene(LevelLoaderSystem.FIRST_LEVEL);
             _uiController.OpenMainMenu();
             _uiController.CloseWinCanvas();
         }

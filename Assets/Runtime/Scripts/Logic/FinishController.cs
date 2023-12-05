@@ -46,7 +46,7 @@ public class FinishController
 
     public void EscapeFinish()
     {
-        StopGame();
+        _levelsController.ResetLevelController();
         int lastLevel = _configuration.TrustLevels.Length - 1;
         if (_villageTrustSystem.Trust >= _configuration.TrustLevels[lastLevel].Trust)
             ShowCutScene(_configuration.FinalCutScenes.GoodEnd);
@@ -54,7 +54,7 @@ public class FinishController
     }
     public void EndTimeFinish()
     {
-        StopGame();
+        _levelsController.ResetLevelController();
         int lastLevel = _configuration.TrustLevels.Length - 1;
         if (_villageTrustSystem.Trust >= _configuration.TrustLevels[lastLevel].Trust)
             ShowCutScene(_configuration.FinalCutScenes.AlmostBadEnd);
@@ -77,20 +77,5 @@ public class FinishController
         _appInputSystem.IsGoNextEnable = false;
         Object.Destroy(_currentCutScene.gameObject);
         _uiController.OpenMainMenu();
-    }
-    private void StopGame()
-    {
-        _fallingSnowController.StopSnowing();
-        _uiController.CloseCurrentOpenedGamePanel();
-        _levelTimer.OnTimeIsOver.ClearListeners();
-        _levelTimer.PauseTimer();
-        _appInputSystem.EscapeIsEnable = false;
-        _appInputSystem.InventoryIsEnable = false;
-        _appInputSystem.InteractionIsEnable = false;
-        _appInputSystem.PlayerMovingIsEnable = false;
-        HeatData heatData = _playerEntity.Get<HeatData>();
-        heatData.CurrentHeat = heatData.DefaultHeatValue;
-        heatData.IsFreezing = false;
-        _allSnowController.ResetSnowEntities();
     }
 }
