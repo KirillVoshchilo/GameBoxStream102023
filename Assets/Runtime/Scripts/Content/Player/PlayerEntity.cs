@@ -2,6 +2,7 @@
 using App.Architecture.AppData;
 using App.Architecture.AppInput;
 using App.Content.Entities;
+using App.Content.Field;
 using App.Logic;
 using System;
 using UnityEngine;
@@ -95,14 +96,45 @@ namespace App.Content.Player
         private void InteractableIntityEnter(IEntity entity)
         {
             InteractionComp interactableComp = entity.Get<InteractionComp>();
-            if (interactableComp != null)
+            if (!CheckInteractability(interactableComp))
+                return;
+            if (_playerData.InteractionEntity != null)
+                _playerData.InteractionEntity.IsInFocus = false;
+            interactableComp.IsInFocus = true;
+            interactableComp.OnFocusChanged.AddListener(OnInteractionCompFocusChanged);
+            _playerData.InteractionEntity = interactableComp;
+        }
+        private bool CheckInteractability(InteractionComp interactableComp)
+        {
+            if (interactableComp == null)
+                return false;
+            if (interactableComp.Entity is ResourceSourceEntity)
             {
-                if (_playerData.InteractionEntity != null)
-                    _playerData.InteractionEntity.IsInFocus = false;
-                interactableComp.IsInFocus = true;
-                interactableComp.OnFocusChanged.AddListener(OnInteractionCompFocusChanged);
-                _playerData.InteractionEntity = interactableComp;
+                InteractionRequirementsComp interactionRequirementsComp = interactableComp.Entity.Get<InteractionRequirementsComp>();
+                if (!CheckInteractable(interactionRequirementsComp))
+                    return false;
+                if (!_playerData.PlayerInventory.HasEmptyCells)
+                    return false;
             }
+            return true;
+        }
+        private bool CheckInteractable(InteractionRequirementsComp interactionRequirementsComp)
+        {
+            foreach (Alternatives alternative in interactionRequirementsComp.Alternatives)
+            {
+                if (CheckRequirements(alternative))
+                    return true;
+            }
+            return false;
+        }
+        private bool CheckRequirements(Alternatives alternative)
+        {
+            foreach (ItemCount item in alternative.Requirements)
+            {
+                if (_playerData.PlayerInventory.GetCount(item.Key) < item.Count)
+                    return false;
+            }
+            return true;
         }
         private void OnInteractionCompFocusChanged(bool obj)
         {

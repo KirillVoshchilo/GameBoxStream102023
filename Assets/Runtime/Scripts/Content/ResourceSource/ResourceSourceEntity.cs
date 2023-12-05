@@ -47,6 +47,7 @@ namespace App.Content.Field
             if (!_resourceSourceData.AppInputSystem.InteractionIsEnable)
                 return;
             CheckInteractable();
+            _resourceSourceData.InteractableComp.IsInteractable = _resourceSourceData.IsInteractable;
             if (value && _resourceSourceData.IsRecovered && _resourceSourceData.IsInteractable)
             {
                 ShowInteractionIcon();
