@@ -34,6 +34,7 @@ namespace App.Content.UI
             _startGameButton.onClick.AddListener(OnStartNewGameButton);
             _closeDescriptionButton.onClick.AddListener(OnCloseDescriptionClicked);
             _descriptionButton.onClick.AddListener(OnDescriptionClicked);
+            _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.MainMenuMusic);
         }
 
         private void OnDescriptionClicked()

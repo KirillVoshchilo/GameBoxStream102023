@@ -53,6 +53,8 @@ namespace App.Content.Player
             _playerData.AppInputSystem = appInputSystem;
             _bonfireBuildHandler = new(_playerData);
             _playerAnimatorHandler = new(_playerData);
+            _playerData.PlayerAnimationsEvents.OnAxeHited.AddListener(_playerData.AxeHitSound.Play);
+            _playerData.PlayerAnimationsEvents.OnStep.AddListener(_playerData.StepSound.Play);
             _playerData.MainCameraTransform = camerasStorage.MainCamera.transform;
             _playerData.PlayerInventory = new Inventory(configuration.PlayerInventoryConfigurations, 9);
             bonfireFactory.PlayerInventory = _playerData.PlayerInventory;

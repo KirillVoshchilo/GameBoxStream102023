@@ -120,6 +120,7 @@ public class LevelsController
     }
     private void ShowCutScene(SlideShow slideShow)
     {
+        _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.CutSceneMusic);
         _currentCutScene = Object.Instantiate(slideShow);
         _currentCutScene.IsLoop = false;
         _appInputSystem.IsGoNextEnable = true;
@@ -139,6 +140,7 @@ public class LevelsController
     }
     private void StartGame()
     {
+        _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.LocationSoundtrack);
         if (_currentLevel == 0)
         {
             _levelStorage.HelicopterEntity.IsEnable = false;

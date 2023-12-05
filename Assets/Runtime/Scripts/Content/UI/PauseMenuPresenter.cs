@@ -1,5 +1,4 @@
-﻿using App.Architecture;
-using App.Architecture.AppInput;
+﻿using App.Architecture.AppInput;
 using App.Content.Player;
 using App.Logic;
 using UnityEngine;
@@ -24,13 +23,14 @@ namespace App.Content.UI
 
         [Inject]
         public void Construct(IAppInputSystem appInputSystem,
-            LevelLoaderSystem levelLoader,
             PlayerEntity playerEntity,
             UIController uiController,
             DefeatController defeatController,
             BonfireFactory bonfireFactory,
-            LevelsController levelsController)
+            LevelsController levelsController,
+            LevelTimer levelTimer)
         {
+            _levelTimer = levelTimer;
             _levelsController = levelsController;
             _bonusFactory = bonfireFactory;
             _defeatController = defeatController;

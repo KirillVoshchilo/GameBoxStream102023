@@ -116,6 +116,7 @@ namespace App.Content.Field
             _resourceSourceData.PlayerInventory.AddItem(_resourceSourceData.Key, _resourceSourceData.ItemsCount);
             CloseInteractionIcon();
             DisableInteraction();
+            _resourceSourceData.FallingTreeSound.Play();
             _resourceSourceData.InteractableComp.IsInFocus = false;
             _resourceSourceData.IsRecovered = false;
             Recover()

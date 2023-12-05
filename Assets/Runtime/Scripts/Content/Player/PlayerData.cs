@@ -23,6 +23,8 @@ namespace App.Content.Player
         [SerializeField] private Transform _axeParent;
         [SerializeField] private Key _axeCategory;
         [SerializeField] private PlayerAnimationsEvents _playerAnimationsEvents;
+        [SerializeField] private AudioSource _axeHitSound;
+        [SerializeField] private AudioSource _stepSound;
 
         private Configuration _configuration;
         private BonfireFactory _bonfireFactory;
@@ -66,7 +68,8 @@ namespace App.Content.Player
                 return true;
             }
         }
-
+        public AudioSource AxeHitSound  => _axeHitSound; 
+        public AudioSource StepSound  => _stepSound;
 
         private bool CheckAlternative(Alternatives alternatives)
         {

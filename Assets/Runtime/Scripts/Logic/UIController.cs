@@ -96,6 +96,7 @@ namespace App.Logic
         }
         public void OpenMainMenu()
         {
+            _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.MainMenuMusic);
             _mainMenuPresenter.gameObject.SetActive(true);
             _pauseMenuPresenter.gameObject.SetActive(false);
             _freezeScreenEffect.gameObject.SetActive(false);

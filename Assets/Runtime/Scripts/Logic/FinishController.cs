@@ -7,6 +7,7 @@ using VContainer;
 
 public class FinishController
 {
+    private readonly AudioController _audioController;
     private readonly FallingSnowController _fallingSnowController;
     private readonly LevelsController _levelsController;
     private readonly Configuration _configuration;
@@ -27,8 +28,10 @@ public class FinishController
         UIController uiController,
         LevelTimer levelTimer,
         VillageTrustSystem villageTrustSystem,
-        FallingSnowController fallingSnowController)
+        FallingSnowController fallingSnowController,
+        AudioController audioController)
     {
+        _audioController = audioController;
         _fallingSnowController = fallingSnowController;
         _levelsController = levelsController;
         _configuration = configuration;
@@ -49,20 +52,35 @@ public class FinishController
         _levelsController.ResetLevelController();
         int lastLevel = _configuration.TrustLevels.Length - 1;
         if (_villageTrustSystem.Trust >= _configuration.TrustLevels[lastLevel].Trust)
+        {
             ShowCutScene(_configuration.FinalCutScenes.GoodEnd);
-        else ShowCutScene(_configuration.FinalCutScenes.EscapeFinal);
+            _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.FinalMusic_3);
+        }
+        else
+        {
+            _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.FinalMusic_4);
+            ShowCutScene(_configuration.FinalCutScenes.EscapeFinal);
+        }
     }
     public void EndTimeFinish()
     {
         _levelsController.ResetLevelController();
         int lastLevel = _configuration.TrustLevels.Length - 1;
         if (_villageTrustSystem.Trust >= _configuration.TrustLevels[lastLevel].Trust)
+        {
+            _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.FinalMusic_2);
             ShowCutScene(_configuration.FinalCutScenes.AlmostBadEnd);
-        else ShowCutScene(_configuration.FinalCutScenes.BadEnd);
+        }
+        else
+        {
+            _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.FinalMusic_1);
+            ShowCutScene(_configuration.FinalCutScenes.BadEnd);
+        }
     }
 
     private void ShowCutScene(SlideShow slideShow)
     {
+
         _currentCutScene = Object.Instantiate(slideShow);
         _currentCutScene.IsLoop = false;
         _appInputSystem.IsGoNextEnable = true;

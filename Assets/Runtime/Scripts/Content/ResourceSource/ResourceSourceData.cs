@@ -19,6 +19,7 @@ namespace App.Content.Field
         [SerializeField] private Transform _interactionIconTransform;
         [SerializeField] private float _interactTime;
         [SerializeField] private float _recoverTime;
+        [SerializeField] private AudioSource _fallingTreeSound;
 
         private readonly InteractionComp _interactableComp = new();
         private Inventory _playerInventory;
@@ -43,6 +44,7 @@ namespace App.Content.Field
         public bool IsInteracting { get => _isInteracting; set => _isInteracting = value; }
         public InteractIcon InteractIcon => _worldCanvasStorage.InteractIcon;
         public bool IsInteractable { get => _isInteractable; set => _isInteractable = value; }
-        public InteractionRequirementsComp FieldRequirements => _fieldRequirements; 
+        public InteractionRequirementsComp FieldRequirements => _fieldRequirements;
+        public AudioSource FallingTreeSound  => _fallingTreeSound; 
     }
 }
