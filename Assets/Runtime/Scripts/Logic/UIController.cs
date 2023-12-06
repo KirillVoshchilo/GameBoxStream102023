@@ -16,6 +16,7 @@ namespace App.Logic
         [SerializeField] private StorageMenuPresenter _storageMenuPresenter;
         [SerializeField] private FreezeScreenEffect _freezeScreenEffect;
         [SerializeField] private HeatData _playerHeat;
+        [SerializeField] private GameWatchPresenter _gameWatchPresenter;
 
         private IAppInputSystem _appInputSystem;
         private LevelsController _levelsController;
@@ -173,6 +174,7 @@ namespace App.Logic
         }
         private void CloseInventory()
         {
+            _gameWatchPresenter.gameObject.SetActive(true);
             _audioController.AudioData.SoundTracks.CloseInventory.Play();
             _appInputSystem.IsGoNextEnable = false;
             _inventoryPresenter.Enable = false;
@@ -183,6 +185,7 @@ namespace App.Logic
         }
         private void OpenInventory()
         {
+            _gameWatchPresenter.gameObject.SetActive(false);
             _audioController.AudioData.SoundTracks.CloseInventory.Play();
             _inventoryPresenter.gameObject.SetActive(true);
             _appInputSystem.IsGoNextEnable = true;
