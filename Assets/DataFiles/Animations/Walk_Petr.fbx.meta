@@ -1,19 +1,9 @@
 fileFormatVersion: 2
-guid: 147d2f61cd04f70459472df78c113980
+guid: 91c8854506aee14438e3478c23dd008c
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Feva_texture2
-    second: {fileID: 2100000, guid: f33b62910f127f648866a77f37869d12, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Mask_texture
-    second: {fileID: 2100000, guid: 8d313accd95a4ea4b9f048adda8adb0c, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
