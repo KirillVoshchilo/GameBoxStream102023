@@ -52,7 +52,7 @@ Material:
     - _Emission: 4
     - _NoisePower: 122
     - _Power: 1.2
-    - _Sides: 32.476196
+    - _Sides: 16.124228
     - _Transparancy: 0
     m_Colors: []
   m_BuildTextureStacks: []

@@ -57,6 +57,7 @@ namespace App.Content.Player
             _playerData.PlayerAnimationsEvents.OnStep.AddListener(_playerData.StepSound.Play);
             _playerData.MainCameraTransform = camerasStorage.MainCamera.transform;
             _playerData.PlayerInventory = new Inventory(configuration.PlayerInventoryConfigurations, 9);
+            _playerData.HeatData.OnHeatChanged.AddListener(OnHeatChanged);
             bonfireFactory.PlayerInventory = _playerData.PlayerInventory;
             _moveHandler = new PlayerMoveHandler(_playerData)
             {
@@ -67,6 +68,20 @@ namespace App.Content.Player
             _playerData.TriggerComponent.OnEnter.AddListener(OnEnterEntity);
             Debug.Log("Сконструировал PlayerEntity.");
         }
+
+        private void OnHeatChanged(float obj)
+        {
+            if (!_playerData.HasCoughed && obj < _playerData.HeatData.DefaultHeatValue * 0.2)
+            {
+                _playerData.HasCoughed = true;
+                _playerData.CoughSound.Play();
+            }
+            if (_playerData.HasCoughed && obj > _playerData.HeatData.DefaultHeatValue * 0.2)
+            {
+                _playerData.HasCoughed = false;
+            }
+        }
+
         public T Get<T>() where T : class
         {
             if (typeof(T) == typeof(WalkerData))
