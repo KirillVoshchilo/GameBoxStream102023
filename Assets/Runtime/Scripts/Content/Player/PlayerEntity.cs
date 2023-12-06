@@ -82,6 +82,17 @@ namespace App.Content.Player
         {
             if (!collider.TryGetComponent(out IEntity entity))
                 return;
+            if (_playerData.AppInputSystem.IsInteracting)
+            {
+                if (!_playerData.AppInputSystem.IsMoving)
+                {
+                    _moveHandler.StopMove();
+                }
+                if (_playerAnimatorHandler.IsCHoping)
+                    _playerAnimatorHandler.StopChoping();
+                _playerData.AppInputSystem.PlayerMovingIsEnable = true;
+                _playerData.AppInputSystem.InteractionIsEnable = true;
+            }
             InteractionComp interactableComp = entity.Get<InteractionComp>();
             if (interactableComp != null && interactableComp == _playerData.InteractionEntity)
             {
