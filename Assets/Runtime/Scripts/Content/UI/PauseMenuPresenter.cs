@@ -60,7 +60,6 @@ namespace App.Content.UI
             _levelTimer.OnTimeIsOver.ClearListeners();
             _playerEntity.GetComponent<Rigidbody>().useGravity = false;
             _uiController.OpenMainMenu();
-            _uiController.CloseWinCanvas();
         }
     }
 }

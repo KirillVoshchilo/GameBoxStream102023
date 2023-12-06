@@ -14,8 +14,6 @@ namespace App.Logic
         [SerializeField] private PauseMenuPresenter _pauseMenuPresenter;
         [SerializeField] private ScarecrowMenuPresenter _scareCrowMenuPresenter;
         [SerializeField] private StorageMenuPresenter _storageMenuPresenter;
-        [SerializeField] private GameObject _winCanvas;
-        [SerializeField] private GameObject _defeatCanvas;
         [SerializeField] private FreezeScreenEffect _freezeScreenEffect;
         [SerializeField] private HeatData _playerHeat;
 
@@ -105,14 +103,6 @@ namespace App.Logic
         {
             _mainMenuPresenter.gameObject.SetActive(false);
         }
-        public void CloseWinCanvas()
-            => _winCanvas.SetActive(false);
-        public void ShowWinCanvas()
-            => _winCanvas.SetActive(true);
-        public void OpenDefeatCanvas()
-            => _defeatCanvas.SetActive(true);
-        public void CloseDefeatCanvas()
-            => _defeatCanvas.SetActive(false);
         public void ShowFreezeEffect()
             => _freezeScreenEffect.gameObject.SetActive(true);
 

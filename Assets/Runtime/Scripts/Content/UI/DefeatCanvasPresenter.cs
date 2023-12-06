@@ -40,6 +40,5 @@ public class DefeatCanvasPresenter : MonoBehaviour
         _playerEntity.GetComponent<Rigidbody>().useGravity = false;
         _levelLoader.UnloadScene(LevelLoaderSystem.FIRST_LEVEL);
         _uiController.OpenMainMenu();
-        _uiController.CloseDefeatCanvas();
     }
 }
