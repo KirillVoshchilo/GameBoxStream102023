@@ -18,6 +18,7 @@ namespace App.Logic
         [SerializeField] private HeatData _playerHeat;
 
         private IAppInputSystem _appInputSystem;
+        private LevelsController _levelsController;
         private AudioController _audioController;
 
         public ScarecrowMenuPresenter ScareCrowMenuPresenter => _scareCrowMenuPresenter;
@@ -26,8 +27,11 @@ namespace App.Logic
         [Inject]
         public void Construct(IAppInputSystem appInputSystem,
             PlayerEntity playerEntity,
-            AudioController audioController)
+            AudioController audioController,
+            LevelsController levelsController)
         {
+            _levelsController = levelsController;
+            levelsController.UiController = this;
             _audioController = audioController;
             _playerHeat = playerEntity.Get<HeatData>();
             _mainMenuPresenter.UIController = this;
@@ -148,8 +152,16 @@ namespace App.Logic
         }
         private void ClosePausePanel()
         {
-            _appInputSystem.InteractionIsEnable = true;
-            _appInputSystem.InventoryIsEnable = true;
+            if (_levelsController.CurrentLevel == 0)
+            {
+                _appInputSystem.InteractionIsEnable = false;
+                _appInputSystem.InventoryIsEnable = false;
+            }
+            else
+            {
+                _appInputSystem.InteractionIsEnable = true;
+                _appInputSystem.InventoryIsEnable = true;
+            }
             _appInputSystem.PlayerMovingIsEnable = true;
             _pauseMenuPresenter.gameObject.SetActive(false);
         }

@@ -112,6 +112,7 @@ namespace App.Content.Field
         }
         private void OnPerformedInteraction()
         {
+            _resourceSourceData.AppInputSystem.PlayerMovingIsEnable = true;
             _resourceSourceData.Crystal.SetActive(false);
             _resourceSourceData.PlayerInventory.AddItem(_resourceSourceData.Key, _resourceSourceData.ItemsCount);
             CloseInteractionIcon();
@@ -124,6 +125,7 @@ namespace App.Content.Field
         }
         private void OnCancelInteraction()
         {
+            _resourceSourceData.AppInputSystem.PlayerMovingIsEnable = true;
             _resourceSourceData.InteractIcon.CloseProgress();
             _resourceSourceData.InteractIcon.OpenTip();
             _resourceSourceData.IsInteracting = false;
@@ -131,6 +133,8 @@ namespace App.Content.Field
         }
         private void OnStartedInteracrtion()
         {
+            if (_resourceSourceData.AppInputSystem.IsMoving)
+                _resourceSourceData.AppInputSystem.PlayerMovingIsEnable = false;
             _resourceSourceData.IsInteracting = true;
             _resourceSourceData.InteractIcon.CloseTip();
             _resourceSourceData.InteractIcon.OpenProgress();

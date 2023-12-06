@@ -13,7 +13,7 @@ public class LevelsController
     private readonly Configuration _configuration;
     private readonly PlayerEntity _playerEntity;
     private readonly VillageTrustSystem _villageTrustSystem;
-    private readonly UIController _uiController;
+    private UIController _uiController;
     private readonly IAppInputSystem _appInputSystem;
     private readonly SEvent _onAllLevelsFinished = new();
     private readonly SEvent _onLevelFinished = new();
@@ -35,11 +35,12 @@ public class LevelsController
     public SEvent OnAllLevelsFinished => _onAllLevelsFinished;
     public SEvent OnLevelFinished => _onLevelFinished;
     public FinishController FinishController { get => _finishController; set => _finishController = value; }
+    public int CurrentLevel  => _currentLevel;
+    public UIController UiController { get => _uiController; set => _uiController = value; }
 
     public LevelsController(Configuration configuration,
         PlayerEntity playerEntity,
         VillageTrustSystem villageTrustSystem,
-        UIController uiController,
         IAppInputSystem appInputSystem,
         LevelLoaderSystem levelLoader,
         DefeatController defeatController,
@@ -55,7 +56,6 @@ public class LevelsController
         _configuration = configuration;
         _playerEntity = playerEntity;
         _villageTrustSystem = villageTrustSystem;
-        _uiController = uiController;
         _appInputSystem = appInputSystem;
         _levelLoader = levelLoader;
         _defeatController = defeatController;
