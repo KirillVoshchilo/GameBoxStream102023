@@ -51,7 +51,7 @@ PrefabInstance:
     - target: {fileID: 8589836855108871041, guid: d8eb36219d513f64c85c1693fea59a41, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: f33b62910f127f648866a77f37869d12, type: 2}
+      objectReference: {fileID: 2100000, guid: 1cf004b5a4e0bf14c9acf0d6aabbc284, type: 2}
     - target: {fileID: 8903432115285832939, guid: d8eb36219d513f64c85c1693fea59a41, type: 3}
       propertyPath: m_Name
       value: Leshiy Variant

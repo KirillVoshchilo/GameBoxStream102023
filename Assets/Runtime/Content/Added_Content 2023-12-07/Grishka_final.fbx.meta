@@ -3,7 +3,17 @@ guid: 2b125861a00adaf49891e02b251f3c09
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Grisha_texture
+    second: {fileID: 2100000, guid: 96277fe3c5baba44aaf93f424fa171fd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mask_texture1
+    second: {fileID: 2100000, guid: 752df47a62f3e624d8edbba0906fa425, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
