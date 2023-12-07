@@ -23,6 +23,9 @@ namespace App.Content.Player
         [SerializeField] private Transform _axeParent;
         [SerializeField] private Key _axeCategory;
         [SerializeField] private PlayerAnimationsEvents _playerAnimationsEvents;
+        [SerializeField] private AudioSource _axeHitSound;
+        [SerializeField] private AudioSource _stepSound;
+        [SerializeField] private AudioSource _coughSound;
 
         private Configuration _configuration;
         private BonfireFactory _bonfireFactory;
@@ -33,6 +36,7 @@ namespace App.Content.Player
         private bool _isEnable;
         private WalkerData _walker;
         private GameObject _currentAxeModel;
+        private bool _hasCoughed;
 
         public Transform MainCameraTransform { get => _mainCameraTransform; set => _mainCameraTransform = value; }
         public InteractionComp InteractionEntity { get => _interactionEntity; set => _interactionEntity = value; }
@@ -66,7 +70,10 @@ namespace App.Content.Player
                 return true;
             }
         }
-
+        public AudioSource AxeHitSound  => _axeHitSound; 
+        public AudioSource StepSound  => _stepSound;
+        public AudioSource CoughSound => _coughSound;
+        public bool HasCoughed { get => _hasCoughed; set => _hasCoughed = value; }
 
         private bool CheckAlternative(Alternatives alternatives)
         {

@@ -14,12 +14,12 @@ namespace App.Logic
         [SerializeField] private PauseMenuPresenter _pauseMenuPresenter;
         [SerializeField] private ScarecrowMenuPresenter _scareCrowMenuPresenter;
         [SerializeField] private StorageMenuPresenter _storageMenuPresenter;
-        [SerializeField] private GameObject _winCanvas;
-        [SerializeField] private GameObject _defeatCanvas;
         [SerializeField] private FreezeScreenEffect _freezeScreenEffect;
         [SerializeField] private HeatData _playerHeat;
+        [SerializeField] private GameWatchPresenter _gameWatchPresenter;
 
         private IAppInputSystem _appInputSystem;
+        private LevelsController _levelsController;
         private AudioController _audioController;
 
         public ScarecrowMenuPresenter ScareCrowMenuPresenter => _scareCrowMenuPresenter;
@@ -28,8 +28,11 @@ namespace App.Logic
         [Inject]
         public void Construct(IAppInputSystem appInputSystem,
             PlayerEntity playerEntity,
-            AudioController audioController)
+            AudioController audioController,
+            LevelsController levelsController)
         {
+            _levelsController = levelsController;
+            levelsController.UiController = this;
             _audioController = audioController;
             _playerHeat = playerEntity.Get<HeatData>();
             _mainMenuPresenter.UIController = this;
@@ -96,6 +99,7 @@ namespace App.Logic
         }
         public void OpenMainMenu()
         {
+            _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.MainMenuMusic);
             _mainMenuPresenter.gameObject.SetActive(true);
             _pauseMenuPresenter.gameObject.SetActive(false);
             _freezeScreenEffect.gameObject.SetActive(false);
@@ -104,14 +108,6 @@ namespace App.Logic
         {
             _mainMenuPresenter.gameObject.SetActive(false);
         }
-        public void CloseWinCanvas()
-            => _winCanvas.SetActive(false);
-        public void ShowWinCanvas()
-            => _winCanvas.SetActive(true);
-        public void OpenDefeatCanvas()
-            => _defeatCanvas.SetActive(true);
-        public void CloseDefeatCanvas()
-            => _defeatCanvas.SetActive(false);
         public void ShowFreezeEffect()
             => _freezeScreenEffect.gameObject.SetActive(true);
 
@@ -157,8 +153,16 @@ namespace App.Logic
         }
         private void ClosePausePanel()
         {
-            _appInputSystem.InteractionIsEnable = true;
-            _appInputSystem.InventoryIsEnable = true;
+            if (_levelsController.CurrentLevel == 0)
+            {
+                _appInputSystem.InteractionIsEnable = false;
+                _appInputSystem.InventoryIsEnable = false;
+            }
+            else
+            {
+                _appInputSystem.InteractionIsEnable = true;
+                _appInputSystem.InventoryIsEnable = true;
+            }
             _appInputSystem.PlayerMovingIsEnable = true;
             _pauseMenuPresenter.gameObject.SetActive(false);
         }
@@ -170,6 +174,7 @@ namespace App.Logic
         }
         private void CloseInventory()
         {
+            _gameWatchPresenter.gameObject.SetActive(true);
             _audioController.AudioData.SoundTracks.CloseInventory.Play();
             _appInputSystem.IsGoNextEnable = false;
             _inventoryPresenter.Enable = false;
@@ -180,6 +185,7 @@ namespace App.Logic
         }
         private void OpenInventory()
         {
+            _gameWatchPresenter.gameObject.SetActive(false);
             _audioController.AudioData.SoundTracks.CloseInventory.Play();
             _inventoryPresenter.gameObject.SetActive(true);
             _appInputSystem.IsGoNextEnable = true;

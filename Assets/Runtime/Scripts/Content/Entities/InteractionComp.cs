@@ -11,6 +11,8 @@ namespace App.Content.Entities
         private readonly SEvent<bool> _onFocusChanged = new();
         private Transform _transform;
         private IEntity _entity;
+        private bool _isInteractable;
+        private bool _isBlocked;
 
         public bool IsInFocus
         {
@@ -21,9 +23,10 @@ namespace App.Content.Entities
                 _onFocusChanged.Invoke(value);
             }
         }
-        public SEvent<bool> OnFocusChanged
-            => _onFocusChanged;
+        public SEvent<bool> OnFocusChanged => _onFocusChanged;
         public Transform Transform { get => _transform; set => _transform = value; }
         public IEntity Entity { get => _entity; set => _entity = value; }
+        public bool IsInteractable { get => _isInteractable; set => _isInteractable = value; }
+        public bool IsBlocked { get => _isBlocked; set => _isBlocked = value; }
     }
 }

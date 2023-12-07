@@ -75,8 +75,13 @@ namespace App.Architecture.AppInput
             get => _interactionIsEnable;
             set
             {
-                Debug.Log("что-то");
+                Debug.Log($"_interactionIsEnable {value}");
                 _interactionIsEnable = value;
+                if (!value)
+                {
+                    _isInteracting = false;
+                    _onInteractionCanceled.Invoke();
+                }
             }
         }
 
@@ -95,8 +100,6 @@ namespace App.Architecture.AppInput
         public void OnMove(InputAction.CallbackContext context)
         {
             if (!_playerMovingIsEnable)
-                return;
-            if (_isInteracting)
                 return;
             _moveDirection = context.ReadValue<Vector2>();
             if (_moveDirection != Vector2.zero && !_isMoving)

@@ -13,7 +13,7 @@ public class LevelsController
     private readonly Configuration _configuration;
     private readonly PlayerEntity _playerEntity;
     private readonly VillageTrustSystem _villageTrustSystem;
-    private readonly UIController _uiController;
+    private UIController _uiController;
     private readonly IAppInputSystem _appInputSystem;
     private readonly SEvent _onAllLevelsFinished = new();
     private readonly SEvent _onLevelFinished = new();
@@ -35,11 +35,12 @@ public class LevelsController
     public SEvent OnAllLevelsFinished => _onAllLevelsFinished;
     public SEvent OnLevelFinished => _onLevelFinished;
     public FinishController FinishController { get => _finishController; set => _finishController = value; }
+    public int CurrentLevel  => _currentLevel;
+    public UIController UiController { get => _uiController; set => _uiController = value; }
 
     public LevelsController(Configuration configuration,
         PlayerEntity playerEntity,
         VillageTrustSystem villageTrustSystem,
-        UIController uiController,
         IAppInputSystem appInputSystem,
         LevelLoaderSystem levelLoader,
         DefeatController defeatController,
@@ -55,7 +56,6 @@ public class LevelsController
         _configuration = configuration;
         _playerEntity = playerEntity;
         _villageTrustSystem = villageTrustSystem;
-        _uiController = uiController;
         _appInputSystem = appInputSystem;
         _levelLoader = levelLoader;
         _defeatController = defeatController;
@@ -75,9 +75,24 @@ public class LevelsController
             SetInitialInventory();
         }
     }
+    public void ResetLevelController()
+    {
+        _villageTrustSystem.ResetTrust();
+        _fallingSnowController.StopSnowing();
+        _uiController.CloseCurrentOpenedGamePanel();
+        _levelTimer.OnTimeIsOver.RemoveListener(OnTimeHasGone);
+        _appInputSystem.EscapeIsEnable = false;
+        _appInputSystem.InventoryIsEnable = false;
+        _appInputSystem.PlayerMovingIsEnable = false;
+        _appInputSystem.InteractionIsEnable = false;
+        HeatData heatData = _playerEntity.Get<HeatData>();
+        heatData.CurrentHeat = heatData.DefaultHeatValue;
+        heatData.IsFreezing = false;
+    }
 
     public void StartLevel(int levelIndex)
     {
+        Debug.Log($"SHow {levelIndex}");
         _currentLevel = levelIndex;
         _currentLevelConfiguration = _configuration.LevelsConfigurations[levelIndex];
         ShowCutScene(_currentLevelConfiguration.CutScene);
@@ -105,6 +120,7 @@ public class LevelsController
     }
     private void ShowCutScene(SlideShow slideShow)
     {
+        _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.CutSceneMusic);
         _currentCutScene = Object.Instantiate(slideShow);
         _currentCutScene.IsLoop = false;
         _appInputSystem.IsGoNextEnable = true;
@@ -124,6 +140,7 @@ public class LevelsController
     }
     private void StartGame()
     {
+        _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.LocationSoundtrack);
         if (_currentLevel == 0)
         {
             _levelStorage.HelicopterEntity.IsEnable = false;
@@ -158,6 +175,7 @@ public class LevelsController
     }
     private void OnTimeHasGone()
     {
+        Debug.Log("Время прошло");
         _fallingSnowController.StopSnowing();
         _uiController.CloseCurrentOpenedGamePanel();
         int nextLevel = _currentLevel + 1;

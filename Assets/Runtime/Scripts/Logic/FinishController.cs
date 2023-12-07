@@ -7,6 +7,7 @@ using VContainer;
 
 public class FinishController
 {
+    private readonly AudioController _audioController;
     private readonly FallingSnowController _fallingSnowController;
     private readonly LevelsController _levelsController;
     private readonly Configuration _configuration;
@@ -27,8 +28,10 @@ public class FinishController
         UIController uiController,
         LevelTimer levelTimer,
         VillageTrustSystem villageTrustSystem,
-        FallingSnowController fallingSnowController)
+        FallingSnowController fallingSnowController,
+        AudioController audioController)
     {
+        _audioController = audioController;
         _fallingSnowController = fallingSnowController;
         _levelsController = levelsController;
         _configuration = configuration;
@@ -46,23 +49,38 @@ public class FinishController
 
     public void EscapeFinish()
     {
-        StopGame();
+        _levelsController.ResetLevelController();
         int lastLevel = _configuration.TrustLevels.Length - 1;
         if (_villageTrustSystem.Trust >= _configuration.TrustLevels[lastLevel].Trust)
+        {
             ShowCutScene(_configuration.FinalCutScenes.GoodEnd);
-        else ShowCutScene(_configuration.FinalCutScenes.EscapeFinal);
+            _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.FinalMusic_3);
+        }
+        else
+        {
+            _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.FinalMusic_4);
+            ShowCutScene(_configuration.FinalCutScenes.EscapeFinal);
+        }
     }
     public void EndTimeFinish()
     {
-        StopGame();
+        _levelsController.ResetLevelController();
         int lastLevel = _configuration.TrustLevels.Length - 1;
         if (_villageTrustSystem.Trust >= _configuration.TrustLevels[lastLevel].Trust)
+        {
+            _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.FinalMusic_2);
             ShowCutScene(_configuration.FinalCutScenes.AlmostBadEnd);
-        else ShowCutScene(_configuration.FinalCutScenes.BadEnd);
+        }
+        else
+        {
+            _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.FinalMusic_1);
+            ShowCutScene(_configuration.FinalCutScenes.BadEnd);
+        }
     }
 
     private void ShowCutScene(SlideShow slideShow)
     {
+
         _currentCutScene = Object.Instantiate(slideShow);
         _currentCutScene.IsLoop = false;
         _appInputSystem.IsGoNextEnable = true;
@@ -77,20 +95,5 @@ public class FinishController
         _appInputSystem.IsGoNextEnable = false;
         Object.Destroy(_currentCutScene.gameObject);
         _uiController.OpenMainMenu();
-    }
-    private void StopGame()
-    {
-        _fallingSnowController.StopSnowing();
-        _uiController.CloseCurrentOpenedGamePanel();
-        _levelTimer.OnTimeIsOver.ClearListeners();
-        _levelTimer.PauseTimer();
-        _appInputSystem.EscapeIsEnable = false;
-        _appInputSystem.InventoryIsEnable = false;
-        _appInputSystem.InteractionIsEnable = false;
-        _appInputSystem.PlayerMovingIsEnable = false;
-        HeatData heatData = _playerEntity.Get<HeatData>();
-        heatData.CurrentHeat = heatData.DefaultHeatValue;
-        heatData.IsFreezing = false;
-        _allSnowController.ResetSnowEntities();
     }
 }

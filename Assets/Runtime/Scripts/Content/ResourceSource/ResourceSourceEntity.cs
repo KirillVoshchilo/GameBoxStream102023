@@ -47,6 +47,7 @@ namespace App.Content.Field
             if (!_resourceSourceData.AppInputSystem.InteractionIsEnable)
                 return;
             CheckInteractable();
+            _resourceSourceData.InteractableComp.IsInteractable = _resourceSourceData.IsInteractable;
             if (value && _resourceSourceData.IsRecovered && _resourceSourceData.IsInteractable)
             {
                 ShowInteractionIcon();
@@ -111,10 +112,13 @@ namespace App.Content.Field
         }
         private void OnPerformedInteraction()
         {
+            _resourceSourceData.InteractableComp.IsBlocked = true;
+            _resourceSourceData.AppInputSystem.PlayerMovingIsEnable = true;
             _resourceSourceData.Crystal.SetActive(false);
             _resourceSourceData.PlayerInventory.AddItem(_resourceSourceData.Key, _resourceSourceData.ItemsCount);
             CloseInteractionIcon();
             DisableInteraction();
+            _resourceSourceData.FallingTreeSound.Play();
             _resourceSourceData.InteractableComp.IsInFocus = false;
             _resourceSourceData.IsRecovered = false;
             Recover()
@@ -122,6 +126,7 @@ namespace App.Content.Field
         }
         private void OnCancelInteraction()
         {
+            _resourceSourceData.AppInputSystem.PlayerMovingIsEnable = true;
             _resourceSourceData.InteractIcon.CloseProgress();
             _resourceSourceData.InteractIcon.OpenTip();
             _resourceSourceData.IsInteracting = false;
@@ -129,6 +134,7 @@ namespace App.Content.Field
         }
         private void OnStartedInteracrtion()
         {
+            _resourceSourceData.AppInputSystem.PlayerMovingIsEnable = false;
             _resourceSourceData.IsInteracting = true;
             _resourceSourceData.InteractIcon.CloseTip();
             _resourceSourceData.InteractIcon.OpenProgress();

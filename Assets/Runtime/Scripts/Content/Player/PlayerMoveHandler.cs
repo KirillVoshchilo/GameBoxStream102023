@@ -54,11 +54,11 @@ namespace App.Content.Player
             MoveProcess()
                 .Forget();
         }
-        private void StopMove()
+        public void StopMove()
             => _playerData.Walker.IsMoving = false;
         private async UniTask MoveProcess()
         {
-            while (_playerData.Walker.IsMoving && _isEnable)
+            while (_playerData.Walker.IsMoving && _isEnable && _playerData.AppInputSystem.IsMoving)
             {
                 Move();
                 Rotate();
@@ -76,7 +76,7 @@ namespace App.Content.Player
         private float CalculateSpeed()
         {
             float resultSpeed = _playerData.DefaultMovingSpeed;
-            foreach (float multiplier in _playerData.Walker.SpeedMultipliers.Values)        
+            foreach (float multiplier in _playerData.Walker.SpeedMultipliers.Values)
             {
                 resultSpeed *= multiplier;
                 Debug.Log($"multiplier {multiplier} resultSpeed {resultSpeed}");

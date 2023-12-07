@@ -16,6 +16,8 @@ public class PlayerAnimatorHandler
     private float _targetBlendSpeed;
     private float _currentBlendSpeed;
 
+    public bool IsCHoping => _playerData.Animator.GetBool(IS_CHOPING);
+
     public PlayerAnimatorHandler(PlayerData playerData)
     {
         _playerData = playerData;
@@ -60,9 +62,11 @@ public class PlayerAnimatorHandler
             return;
         if (_playerData.InteractionEntity.Entity == null)
             return;
+        if (_playerData.InteractionEntity.IsBlocked)
+            return;
         StartChoping();
     }
-    private void StopChoping()
+    public void StopChoping()
     {
         if (_playerData.Animator.GetBool(IS_CHOPING))
             _playerData.Animator.SetBool(IS_CHOPING, false);

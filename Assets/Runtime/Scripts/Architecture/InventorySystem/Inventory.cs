@@ -15,6 +15,18 @@ public sealed class Inventory
 
     public Cell[] Cells => _cells;
     public SEvent<Cell[]> OnInventoryUpdated => _onInventoryUpdated;
+    public bool HasEmptyCells
+    {
+        get
+        {
+            foreach (Cell cell in _cells)
+            {
+                if (cell == null)
+                    return true;
+            }
+            return false;
+        }
+    }
 
     public Inventory(InventoryConfigurations data, int cellsCount)
     {
