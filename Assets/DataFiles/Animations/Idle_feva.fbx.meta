@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 9525e6cd675fa47459961b83e4b2b7c3
+guid: 5220571ed3fb13a46aa0d5792e220a50
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material
-    second: {fileID: -876546973899608171, guid: dbd1f79154c316046a9b5df9572796dc, type: 3}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -38,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Armature|MillAnimation
-      takeName: Armature|MillAnimation
-      internalID: 5296378712247756516
+      name: Take 001
+      takeName: Take 001
+      internalID: 1827226128182048838
       firstFrame: 0
-      lastFrame: 99
+      lastFrame: 286
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

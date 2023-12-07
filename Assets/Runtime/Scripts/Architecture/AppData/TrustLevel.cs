@@ -7,9 +7,7 @@ namespace App.Architecture.AppData
     public class TrustLevel
     {
         [SerializeField] private float _trust;
-        [SerializeField] private GameObject _scarecrow;
 
         public float Trust => _trust;
-        public GameObject Scarecrow  => _scarecrow; 
     }
 }

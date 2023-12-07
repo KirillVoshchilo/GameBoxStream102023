@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9525e6cd675fa47459961b83e4b2b7c3
+guid: 75ba2b532753c3e48835ca063309b10f
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,8 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material
-    second: {fileID: -876546973899608171, guid: dbd1f79154c316046a9b5df9572796dc, type: 3}
+      name: Grisha_texture2
+    second: {fileID: 2100000, guid: 96277fe3c5baba44aaf93f424fa171fd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mask_texture2
+    second: {fileID: 2100000, guid: 752df47a62f3e624d8edbba0906fa425, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -38,11 +43,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Armature|MillAnimation
-      takeName: Armature|MillAnimation
-      internalID: 5296378712247756516
+      name: Take 001
+      takeName: Take 001
+      internalID: 1827226128182048838
       firstFrame: 0
-      lastFrame: 99
+      lastFrame: 342
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

@@ -31,12 +31,14 @@ public class LevelsController
     private readonly LevelTimer _levelTimer;
     private readonly AudioController _audioController;
     private readonly BonfireFactory _bonusFactory;
+    private readonly SEvent _onLevelStarted = new();
 
     public SEvent OnAllLevelsFinished => _onAllLevelsFinished;
     public SEvent OnLevelFinished => _onLevelFinished;
     public FinishController FinishController { get => _finishController; set => _finishController = value; }
-    public int CurrentLevel  => _currentLevel;
+    public int CurrentLevel => _currentLevel;
     public UIController UiController { get => _uiController; set => _uiController = value; }
+    public SEvent OnLevelStarted => _onLevelStarted;
 
     public LevelsController(Configuration configuration,
         PlayerEntity playerEntity,
@@ -163,8 +165,9 @@ public class LevelsController
         ConfigureHeat();
         _uiController.ShowFreezeEffect();
         ConfigureDialoges();
-        ConfigureScarecrow();
+        _uiController.ScareCrowMenuPresenter.CurrentLevel = _currentLevel;
         ConfigureTime();
+        _onLevelStarted.Invoke();
     }
 
     private void ConfigureTime()
@@ -205,22 +208,6 @@ public class LevelsController
         heatData.CurrentHeat = heatData.DefaultHeatValue;
         heatData.IsFreezing = true;
     }
-
-    private void ConfigureScarecrow()
-    {
-        float currentTrust = _villageTrustSystem.Trust;
-        int count = _configuration.TrustLevels.Length;
-        int ready = 0;
-        for (int i = 0; i < count; i++)
-        {
-            if (currentTrust >= _configuration.TrustLevels[i].Trust)
-                ready = i;
-        }
-        Object.Destroy(_levelStorage.ScarecrowEntity.ScarecrowModel);
-        Object.Instantiate(_configuration.TrustLevels[ready].Scarecrow, _levelStorage.ScarecrowEntity.ModelParent.transform);
-        _uiController.ScareCrowMenuPresenter.CurrentLevel = _currentLevel;
-    }
-
     private void ConfigureDialoges()
     {
         float currentTrust = _villageTrustSystem.Trust;

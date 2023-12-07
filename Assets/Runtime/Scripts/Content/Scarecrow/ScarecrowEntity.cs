@@ -1,70 +1,38 @@
-using App.Architecture.AppData;
-using App.Architecture.AppInput;
+ï»¿using App.Architecture.AppData;
 using App.Content.Entities;
-using App.Logic;
+using System;
 using UnityEngine;
 using VContainer;
 
-public sealed class ScarecrowEntity : MonoBehaviour, IEntity, IDestructable
+public class ScarecrowEntity : MonoBehaviour, IEntity, IDestructable
 {
     [SerializeField] private ScarecrowData _scarecrowData;
 
-    public GameObject ScarecrowModel { get => _scarecrowData.ScarecrowModel; set => _scarecrowData.ScarecrowModel = value; }
-    public GameObject ModelParent => _scarecrowData.ModelParent;
+    private VillageTrustSystem _villageTrustSystem;
+    private LevelsController _levelsController;
 
     [Inject]
-    public void Construct(UIController uiController,
-          WorldCanvasStorage worldCanvasStorage,
-          IAppInputSystem appInputSystem)
+    public void Construct(VillageTrustSystem villageTrustSystem,
+        LevelsController levelsController)
     {
-        Destroy(_scarecrowData.EditorTemporaryMesh);
-        _scarecrowData.AppInputSystem = appInputSystem;
-        _scarecrowData.UIController = uiController;
-        _scarecrowData.WorldCanvasStorage = worldCanvasStorage;
-        _scarecrowData.InteractableComp.OnFocusChanged.AddListener(OnFocusChanged);
-        Debug.Log("Ñêîíñòðóèðîâàë ShopEntity.");
+        _levelsController = levelsController;
+        levelsController.OnLevelStarted.AddListener(OnLevelStarted);
+        _villageTrustSystem = villageTrustSystem;
     }
-    public T Get<T>() where T : class
-    {
-        if (typeof(T) == typeof(InteractionComp))
-            return _scarecrowData.InteractableComp as T;
-        return null;
-    }
-    public void Destruct()
-    {
-        _scarecrowData.InteractableComp.OnFocusChanged.RemoveListener(OnFocusChanged);
-        _scarecrowData.AppInputSystem.OnInteractionPerformed.ClearListeners();
-    }
+    public T Get<T>() where T : class => throw new NotImplementedException();
+    public void Destruct() => throw new NotImplementedException();
 
-    private void OnFocusChanged(bool obj)
+
+    private void OnLevelStarted()
     {
-        if (obj)
+        if (_levelsController.CurrentLevel == 0)
         {
-            ShowInteractionIcon();
-            _scarecrowData.AppInputSystem.SetInteractionTime(_scarecrowData.InteractTime);
-            _scarecrowData.AppInputSystem.OnInteractionPerformed.AddListener(OnPerformedInteraction);
+            _scarecrowData.SecondLevelModel.SetActive(false);
+            _scarecrowData.ThirdLevelModel.SetActive(false);
         }
-        else
-        {
-            CloseInteractionIcon();
-            _scarecrowData.AppInputSystem.OnInteractionPerformed.RemoveListener(OnPerformedInteraction);
-        }
+        if (_villageTrustSystem.Trust > _scarecrowData.SecondLevelTrust)
+            _scarecrowData.SecondLevelModel.SetActive(true);
+        if (_villageTrustSystem.Trust > _scarecrowData.ThirdLevelTrust)
+            _scarecrowData.ThirdLevelModel.SetActive(true);
     }
-    private void CloseInteractionIcon()
-    {
-        _scarecrowData.InteractIcon.CloseProgress();
-        _scarecrowData.InteractIcon.CloseTip();
-        _scarecrowData.InteractIcon.IsEnable = false;
-        _scarecrowData.InteractIcon.gameObject.SetActive(false);
-    }
-    private void ShowInteractionIcon()
-    {
-        _scarecrowData.InteractIcon.SetPosition(_scarecrowData.InteractionIconPosition);
-        _scarecrowData.InteractIcon.gameObject.SetActive(true);
-        _scarecrowData.InteractIcon.IsEnable = true;
-        _scarecrowData.InteractIcon.OpenTip();
-        _scarecrowData.InteractIcon.HoldMode = false;
-    }
-    private void OnPerformedInteraction()
-        => _scarecrowData.UIController.OpenScarecrowMenu();
 }

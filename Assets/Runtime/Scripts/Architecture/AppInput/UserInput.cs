@@ -300,7 +300,7 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""418a6572-3400-45bb-b4b8-e1ff9afe896f"",
-                    ""path"": ""<Keyboard>/i"",
+                    ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
