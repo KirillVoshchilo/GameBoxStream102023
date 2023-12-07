@@ -83,6 +83,7 @@ public class LevelsController
         _fallingSnowController.StopSnowing();
         _uiController.CloseCurrentOpenedGamePanel();
         _levelTimer.OnTimeIsOver.RemoveListener(OnTimeHasGone);
+        _levelTimer.StopTimer();
         _appInputSystem.EscapeIsEnable = false;
         _appInputSystem.InventoryIsEnable = false;
         _appInputSystem.PlayerMovingIsEnable = false;

@@ -56,8 +56,7 @@ namespace App.Content.UI
             _defeatController.IsEnable = false;
             _levelsController.ResetLevelController();
             _playerInventory.Clear();
-            _levelTimer.OnTimeHasChanged.ClearListeners();
-            _levelTimer.OnTimeIsOver.ClearListeners();
+            _levelTimer.StopTimer();
             _playerEntity.GetComponent<Rigidbody>().useGravity = false;
             _uiController.OpenMainMenu();
         }
