@@ -36,27 +36,22 @@ MonoBehaviour:
   _iconsConfiguration:
     _icons:
     - _name: {fileID: 11400000, guid: 8cb786425129ec54496f5ab38651c247, type: 2}
-      _icon: {fileID: 21300000, guid: fe813cf23a5d08045be28cb14e567a3f, type: 3}
+      _icon: {fileID: 21300000, guid: e86681b96f2b6d2418beec1992f803eb, type: 3}
     - _name: {fileID: 11400000, guid: 8dd837ea2376b6d43a00e51c868ca679, type: 2}
-      _icon: {fileID: 21300000, guid: 966424751305c3645b89f0e1daf85a68, type: 3}
+      _icon: {fileID: 21300000, guid: 423e9702b82575941b3a91b247daf8aa, type: 3}
     - _name: {fileID: 11400000, guid: 9699edb0a014f4f4e8af30dea41cd212, type: 2}
-      _icon: {fileID: 21300000, guid: ae3205e048c9c0049bb45064af592830, type: 3}
+      _icon: {fileID: 21300000, guid: 722caffc2723b70429009a548e46ff79, type: 3}
     - _name: {fileID: 11400000, guid: f99b7f2c77c0af8409f915ab1f8ddc95, type: 2}
-      _icon: {fileID: 21300000, guid: 0361764729335a446acef2a205ffef20, type: 3}
+      _icon: {fileID: 21300000, guid: f4e48422c174c2242ba0419f38bf6ae2, type: 3}
     - _name: {fileID: 11400000, guid: 933464c970329e343bda27afa9cd09e6, type: 2}
-      _icon: {fileID: 21300000, guid: 8e6dcb6f973755b468188da6376c27e3, type: 3}
+      _icon: {fileID: 21300000, guid: 70c964bce6f722a4cbb842fea7a8be8b, type: 3}
   _trustLevels:
     _values:
     - _trust: 0
-      _scarecrow: {fileID: 8691584788663716577, guid: 4fcb5dd7c0e1c244cab429058f909fd9, type: 3}
     - _trust: 120
-      _scarecrow: {fileID: 8691584788663716577, guid: e70d58ca2c3cc6d40bebe978bba1dfea, type: 3}
     - _trust: 290
-      _scarecrow: {fileID: 8691584788663716577, guid: c1b20214af3f01e40babad45cff48478, type: 3}
     - _trust: 560
-      _scarecrow: {fileID: 8691584788663716577, guid: 09aa8fd005e48654b9682ed7ae0356f8, type: 3}
     - _trust: 560
-      _scarecrow: {fileID: 8691584788663716577, guid: bdddd40f53e7f3945ba02e3e6a5ee883, type: 3}
   _playerInventoryConfigurations:
     _itemsConfigurations:
     - _key: {fileID: 11400000, guid: 8cb786425129ec54496f5ab38651c247, type: 2}
