@@ -19,8 +19,12 @@ public class ScarecrowEntity : MonoBehaviour, IEntity, IDestructable
         levelsController.OnLevelStarted.AddListener(OnLevelStarted);
         _villageTrustSystem = villageTrustSystem;
     }
-    public T Get<T>() where T : class => throw new NotImplementedException();
-    public void Destruct() => throw new NotImplementedException();
+    public T Get<T>() where T : class
+    {
+        return null;
+    }
+
+    public void Destruct() { }
 
 
     private void OnLevelStarted()

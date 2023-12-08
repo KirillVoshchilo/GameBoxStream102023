@@ -3,7 +3,17 @@ guid: 936aa55fd2faceb46acc78c766e66d75
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Snow
+    second: {fileID: 2100000, guid: 47f7ae28a413fc44e947f2c787c7a37d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Totems
+    second: {fileID: 2100000, guid: e308eb8182e918a4593b4230ba7098b8, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
