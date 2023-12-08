@@ -11,6 +11,9 @@ namespace App.Content.UI
     {
         [SerializeField] private Button _continueButton;
         [SerializeField] private Button _closeAppButton;
+        [SerializeField] private Button _closeTipsButton;
+        [SerializeField] private Button _openTipsButton;
+        [SerializeField] private GameObject _tipsPanel;
 
         private IAppInputSystem _appInputSystem;
         private UIController _uiController;
@@ -30,6 +33,8 @@ namespace App.Content.UI
             LevelsController levelsController,
             LevelTimer levelTimer)
         {
+            _closeTipsButton.onClick.AddListener(OnCloseTipsClicked);
+            _openTipsButton.onClick.AddListener(OnOpenTipsClicked);
             _levelTimer = levelTimer;
             _levelsController = levelsController;
             _bonusFactory = bonfireFactory;
@@ -40,6 +45,19 @@ namespace App.Content.UI
             _appInputSystem = appInputSystem;
             _closeAppButton.onClick.AddListener(OnEndGameClicked);
             _continueButton.onClick.AddListener(OnContinueClicked);
+        }
+        public void CloseTIpsPanel()
+        {
+            _tipsPanel.SetActive(false);
+        }
+
+        private void OnOpenTipsClicked()
+        {
+            _tipsPanel.SetActive(true);
+        }
+        private void OnCloseTipsClicked()
+        {
+            _tipsPanel.SetActive(false);
         }
 
         private void OnContinueClicked()

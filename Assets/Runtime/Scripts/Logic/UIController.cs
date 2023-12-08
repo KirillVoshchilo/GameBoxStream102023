@@ -163,6 +163,7 @@ namespace App.Logic
                 _appInputSystem.InteractionIsEnable = true;
                 _appInputSystem.InventoryIsEnable = true;
             }
+            _pauseMenuPresenter.CloseTIpsPanel();
             _appInputSystem.PlayerMovingIsEnable = true;
             _pauseMenuPresenter.gameObject.SetActive(false);
         }

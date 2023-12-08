@@ -151,6 +151,7 @@ public class LevelsController
             _appInputSystem.InventoryIsEnable = false;
             _appInputSystem.PlayerMovingIsEnable = true;
             _appInputSystem.InteractionIsEnable = false;
+            _allSnowController.ResetSnowEntities();
         }
         else
         {
@@ -159,7 +160,6 @@ public class LevelsController
         }
         _bonusFactory.ClearAll();
         _fallingSnowController.StartSnowing();
-        _allSnowController.ResetSnowEntities();
         _playerEntity.transform.position = _levelStorage.PlayerSpawnPosition[_currentLevel].position;
         _defeatController.IsEnable = true;
         _playerEntity.GetComponent<Rigidbody>().useGravity = true;
