@@ -10,8 +10,8 @@ namespace App.Content.UI.WorldCanvases
     public sealed class InteractIcon : MonoBehaviour
     {
         [SerializeField] private GameObject _buttonTip;
-        [SerializeField] private TextMeshProUGUI _pressEText;
-        [SerializeField] private TextMeshProUGUI _holdEText;
+        [SerializeField] private GameObject _pressEText;
+        [SerializeField] private GameObject _holdEText;
         [SerializeField] private GameObject _progressBar;
         [SerializeField] private Image _progressImage;
         [SerializeField] private Canvas _canvas;
@@ -40,13 +40,13 @@ namespace App.Content.UI.WorldCanvases
             {
                 if (value)
                 {
-                    _holdEText.gameObject.SetActive(true);
-                    _pressEText.gameObject.SetActive(false);
+                    _holdEText.SetActive(true);
+                    _pressEText.SetActive(false);
                 }
                 else
                 {
-                    _holdEText.gameObject.SetActive(false);
-                    _pressEText.gameObject.SetActive(true);
+                    _holdEText.SetActive(false);
+                    _pressEText.SetActive(true);
                 }
             }
         }
