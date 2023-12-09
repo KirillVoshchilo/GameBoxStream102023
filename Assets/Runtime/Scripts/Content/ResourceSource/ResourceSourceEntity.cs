@@ -26,6 +26,12 @@ namespace App.Content.Field
             _resourceSourceData.InteractableComp.Transform = _resourceSourceData.Crystal.transform;
             _resourceSourceData.InteractableComp.Entity = this;
         }
+        public void Recover()
+        {
+            _resourceSourceData.InteractableComp.IsBlocked = false;
+            _resourceSourceData.Crystal.SetActive(true);
+            _resourceSourceData.IsRecovered = true;
+        }
         public T Get<T>() where T : class
         {
             if (typeof(T) == typeof(InteractionComp))
@@ -121,7 +127,7 @@ namespace App.Content.Field
             _resourceSourceData.FallingTreeSound.Play();
             _resourceSourceData.InteractableComp.IsInFocus = false;
             _resourceSourceData.IsRecovered = false;
-            Recover()
+            DefferedRecover()
                 .Forget();
         }
         private void OnCancelInteraction()
@@ -149,7 +155,7 @@ namespace App.Content.Field
                 await UniTask.Delay(50);
             }
         }
-        private async UniTask Recover()
+        private async UniTask DefferedRecover()
         {
             if (_resourceSourceData.RecoverTime < 0)
                 return;

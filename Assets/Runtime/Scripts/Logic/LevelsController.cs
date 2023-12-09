@@ -73,6 +73,7 @@ public class LevelsController
         _isGameStarted = true;
         if (_isLevelLoaded)
         {
+            _levelStorage.RecoverTrees();
             StartLevel(0);
             SetInitialInventory();
         }
@@ -103,6 +104,7 @@ public class LevelsController
 
     private void SetInitialInventory()
     {
+        _playerInventory.Clear();
         int count = _configuration.StartInventoryConfiguration.Items.Length;
         for (int i = 0; i < count; i++)
         {
