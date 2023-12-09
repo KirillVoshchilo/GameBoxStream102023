@@ -31,12 +31,15 @@ public class ScarecrowEntity : MonoBehaviour, IEntity, IDestructable
     {
         if (_levelsController.CurrentLevel == 0)
         {
+            _scarecrowData.FirstLevelModel.SetActive(false);
             _scarecrowData.SecondLevelModel.SetActive(false);
             _scarecrowData.ThirdLevelModel.SetActive(false);
         }
-        if (_villageTrustSystem.Trust > _scarecrowData.SecondLevelTrust)
+        if (_villageTrustSystem.Trust >= _scarecrowData.FirstLevelTrust)
+            _scarecrowData.FirstLevelModel.SetActive(true);
+        if (_villageTrustSystem.Trust >= _scarecrowData.SecondLevelTrust)
             _scarecrowData.SecondLevelModel.SetActive(true);
-        if (_villageTrustSystem.Trust > _scarecrowData.ThirdLevelTrust)
+        if (_villageTrustSystem.Trust >= _scarecrowData.ThirdLevelTrust)
             _scarecrowData.ThirdLevelModel.SetActive(true);
     }
 }

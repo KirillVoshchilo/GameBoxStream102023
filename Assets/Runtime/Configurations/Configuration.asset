@@ -112,17 +112,17 @@ MonoBehaviour:
       _cutScene: {fileID: 8356858981788448534, guid: 54dcab76234c7c644bfdc52de93ec97a, type: 3}
       _dayTimeRange: 180
     - _storageDialogs: {fileID: 8356858981788448534, guid: d034b612d2ddc424db760e699f03030f, type: 3}
-      _storageDialogeWithTip: {fileID: 8356858981788448534, guid: ef51cda980af2a64eaaf68ede3c34cd1, type: 3}
+      _storageDialogeWithTip: {fileID: 8356858981788448534, guid: 4ff89d963cbbad7469a5754a5962eb50, type: 3}
       _scarecrowDialogs: {fileID: 8356858981788448534, guid: 0e0aed2673c4a12478ef0dadde155f15, type: 3}
       _cutScene: {fileID: 8356858981788448534, guid: 8228de7c1ff1068408653fbf863e9803, type: 3}
       _dayTimeRange: 240
     - _storageDialogs: {fileID: 8356858981788448534, guid: 7d67d9130f318154abfd9a64dac88654, type: 3}
-      _storageDialogeWithTip: {fileID: 8356858981788448534, guid: 6db926a54a02ef541990b50666216d7d, type: 3}
+      _storageDialogeWithTip: {fileID: 8356858981788448534, guid: 67cd5995f2b38bf499f6a9f0f3595284, type: 3}
       _scarecrowDialogs: {fileID: 8356858981788448534, guid: fc95df81467cc6e42b69ec3f6ba6453f, type: 3}
       _cutScene: {fileID: 8356858981788448534, guid: 22dcf8476e4d2e0478a901d6fa5a889e, type: 3}
       _dayTimeRange: 300
     - _storageDialogs: {fileID: 8356858981788448534, guid: 5479de40b8f6c734aa0ea86570f412bd, type: 3}
-      _storageDialogeWithTip: {fileID: 8356858981788448534, guid: cbdaffa6c6c61cf4296469e9b7d7386f, type: 3}
+      _storageDialogeWithTip: {fileID: 8356858981788448534, guid: 5c740ab440df0364cbf4467d9dcd5d3d, type: 3}
       _scarecrowDialogs: {fileID: 8356858981788448534, guid: a9e0bc4f46719fc4ea0b92f6495b4723, type: 3}
       _cutScene: {fileID: 8356858981788448534, guid: eb4f1c573eaba73458bd5ede5dd09ffa, type: 3}
       _dayTimeRange: 360

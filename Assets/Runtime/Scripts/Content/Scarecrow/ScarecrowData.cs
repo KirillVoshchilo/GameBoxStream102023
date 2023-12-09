@@ -4,8 +4,10 @@ using UnityEngine;
 [Serializable]
 public class ScarecrowData
 {
+    [SerializeField] private GameObject _firstLevelModel;
     [SerializeField] private GameObject _secondLevelModel;
     [SerializeField] private GameObject _thirdLevelModel;
+    [SerializeField] private float _firstLevelTrust;
     [SerializeField] private float _secondLevelTrust;
     [SerializeField] private float _thirdLevelTrust;
 
@@ -13,4 +15,6 @@ public class ScarecrowData
     public GameObject ThirdLevelModel => _thirdLevelModel;
     public float SecondLevelTrust  => _secondLevelTrust;
     public float ThirdLevelTrust => _thirdLevelTrust;
+    public GameObject FirstLevelModel  => _firstLevelModel; 
+    public float FirstLevelTrust  => _firstLevelTrust;
 }
