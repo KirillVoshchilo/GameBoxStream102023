@@ -67,7 +67,7 @@ public class FinishController
         _levelsController.ResetLevelController();
         int lastLevel = _configuration.TrustLevels.Length - 1;
         if (_villageTrustSystem.Trust >= _configuration.TrustLevels[lastLevel].Trust)
-        {
+        {       
             _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.FinalMusic_2);
             SlideShow slideShow = ShowCutScene(_configuration.FinalCutScenes.AlmostBadEnd);
             slideShow.OnSlidShowEnded.AddListener(Application.Quit);

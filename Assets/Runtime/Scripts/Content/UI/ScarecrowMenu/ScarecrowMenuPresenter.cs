@@ -65,7 +65,7 @@ public class ScarecrowMenuPresenter : MonoBehaviour
             if (_dialoge != null)
                 Destroy(_dialoge.gameObject);
             _dialoge = Instantiate(value, _dialogeTransform);
-            _dialoge.IsLoop = true;
+            _dialoge.IsLoop = false;
         }
     }
     public int CurrentLevel { get => _currentLevel; set => _currentLevel = value; }

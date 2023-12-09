@@ -49,6 +49,8 @@ namespace App.Logic
             _scareCrowMenuPresenter.Enable = true;
             _appInputSystem.IsGoNextEnable = true;
             _appInputSystem.OnGoNext.AddListener(_scareCrowMenuPresenter.Dialoge.ShowNext);
+            _scareCrowMenuPresenter.Dialoge.OnSlidShowEnded.AddListener(()
+                => _appInputSystem.OnGoNext.RemoveListener(_scareCrowMenuPresenter.Dialoge.ShowNext));
             _scareCrowMenuPresenter.Dialoge.ShowFirst();
             _appInputSystem.InventoryIsEnable = false;
             _appInputSystem.PlayerMovingIsEnable = false;
@@ -77,6 +79,8 @@ namespace App.Logic
             _storageMenuPresenter.SetInventory(inventory);
             _appInputSystem.IsGoNextEnable = true;
             _appInputSystem.OnGoNext.AddListener(_storageMenuPresenter.Dialoge.ShowNext);
+            _storageMenuPresenter.Dialoge.OnSlidShowEnded.AddListener(()
+                => _appInputSystem.OnGoNext.RemoveListener(_storageMenuPresenter.Dialoge.ShowNext));
             _storageMenuPresenter.Dialoge.ShowFirst();
             _storageMenuPresenter.Enable = true;
             _appInputSystem.InteractionIsEnable = false;
@@ -99,6 +103,7 @@ namespace App.Logic
         }
         public void OpenMainMenu()
         {
+            Cursor.visible = true;
             _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.MainMenuMusic);
             _mainMenuPresenter.gameObject.SetActive(true);
             _pauseMenuPresenter.gameObject.SetActive(false);
@@ -106,6 +111,7 @@ namespace App.Logic
         }
         public void CloseMainMenu()
         {
+            Cursor.visible = false;
             _mainMenuPresenter.gameObject.SetActive(false);
         }
         public void ShowFreezeEffect()
@@ -145,6 +151,7 @@ namespace App.Logic
         }
         private void OpenPausePanel()
         {
+            Cursor.visible = true;
             Debug.Log("открылась пауза");
             _appInputSystem.InteractionIsEnable = false;
             _appInputSystem.InventoryIsEnable = false;
@@ -163,6 +170,7 @@ namespace App.Logic
                 _appInputSystem.InteractionIsEnable = true;
                 _appInputSystem.InventoryIsEnable = true;
             }
+            Cursor.visible = false;
             _pauseMenuPresenter.CloseTIpsPanel();
             _appInputSystem.PlayerMovingIsEnable = true;
             _pauseMenuPresenter.gameObject.SetActive(false);

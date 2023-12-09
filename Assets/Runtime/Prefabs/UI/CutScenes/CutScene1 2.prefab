@@ -1318,6 +1318,9 @@ MonoBehaviour:
   - {fileID: 969198416327344345}
   - {fileID: 6445763362486217417}
   - {fileID: 9095112741182532018}
+  - {fileID: 1078088969323340174}
+  - {fileID: 4559087470174891224}
+  - {fileID: 5818962703828018246}
 --- !u!223 &311545686043759773
 Canvas:
   m_ObjectHideFlags: 0
@@ -1336,7 +1339,7 @@ Canvas:
   m_OverridePixelPerfect: 1
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 50
