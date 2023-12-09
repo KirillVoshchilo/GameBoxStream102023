@@ -69,7 +69,8 @@ public class FinishController
         if (_villageTrustSystem.Trust >= _configuration.TrustLevels[lastLevel].Trust)
         {
             _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.FinalMusic_2);
-            ShowCutScene(_configuration.FinalCutScenes.AlmostBadEnd);
+            SlideShow slideShow = ShowCutScene(_configuration.FinalCutScenes.AlmostBadEnd);
+            slideShow.OnSlidShowEnded.AddListener(Application.Quit);
         }
         else
         {
@@ -78,15 +79,15 @@ public class FinishController
         }
     }
 
-    private void ShowCutScene(SlideShow slideShow)
+    private SlideShow ShowCutScene(SlideShow slideShow)
     {
-
         _currentCutScene = Object.Instantiate(slideShow);
         _currentCutScene.IsLoop = false;
         _appInputSystem.IsGoNextEnable = true;
         _currentCutScene.OnSlidShowEnded.AddListener(OnEndFinalCutScene);
         _appInputSystem.OnGoNext.AddListener(_currentCutScene.ShowNext);
         _currentCutScene.ShowFirst();
+        return _currentCutScene;
     }
     private void OnEndFinalCutScene()
     {
