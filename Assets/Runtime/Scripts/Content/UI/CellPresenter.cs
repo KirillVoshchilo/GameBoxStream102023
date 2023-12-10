@@ -1,10 +1,9 @@
-using Components.UI;
+using SimpleComponents.UI;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CellPresenter : MonoBehaviour
+public sealed class CellPresenter : MonoBehaviour
 {
     [SerializeField] private Image _icon;
     [SerializeField] private TextMeshProUGUI _itemsQuantity;

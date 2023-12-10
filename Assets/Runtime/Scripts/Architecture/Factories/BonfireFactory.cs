@@ -1,6 +1,5 @@
 using App.Architecture.AppInput;
-using App.Content.Player;
-using App.Logic;
+using App.Content;
 using System.Collections.Generic;
 using UnityEngine;
 using VContainer;

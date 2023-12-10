@@ -1,16 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class AllSnowController
+namespace App.Logic
 {
-    private SnowSquareEntity[] _snowSquareEntities;
-
-    public SnowSquareEntity[] SnowSquareEntities { get => _snowSquareEntities; set => _snowSquareEntities = value; }
-
-    public void ResetSnowEntities()
+    public sealed class AllSnowController
     {
-        foreach (SnowSquareEntity entity in _snowSquareEntities)
-            entity.ResetHeight();
+        private SnowSquareEntity[] _snowSquareEntities;
+
+        public SnowSquareEntity[] SnowSquareEntities { get => _snowSquareEntities; set => _snowSquareEntities = value; }
+
+        public void ResetSnowEntities()
+        {
+            foreach (SnowSquareEntity entity in _snowSquareEntities)
+                entity.ResetHeight();
+        }
     }
 }

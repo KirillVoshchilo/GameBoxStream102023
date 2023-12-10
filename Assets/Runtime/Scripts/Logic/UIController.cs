@@ -1,4 +1,5 @@
 using App.Architecture.AppInput;
+using App.Content.Audio;
 using App.Content.Player;
 using App.Content.UI;
 using App.Content.UI.InventoryUI;
@@ -20,7 +21,7 @@ namespace App.Logic
         private HeatData _playerHeat;
         private IAppInputSystem _appInputSystem;
         private LevelsController _levelsController;
-        private AudioController _audioController;
+        private AudioStorage _audioController;
 
         public ScarecrowMenuPresenter ScareCrowMenuPresenter => _scareCrowMenuPresenter;
         public StorageMenuPresenter StorageMenuPresenter => _storageMenuPresenter;
@@ -28,7 +29,7 @@ namespace App.Logic
         [Inject]
         public void Construct(IAppInputSystem appInputSystem,
             PlayerEntity playerEntity,
-            AudioController audioController,
+            AudioStorage audioController,
             LevelsController levelsController)
         {
             _levelsController = levelsController;

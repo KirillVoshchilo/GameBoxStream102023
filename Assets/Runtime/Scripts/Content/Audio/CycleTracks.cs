@@ -1,10 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-namespace App.Architecture.AppData
+namespace App.Content.Audio
 {
     [Serializable]
-    public class CycleTracks
+    public sealed class CycleTracks
     {
         [SerializeField] private AudioSource _mainMenuMusic;
         [SerializeField] private AudioSource _cutSceneMusic;

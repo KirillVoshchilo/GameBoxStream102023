@@ -2,9 +2,12 @@
 using TMPro;
 using UnityEngine;
 
-[Serializable]
-public sealed class STMPColor
+namespace App.Simples
 {
-    public TextMeshProUGUI TMP;
-    public Color TargetColor;
+    [Serializable]
+    public sealed class STMPColor
+    {
+        public TextMeshProUGUI TMP;
+        public Color TargetColor;
+    }
 }

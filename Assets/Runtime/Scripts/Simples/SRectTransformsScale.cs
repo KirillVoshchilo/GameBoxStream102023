@@ -1,10 +1,12 @@
 ﻿using System;
 using UnityEngine;
 
-
-[Serializable]
-public sealed class SRectTransformsScale
+namespace App.Simples
 {
-    public RectTransform RectTransform;
-    public Vector2 Scale;
+    [Serializable]
+    public sealed class SRectTransformsScale
+    {
+        public RectTransform RectTransform;
+        public Vector2 Scale;
+    }
 }

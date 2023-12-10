@@ -2,9 +2,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-[Serializable]
-public sealed class SImageColor
+namespace App.Simples
 {
-    public Image Image;
-    public Color TargetColor;
+    [Serializable]
+    public sealed class SImageColor
+    {
+        public Image Image;
+        public Color TargetColor;
+    }
 }

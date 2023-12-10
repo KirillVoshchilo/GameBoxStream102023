@@ -1,6 +1,7 @@
 ﻿using App.Architecture;
 using App.Architecture.AppData;
 using App.Architecture.AppInput;
+using App.Content.Audio;
 using App.Content.Player;
 using App.Logic;
 using Cysharp.Threading.Tasks;
@@ -20,13 +21,13 @@ namespace App.Content.UI
 
         private UIController _uiController;
         private LevelsController _levelsController;
-        private AudioController _audioController;
+        private AudioStorage _audioController;
 
         public UIController UIController { set => _uiController = value; }
 
         [Inject]
         public void Construct(LevelsController levelsController,
-            AudioController audioController)
+            AudioStorage audioController)
         {
             _audioController = audioController;
             _levelsController = levelsController;

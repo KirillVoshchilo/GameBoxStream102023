@@ -1,10 +1,9 @@
 using App.Architecture.AppData;
-using App.Architecture;
 using App.Content.Player;
-using App.Logic;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using App.Content;
 
 public class TestSceneScope : LifetimeScope
 {

@@ -1,5 +1,7 @@
 using App.Architecture.AppData;
 using App.Architecture.AppInput;
+using App.Content;
+using App.Content.Audio;
 using App.Content.Player;
 using App.Logic;
 using UnityEngine;
@@ -17,8 +19,8 @@ namespace App.Architecture.Scopes
         [SerializeField] private Configuration _configuration;
         [SerializeField] private ShopFactory[] _shopFactories;
         [SerializeField] private BonfireFactory _bonfireFactory;
-        [SerializeField] private FallingSnowController _fallingSnowController;
-        [SerializeField] private AudioController _audioController;
+        [SerializeField] private FallingSnow _fallingSnowController;
+        [SerializeField] private AudioStorage _audioController;
 
         protected override void Configure(IContainerBuilder builder)
         {

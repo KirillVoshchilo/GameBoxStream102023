@@ -1,10 +1,11 @@
 using App.Architecture.AppData;
 using App.Content.Field;
+using App.Logic;
 using System.Collections.Generic;
 using UnityEngine;
 using VContainer.Unity;
 
-namespace App.Logic
+namespace App.Content
 {
     public sealed class LevelStorage : MonoBehaviour
     {

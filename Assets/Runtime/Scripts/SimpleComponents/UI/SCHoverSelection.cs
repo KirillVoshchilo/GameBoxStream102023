@@ -1,7 +1,8 @@
+using App.Simples;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Components.UI
+namespace SimpleComponents.UI
 {
     /// <summary>
     /// Класс выделитель при наведении курсора.

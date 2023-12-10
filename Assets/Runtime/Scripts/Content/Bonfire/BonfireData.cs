@@ -1,12 +1,12 @@
 using App.Architecture.AppInput;
+using App.Content;
 using App.Content.Entities;
 using App.Content.UI.WorldCanvases;
-using App.Logic;
 using System;
 using UnityEngine;
 
 [Serializable]
-public class BonfireData
+public sealed class BonfireData
 {
     [SerializeField] private float _defaultLifetime;
     [SerializeField] private GameObject _rootObject;
@@ -47,7 +47,7 @@ public class BonfireData
     public HeatCetner HeatCenter { get => _heatCenter; set => _heatCenter = value; }
     public InteractionRequirementsComp InteractionRequirements => _interactionRequirements;
     public BonfireFactory BonfireFactory { get => _bonfireFactory; set => _bonfireFactory = value; }
-    public AudioSource KindlingBonfire  => _kindlingBonfire; 
+    public AudioSource KindlingBonfire => _kindlingBonfire;
     public AudioSource BurningFire => _burningFire;
-    public AudioSource FireRefresh  => _fireRefresh;
+    public AudioSource FireRefresh => _fireRefresh;
 }

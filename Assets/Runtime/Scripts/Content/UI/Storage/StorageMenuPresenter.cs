@@ -1,5 +1,6 @@
 ﻿using App.Architecture.AppData;
 using App.Architecture.AppInput;
+using App.Content.Audio;
 using App.Content.Player;
 using Cysharp.Threading.Tasks;
 using System;
@@ -20,7 +21,7 @@ public class StorageMenuPresenter : MonoBehaviour
     private Inventory _storageInventory;
     private IconsConfiguration _iconsConfiguration;
     private VillageTrustSystem _villageTrustSystem;
-    private AudioController _audioController;
+    private AudioStorage _audioController;
     private EquipmentConfigurations _equipmentConfigurations;
     private StorageInventoryConfiguration _storageInventoryConfiguration;
     private InventoryConfigurations _playerInventoryConfigurations;
@@ -74,7 +75,7 @@ public class StorageMenuPresenter : MonoBehaviour
         Configuration configurations,
         VillageTrustSystem villageTrustSystem,
         IAppInputSystem appInputSystem,
-        AudioController audioController)
+        AudioStorage audioController)
     {
         _audioController = audioController;
         _equipmentConfigurations = configurations.EquipmentConfigurations;

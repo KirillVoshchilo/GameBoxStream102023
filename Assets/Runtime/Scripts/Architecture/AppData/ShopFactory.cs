@@ -1,4 +1,5 @@
 ﻿using App.Architecture.AppInput;
+using App.Content;
 using App.Content.Buildings;
 using App.Logic;
 using App.Simples;

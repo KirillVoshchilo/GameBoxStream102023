@@ -1,10 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-namespace App.Architecture.AppData
+namespace App.Content.Audio
 {
     [Serializable]
-    public class AudioData
+    public sealed class AudioData
     {
         [SerializeField] private CycleTracks _cycleTracks;
         [SerializeField] private SoundTracks _soundTracks;

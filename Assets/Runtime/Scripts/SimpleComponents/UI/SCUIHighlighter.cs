@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using App.Simples;
+using UnityEngine;
 
-namespace Components.UI
+namespace SimpleComponents.UI
 {
     /// <summary>
     /// Класс для выделения UI. 

@@ -1,5 +1,6 @@
 ﻿using App.Architecture.AppData;
 using App.Architecture.AppInput;
+using App.Content.Audio;
 using App.Content.Player;
 using Cysharp.Threading.Tasks;
 using TMPro;
@@ -22,7 +23,7 @@ public class ScarecrowMenuPresenter : MonoBehaviour
     private IconsConfiguration _iconsConfiguration;
     private VillageTrustSystem _villageTrustSystem;
     private TrustLevels _trustLevels;
-    private AudioController _audioController;
+    private AudioStorage _audioController;
     private IAppInputSystem _appInputSystem;
     private readonly CellPresenter[,] _cellsMatrix = new CellPresenter[3, 3];
     private (int x, int y) _selectionPosition;
@@ -121,7 +122,7 @@ public class ScarecrowMenuPresenter : MonoBehaviour
         Configuration configurations,
         VillageTrustSystem villageTrustSystem,
         IAppInputSystem appInputSystem,
-        AudioController audioController)
+        AudioStorage audioController)
     {
         _audioController = audioController;
         _appInputSystem = appInputSystem;

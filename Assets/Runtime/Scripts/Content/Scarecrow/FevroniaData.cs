@@ -1,12 +1,9 @@
-using App.Architecture;
-using App.Architecture.AppData;
 using App.Architecture.AppInput;
+using App.Content;
 using App.Content.Entities;
 using App.Content.UI.WorldCanvases;
 using App.Logic;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]

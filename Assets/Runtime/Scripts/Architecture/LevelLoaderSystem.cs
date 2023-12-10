@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 using System;
 using VContainer;
 using VContainer.Unity;
-using App.Logic;
+using App.Content;
 
 namespace App.Architecture
 {
