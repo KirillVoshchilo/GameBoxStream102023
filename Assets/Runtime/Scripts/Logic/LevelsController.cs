@@ -216,8 +216,14 @@ namespace App.Logic
         }
         private void ConfigureDialoges()
         {
+            if (_currentLevel == 0)
+            {
+                _uiController.StorageMenuPresenter.Dialoge = _currentLevelConfiguration.StorageDialogs;
+                _uiController.ScareCrowMenuPresenter.Dialoge = _currentLevelConfiguration.ScarecrowDialogs;
+                return;
+            }
             float currentTrust = _villageTrustSystem.Trust;
-            float targetTrust = _configuration.TrustLevels[_currentLevel].Trust;
+            float targetTrust = _configuration.TrustLevels[_currentLevel - 1].Trust;
             if (currentTrust >= targetTrust)
                 _uiController.StorageMenuPresenter.Dialoge = _currentLevelConfiguration.StorageDialogeWithTip;
             else _uiController.StorageMenuPresenter.Dialoge = _currentLevelConfiguration.StorageDialogs;

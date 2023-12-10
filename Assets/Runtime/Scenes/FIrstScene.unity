@@ -17026,6 +17026,7 @@ MonoBehaviour:
   _snowContainer: {fileID: 7704106689768389140}
   _helicopterEntity: {fileID: 435644325}
   _treesContriner: {fileID: 2575040259950108474}
+  _storageEntity: {fileID: 7934567902643619470}
 --- !u!1001 &624968538
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -85309,6 +85310,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9311a8ce1918d3419b7833d3140e715, type: 3}
+--- !u!114 &7934567902643619470 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8383368685837452861, guid: c9311a8ce1918d3419b7833d3140e715, type: 3}
+  m_PrefabInstance: {fileID: 7934567902643619469}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 409673929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 652e5436ee18caa478a50f9c4d3e9d99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7955448098169333653
 Transform:
   m_ObjectHideFlags: 0
