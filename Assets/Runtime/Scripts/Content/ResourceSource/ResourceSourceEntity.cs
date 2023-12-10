@@ -1,9 +1,6 @@
-﻿using App.Architecture;
-using App.Architecture.AppData;
+﻿using App.Architecture.AppData;
 using App.Architecture.AppInput;
-using App.Content.Entities;
 using App.Content.Player;
-using App.Logic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using VContainer;

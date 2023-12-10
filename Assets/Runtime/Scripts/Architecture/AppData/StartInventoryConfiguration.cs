@@ -8,7 +8,6 @@ namespace App.Architecture.AppData
     {
         [SerializeField] private ItemCount[] _items;
 
-        public ItemCount[] Items
-            => _items;
+        public ItemCount[] Items => _items;
     }
 }

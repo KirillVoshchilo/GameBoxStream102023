@@ -1,7 +1,4 @@
 ﻿using App.Architecture.AppInput;
-using App.Architecture;
-using App.Content.Entities;
-using App.Logic;
 using UnityEngine;
 using App.Architecture.AppData;
 using App.Content.UI.WorldCanvases;

@@ -7,11 +7,8 @@ namespace App.Architecture.AppData
     public class EquipmentConfigurations
     {
         [SerializeField] private ItemCategory[] _itemCategories;
-        [SerializeField] private AxeProperty[] _axeProperties;
         [SerializeField] private Key[] _changableCategories;
 
-        public AxeProperty[] AxeProperties => _axeProperties;
-        public ItemCategory[] ItemCategories => _itemCategories;
         public Key[] ChangableCategories => _changableCategories;
 
         public bool CheckBelongingToTheCategory(Key part, Key main)

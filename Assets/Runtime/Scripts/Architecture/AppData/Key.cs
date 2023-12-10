@@ -8,8 +8,7 @@ namespace App.Architecture.AppData
     {
         [SerializeField] private string _name;
 
-        public string Value
-            => _name;
+        public string Value => _name;
 
         public bool Equals(Key other)
         {

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace App.Content.Entities
+namespace App.Content
 {
     [Serializable]
     public sealed class InteractionRequirementsComp

@@ -14,7 +14,6 @@ public class ScarecrowMenuPresenter : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _currentWoodCountShort;
     [SerializeField] private TextMeshProUGUI _woodRequirements;
     [SerializeField] private TextMeshProUGUI _trustText;
-    [SerializeField] private DialogueSystem _dialogueSystem;
     [SerializeField] private Key _requirementResource;
     [SerializeField] private Transform _dialogeTransform;
 

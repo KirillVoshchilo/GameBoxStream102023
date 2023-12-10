@@ -9,9 +9,7 @@ namespace App.Architecture.AppData
         [SerializeField] private Key _name;
         [SerializeField] private int _count;
 
-        public Key Key
-            => _name;
-        public int Count
-            => _count;
+        public Key Key => _name;
+        public int Count => _count;
     }
 }

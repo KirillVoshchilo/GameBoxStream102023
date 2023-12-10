@@ -8,10 +8,9 @@ namespace App.Architecture.AppData
     {
         [SerializeField] private TrustLevel[] _values;
 
+        public int Length => _values.Length;
+
         public TrustLevel this[int value]
             => _values[value];
-        public int Length
-            => _values.Length;
-        public TrustLevel[] Values => _values;
     }
 }

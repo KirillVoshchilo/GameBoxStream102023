@@ -8,9 +8,9 @@ namespace App.Architecture.AppData
     {
         [SerializeField] private LevelConfiguration[] _levelConfiguration;
 
+        public int Count => _levelConfiguration.Length;
+        
         public LevelConfiguration this[int index]
             => _levelConfiguration[index];
-        public int Count => _levelConfiguration.Length;
-
     }
 }

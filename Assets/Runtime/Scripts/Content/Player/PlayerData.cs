@@ -1,8 +1,6 @@
 using App.Architecture.AppData;
 using App.Architecture.AppInput;
 using App.Components;
-using App.Content.Entities;
-using App.Logic;
 using System;
 using UnityEngine;
 

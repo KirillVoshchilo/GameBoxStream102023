@@ -29,7 +29,6 @@ namespace App.Architecture.AppInput
         private bool _escapeIsEnable = false;
         private bool _inventoryIsEnable = false;
         private bool _playerMovingIsEnable = false;
-        private bool _isBuildBonfireEnable = false;
         private bool _isGoNextEnable = false;
         private bool _inventoryMoveIsEnable = false;
         private bool _interactionIsEnable = false;

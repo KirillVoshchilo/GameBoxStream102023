@@ -1,10 +1,5 @@
-﻿using App.Architecture;
-using App.Architecture.AppData;
-using App.Architecture.AppInput;
-using App.Content.Audio;
-using App.Content.Player;
+﻿using App.Content.Audio;
 using App.Logic;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;

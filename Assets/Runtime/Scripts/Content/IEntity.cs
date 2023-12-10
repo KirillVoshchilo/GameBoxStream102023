@@ -1,4 +1,4 @@
-﻿namespace App.Content.Entities
+﻿namespace App.Content
 {
     public interface IEntity
     {

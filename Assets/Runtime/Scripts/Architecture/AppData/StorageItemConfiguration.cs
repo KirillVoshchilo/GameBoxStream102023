@@ -10,11 +10,8 @@ namespace App.Architecture.AppData
         [SerializeField] private int _count;
         [SerializeField] private int _trustRequirement;
 
-        public Key Key
-            => _name;
-        public int Count
-            => _count;
-        public int TrustRequirement 
-            => _trustRequirement; 
+        public Key Key => _name;
+        public int Count => _count;
+        public int TrustRequirement => _trustRequirement;
     }
 }

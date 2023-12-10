@@ -1,7 +1,6 @@
 using App.Architecture.AppData;
 using App.Content.Player;
 using Cysharp.Threading.Tasks;
-using System;
 using TMPro;
 using UnityEngine;
 using VContainer;

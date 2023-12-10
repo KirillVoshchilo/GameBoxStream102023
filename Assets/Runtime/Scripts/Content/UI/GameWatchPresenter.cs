@@ -1,13 +1,8 @@
-using App.Architecture.AppData;
-using App.Content.Player;
-using Cysharp.Threading.Tasks;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using VContainer;
 
-public class GameWatchPresenter : MonoBehaviour
+public sealed class GameWatchPresenter : MonoBehaviour
 {
     private const string TIME_FORMAT = "00";
 
@@ -26,5 +21,4 @@ public class GameWatchPresenter : MonoBehaviour
         int minutes = (value - seconds) / 60;
         _timer.text = $"{minutes.ToString(TIME_FORMAT)}:{seconds.ToString(TIME_FORMAT)}";
     }
-
 }

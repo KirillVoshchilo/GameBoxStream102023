@@ -1,5 +1,4 @@
 using App.Architecture.AppData;
-using App.Architecture.AppInput;
 using App.Content;
 using App.Content.Audio;
 using App.Content.Player;
@@ -17,7 +16,6 @@ namespace App.Architecture.Scopes
         [SerializeField] private WorldCanvasStorage _worldCanvasStorage;
         [SerializeField] private UIController _uiController;
         [SerializeField] private Configuration _configuration;
-        [SerializeField] private ShopFactory[] _shopFactories;
         [SerializeField] private BonfireFactory _bonfireFactory;
         [SerializeField] private FallingSnow _fallingSnowController;
         [SerializeField] private AudioStorage _audioController;
@@ -49,9 +47,6 @@ namespace App.Architecture.Scopes
             {
                 FinishController finishController = container.Resolve<FinishController>();
                 finishController.Construct();
-                IAppInputSystem appInputSystem = container.Resolve<IAppInputSystem>();
-                foreach (ShopFactory shopFactory in _shopFactories)
-                    shopFactory.Construct(appInputSystem, _uiController, _worldCanvasStorage);
             });
         }
     }

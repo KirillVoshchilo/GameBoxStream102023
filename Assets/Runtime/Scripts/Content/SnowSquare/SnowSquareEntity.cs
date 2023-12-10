@@ -1,4 +1,4 @@
-﻿using App.Content.Entities;
+﻿using App.Content;
 using App.Content.Player;
 using Cysharp.Threading.Tasks;
 using UnityEngine;

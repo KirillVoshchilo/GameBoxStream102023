@@ -1,7 +1,6 @@
 ﻿using App.Architecture.AppData;
-using App.Content.Entities;
+using App.Content;
 using App.Logic;
-using System;
 using UnityEngine;
 using VContainer;
 

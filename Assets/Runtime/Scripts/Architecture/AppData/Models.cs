@@ -8,8 +8,6 @@ namespace App.Architecture.AppData
     {
         [SerializeField] private Model[] _values;
 
-        public Model[] Values => _values;
-
         public GameObject Get(Key key)
         {
             foreach (Model model in _values)

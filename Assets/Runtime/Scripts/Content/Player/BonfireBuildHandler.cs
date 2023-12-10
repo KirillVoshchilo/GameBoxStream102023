@@ -1,7 +1,4 @@
 ﻿using App.Architecture.AppData;
-using App.Content.Entities;
-using Unity.VisualScripting;
-using UnityEngine;
 
 namespace App.Content.Player
 {
