@@ -216,7 +216,7 @@ namespace App.Logic
         }
         private void ConfigureDialoges()
         {
-            if (_currentLevel == 0)
+            if (_currentLevel == 0 || _currentLevel == 1)
             {
                 _uiController.StorageMenuPresenter.Dialoge = _currentLevelConfiguration.StorageDialogs;
                 _uiController.ScareCrowMenuPresenter.Dialoge = _currentLevelConfiguration.ScarecrowDialogs;

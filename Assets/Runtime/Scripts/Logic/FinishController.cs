@@ -36,7 +36,6 @@ namespace App.Logic
 
         public void EscapeFinish()
         {
-            _levelsController.ResetLevelController();
             int lastLevel = _configuration.TrustLevels.Length - 1;
             if (_villageTrustSystem.Trust >= _configuration.TrustLevels[lastLevel].Trust)
             {
@@ -48,10 +47,10 @@ namespace App.Logic
                 _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.FinalMusic_4);
                 ShowCutScene(_configuration.FinalCutScenes.EscapeFinal);
             }
+            _levelsController.ResetLevelController();
         }
         public void EndTimeFinish()
         {
-            _levelsController.ResetLevelController();
             int lastLevel = _configuration.TrustLevels.Length - 1;
             if (_villageTrustSystem.Trust >= _configuration.TrustLevels[lastLevel].Trust)
             {
@@ -64,6 +63,7 @@ namespace App.Logic
                 _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.FinalMusic_1);
                 ShowCutScene(_configuration.FinalCutScenes.BadEnd);
             }
+            _levelsController.ResetLevelController();
         }
 
         private SlideShow ShowCutScene(SlideShow slideShow)
