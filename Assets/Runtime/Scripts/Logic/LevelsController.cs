@@ -7,6 +7,7 @@ using App.Content.Player;
 using App.Simples;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using VContainer;
 
 namespace App.Logic
 {
@@ -18,8 +19,6 @@ namespace App.Logic
         private readonly VillageTrustSystem _villageTrustSystem;
         private UIController _uiController;
         private readonly IAppInputSystem _appInputSystem;
-        private readonly SEvent _onAllLevelsFinished = new();
-        private readonly SEvent _onLevelFinished = new();
         private readonly LevelLoaderSystem _levelLoader;
         private readonly Inventory _playerInventory;
         private readonly DefeatController _defeatController;
@@ -35,14 +34,14 @@ namespace App.Logic
         private readonly AudioStorage _audioController;
         private readonly BonfireFactory _bonusFactory;
         private readonly SEvent _onLevelStarted = new();
+        private readonly WorldCanvasStorage _worldCanvasStorage;
 
-        public SEvent OnAllLevelsFinished => _onAllLevelsFinished;
-        public SEvent OnLevelFinished => _onLevelFinished;
         public FinishController FinishController { get => _finishController; set => _finishController = value; }
         public int CurrentLevel => _currentLevel;
         public UIController UiController { get => _uiController; set => _uiController = value; }
         public SEvent OnLevelStarted => _onLevelStarted;
 
+        [Inject]
         public LevelsController(Configuration configuration,
             PlayerEntity playerEntity,
             VillageTrustSystem villageTrustSystem,
@@ -53,7 +52,8 @@ namespace App.Logic
             AllSnowController allSnowController,
             FallingSnow fallingSnow,
             BonfireFactory bonfireFactory,
-            AudioStorage audioController)
+            AudioStorage audioController,
+            WorldCanvasStorage worldCanvasStorage)
         {
             _audioController = audioController;
             _bonusFactory = bonfireFactory;
@@ -69,6 +69,7 @@ namespace App.Logic
                 .Forget();
             _levelTimer = levelTimer;
             _allSnowController = allSnowController;
+            _worldCanvasStorage = worldCanvasStorage;
         }
 
         public void StartFirstLevel()
@@ -76,7 +77,7 @@ namespace App.Logic
             _isGameStarted = true;
             if (_isLevelLoaded)
             {
-                _levelStorage.RecoverTrees();
+                _levelStorage.ResetAll();
                 StartLevel(0);
                 SetInitialInventory();
             }
@@ -162,6 +163,7 @@ namespace App.Logic
                 ConfigureControl();
                 _levelStorage.HelicopterEntity.IsEnable = true;
             }
+            _worldCanvasStorage.InteractIcon.gameObject.SetActive(false);
             _bonusFactory.ClearAll();
             _fallingSnow.StartSnowing();
             _playerEntity.transform.position = _levelStorage.PlayerSpawnPosition[_currentLevel].position;

@@ -66827,10 +66827,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Toilet
       objectReference: {fileID: 0}
-    - target: {fileID: 678482342670217149, guid: 2378a173ff5138c458717f54768e1f41, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
     - target: {fileID: 2714609266237518664, guid: 2378a173ff5138c458717f54768e1f41, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -66870,10 +66866,6 @@ PrefabInstance:
     - target: {fileID: 2714609266237518664, guid: 2378a173ff5138c458717f54768e1f41, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6025397218260295761, guid: 2378a173ff5138c458717f54768e1f41, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

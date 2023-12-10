@@ -14,6 +14,7 @@ namespace App.Content
         [SerializeField] private GameObject _snowContainer;
         [SerializeField] private HelicopterEntity _helicopterEntity;
         [SerializeField] private GameObject _treesContriner;
+        [SerializeField] private StorageEntity _storageEntity;
 
         private readonly HashSet<IDestructable> _destructables = new();
         private ResourceSourceEntity[] _resourceSourceEntities;
@@ -23,8 +24,9 @@ namespace App.Content
 
         public void Construct(LifetimeScope lifeTimeScope)
             => AutoInjectAll(lifeTimeScope);
-        public void RecoverTrees()
+        public void ResetAll()
         {
+            _storageEntity.ResetInventory();
             foreach (ResourceSourceEntity entity in _resourceSourceEntities)
                 entity.Recover();
         }

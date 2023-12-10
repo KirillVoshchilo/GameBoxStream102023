@@ -15,12 +15,16 @@ public class StorageEntity : MonoBehaviour, IEntity, IDestructable
              IAppInputSystem appInputSystem,
              Configuration configuration)
     {
-        _storageData.StorageInventory = new Inventory(configuration.StorageInventoryConfigurations, 9);
-        FillInventory(configuration);
+        _storageData.Configuration = configuration;
         _storageData.AppInputSystem = appInputSystem;
         _storageData.UIController = uiController;
         _storageData.WorldCanvasStorage = worldCanvasStorage;
         _storageData.InteractableComp.OnFocusChanged.AddListener(OnFocusChanged);
+    }
+    public void ResetInventory()
+    {
+        _storageData.StorageInventory = new Inventory(_storageData.Configuration.StorageInventoryConfigurations, 9);
+        FillInventory(_storageData.Configuration);
     }
     public T Get<T>() where T : class
     {

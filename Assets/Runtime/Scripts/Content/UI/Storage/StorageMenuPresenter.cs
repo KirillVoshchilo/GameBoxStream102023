@@ -212,7 +212,7 @@ public class StorageMenuPresenter : MonoBehaviour
             else _storageCells[i].Clear();
         }
     }
-    internal void SetInventory(Inventory inventory)
+    public void SetInventory(Inventory inventory)
     {
         _storageInventory = inventory;
     }
