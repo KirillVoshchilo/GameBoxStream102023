@@ -96,7 +96,6 @@ public class LevelsController
 
     public void StartLevel(int levelIndex)
     {
-        Debug.Log($"SHow {levelIndex}");
         _currentLevel = levelIndex;
         _currentLevelConfiguration = _configuration.LevelsConfigurations[levelIndex];
         ShowCutScene(_currentLevelConfiguration.CutScene);
@@ -181,7 +180,6 @@ public class LevelsController
     }
     private void OnTimeHasGone()
     {
-        Debug.Log("Время прошло");
         _fallingSnowController.StopSnowing();
         _uiController.CloseCurrentOpenedGamePanel();
         int nextLevel = _currentLevel + 1;

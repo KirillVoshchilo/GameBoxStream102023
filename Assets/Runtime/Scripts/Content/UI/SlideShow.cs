@@ -14,7 +14,6 @@ public sealed class SlideShow : MonoBehaviour
 
     public void ShowFirst()
     {
-        Debug.Log(gameObject.name);
         CloseAll();
         _currentSlide = 0;
         _slides[0].SetActive(true);

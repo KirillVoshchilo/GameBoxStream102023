@@ -77,11 +77,7 @@ namespace App.Content.Player
         {
             float resultSpeed = _playerData.DefaultMovingSpeed;
             foreach (float multiplier in _playerData.Walker.SpeedMultipliers.Values)
-            {
                 resultSpeed *= multiplier;
-                Debug.Log($"multiplier {multiplier} resultSpeed {resultSpeed}");
-            }
-            Debug.Log($"DefaultMovingSpeed {_playerData.DefaultMovingSpeed} resultSpeed {resultSpeed}");
             return resultSpeed;
         }
         private void Move()

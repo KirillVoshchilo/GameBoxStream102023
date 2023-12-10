@@ -66,7 +66,6 @@ namespace App.Content.Player
             _equipmentViewHandler = new EquipmentViewHandler(_playerData);
             _playerData.TriggerComponent.OnExit.AddListener(OnExitEntity);
             _playerData.TriggerComponent.OnEnter.AddListener(OnEnterEntity);
-            Debug.Log("Сконструировал PlayerEntity.");
         }
 
         private void OnHeatChanged(float obj)

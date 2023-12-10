@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 338596394306436169}
   - component: {fileID: 544710563154929739}
   - component: {fileID: 1557269983571542146}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Progress (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 7157117636174538979}
   - component: {fileID: 2351690972680576917}
   - component: {fileID: 2500390320180123130}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Progress
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1738263275327314656}
   - component: {fileID: 1725914949909815043}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HintSound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 4749805135049420475}
   - component: {fileID: 5123142617570321544}
   - component: {fileID: 4151120176032353264}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Press E
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,13 +371,13 @@ GameObject:
   - component: {fileID: 7278241611271625127}
   - component: {fileID: 5731038609143759852}
   - component: {fileID: 2258284140808127028}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: InteractionIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3943398342551466321
 RectTransform:
   m_ObjectHideFlags: 0
@@ -420,7 +420,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: -1
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 75693769
+  m_SortingLayerID: 767808879
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &7278241611271625127
@@ -571,7 +571,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3780876886660031871}
   - component: {fileID: 1359276660033958375}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -618,7 +618,7 @@ GameObject:
   - component: {fileID: 3080365020983756075}
   - component: {fileID: 5876812469845461522}
   - component: {fileID: 3129123059864258371}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Hold E
   m_TagString: Untagged
   m_Icon: {fileID: 0}

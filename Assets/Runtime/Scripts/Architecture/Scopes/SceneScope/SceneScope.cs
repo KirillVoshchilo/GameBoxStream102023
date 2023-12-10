@@ -51,7 +51,6 @@ namespace App.Architecture.Scopes
                 foreach (ShopFactory shopFactory in _shopFactories)
                     shopFactory.Construct(appInputSystem, _uiController, _worldCanvasStorage);
             });
-            Debug.Log("Сконфигурировал SceneScope.");
         }
     }
 }

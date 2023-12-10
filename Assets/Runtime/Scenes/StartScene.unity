@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 157329048}
   - component: {fileID: 157329050}
   m_Layer: 0
-  m_Name: UICamera
+  m_Name: WorldUICamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -255,7 +255,7 @@ Camera:
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 32
+    m_Bits: 64
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -816,11 +816,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67e4c292dea431347ba941e3e16460dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &250699473 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3439432308741896727, guid: fd702a0120aeb554e9121ad9e04e6416, type: 3}
-  m_PrefabInstance: {fileID: 2105179407034507355}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &407024255
 GameObject:
   m_ObjectHideFlags: 0
@@ -3610,20 +3605,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1439067721072878077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 250699473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalFit: 2
-  m_VerticalFit: 2
 --- !u!224 &1440892019358157096 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7571869164654069347, guid: 154caafac949b4545bcb678910d19a44, type: 3}
@@ -3760,18 +3741,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InteractionIcon
       objectReference: {fileID: 0}
-    - target: {fileID: 4607762570703156864, guid: 67c71c394b2a64e4bbc89043fcf43b76, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7531233705317094529, guid: 67c71c394b2a64e4bbc89043fcf43b76, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 9182984114749489795}
-    - target: {fileID: 7531233705317094529, guid: 67c71c394b2a64e4bbc89043fcf43b76, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 767808879
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3807,41 +3780,9 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 9182984114749489795}
-    - target: {fileID: 1546286179901301188, guid: fd702a0120aeb554e9121ad9e04e6416, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 767808879
-      objectReference: {fileID: 0}
-    - target: {fileID: 1960912548173847179, guid: fd702a0120aeb554e9121ad9e04e6416, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3762428922276433003, guid: fd702a0120aeb554e9121ad9e04e6416, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 2.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3762428922276433003, guid: fd702a0120aeb554e9121ad9e04e6416, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4614187136891365319, guid: fd702a0120aeb554e9121ad9e04e6416, type: 3}
-      propertyPath: m_CellSize.x
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4614187136891365319, guid: fd702a0120aeb554e9121ad9e04e6416, type: 3}
-      propertyPath: m_CellSize.y
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4614187136891365319, guid: fd702a0120aeb554e9121ad9e04e6416, type: 3}
-      propertyPath: m_ChildAlignment
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 5671903130296633066, guid: fd702a0120aeb554e9121ad9e04e6416, type: 3}
       propertyPath: m_Name
       value: RequirementsIcon
-      objectReference: {fileID: 0}
-    - target: {fileID: 5671903130296633066, guid: fd702a0120aeb554e9121ad9e04e6416, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8913747296585675641, guid: fd702a0120aeb554e9121ad9e04e6416, type: 3}
       propertyPath: m_Pivot.x
@@ -3926,10 +3867,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3439432308741896727, guid: fd702a0120aeb554e9121ad9e04e6416, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1439067721072878077}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd702a0120aeb554e9121ad9e04e6416, type: 3}
 --- !u!114 &2378987917772325238
 MonoBehaviour:
@@ -3949,9 +3887,6 @@ MonoBehaviour:
   _scareCrowMenuPresenter: {fileID: 188077752}
   _storageMenuPresenter: {fileID: 7739790914332309540}
   _freezeScreenEffect: {fileID: 103089858}
-  _playerHeat:
-    _defaultHeatValue: 0
-    _defaultFreezingRate: 0
   _gameWatchPresenter: {fileID: 8356140581545942341}
 --- !u!4 &2500336598024154124
 Transform:
@@ -3961,7 +3896,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1591109580144080037}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0704746, y: 0.8719139, z: -0.46629837, w: -0.13177782}
+  m_LocalRotation: {x: -0.07047462, y: 0.87191385, z: -0.4662984, w: -0.13177785}
   m_LocalPosition: {x: 6.71, y: 9.02, z: 7.55}
   m_LocalScale: {x: 1, y: 1.0135, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4728,7 +4663,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1894165525925910501}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0704746, y: 0.8719139, z: -0.46629837, w: -0.13177782}
+  m_LocalRotation: {x: -0.07047462, y: 0.87191385, z: -0.4662984, w: -0.13177785}
   m_LocalPosition: {x: 6.71, y: 9.02, z: 7.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5226,7 +5161,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 5
+    m_Bits: 55
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

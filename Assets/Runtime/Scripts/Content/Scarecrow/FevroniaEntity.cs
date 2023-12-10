@@ -18,7 +18,6 @@ public sealed class FevroniaEntity : MonoBehaviour, IEntity, IDestructable
         _scarecrowData.UIController = uiController;
         _scarecrowData.WorldCanvasStorage = worldCanvasStorage;
         _scarecrowData.InteractableComp.OnFocusChanged.AddListener(OnFocusChanged);
-        Debug.Log("Сконструировал ShopEntity.");
     }
     public T Get<T>() where T : class
     {

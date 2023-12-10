@@ -21,7 +21,6 @@ public class StorageEntity : MonoBehaviour, IEntity, IDestructable
         _storageData.UIController = uiController;
         _storageData.WorldCanvasStorage = worldCanvasStorage;
         _storageData.InteractableComp.OnFocusChanged.AddListener(OnFocusChanged);
-        Debug.Log("Сконструировал StorageEntity.");
     }
     public T Get<T>() where T : class
     {

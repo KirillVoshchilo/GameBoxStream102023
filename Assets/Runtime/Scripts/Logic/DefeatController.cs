@@ -3,15 +3,13 @@ using VContainer;
 
 public class DefeatController
 {
-    private HeatData _heatData;
+    private readonly HeatData _heatData;
     private readonly LevelTimer _levelTimer;
-    private bool _isEnable;
 
     public bool IsEnable
     {
         set
         {
-            _isEnable = value;
             if (value)
                 _heatData.OnHeatChanged.AddListener(OnHeatChanged);
             else _heatData.OnHeatChanged.RemoveListener(OnHeatChanged);

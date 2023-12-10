@@ -1,6 +1,5 @@
 using App.Logic;
 using Cysharp.Threading.Tasks;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
@@ -26,7 +25,6 @@ namespace App.Content.UI.WorldCanvases
             set
             {
                 _isEnable = value;
-                Debug.Log($"InteractIcon _isEnable={value}");
                 if (value)
                 {
                     OrientProcess()
@@ -56,12 +54,12 @@ namespace App.Content.UI.WorldCanvases
         {
             _canvas.worldCamera = camerasStorage.MainCamera;
             _mainCameraTransform = camerasStorage.MainCamera.transform;
-            Debug.Log("Сконструирована InteractIcon");
         }
 
         public void SetPosition(Vector3 position)
         {
-            _hitSound.Play();
+            if (_hitSound.isActiveAndEnabled)
+                _hitSound.Play();
             transform.position = position;
         }
         public void OpenTip()

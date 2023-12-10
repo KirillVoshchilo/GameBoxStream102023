@@ -58,13 +58,11 @@ namespace App.Content.Field
             {
                 ShowInteractionIcon();
                 EnableInteraction();
-                Debug.Log($"FieldEntity OnFocusChanged {value}.");
             }
             else
             {
                 CloseInteractionIcon();
                 DisableInteraction();
-                Debug.Log($"FieldEntity OnFocusChanged {value}.");
             }
         }
         private void CheckInteractable()

@@ -15,9 +15,9 @@ namespace App.Logic
         [SerializeField] private ScarecrowMenuPresenter _scareCrowMenuPresenter;
         [SerializeField] private StorageMenuPresenter _storageMenuPresenter;
         [SerializeField] private FreezeScreenEffect _freezeScreenEffect;
-        [SerializeField] private HeatData _playerHeat;
         [SerializeField] private GameWatchPresenter _gameWatchPresenter;
 
+        private HeatData _playerHeat;
         private IAppInputSystem _appInputSystem;
         private LevelsController _levelsController;
         private AudioController _audioController;
@@ -152,7 +152,6 @@ namespace App.Logic
         private void OpenPausePanel()
         {
             Cursor.visible = true;
-            Debug.Log("открылась пауза");
             _appInputSystem.InteractionIsEnable = false;
             _appInputSystem.InventoryIsEnable = false;
             _appInputSystem.PlayerMovingIsEnable = false;

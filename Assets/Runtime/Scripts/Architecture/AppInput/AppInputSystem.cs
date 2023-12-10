@@ -75,7 +75,6 @@ namespace App.Architecture.AppInput
             get => _interactionIsEnable;
             set
             {
-                Debug.Log($"_interactionIsEnable {value}");
                 _interactionIsEnable = value;
                 if (!value)
                 {
