@@ -1,10 +1,11 @@
-﻿using App.Architecture.AppData;
-using App.Content.Field;
+﻿using App.Content.Tree;
+using App.Simples;
+using App.Simples.CellsInventory;
 using UnityEngine;
 
 namespace App.Content.Player
 {
-    public class EquipmentViewHandler
+    public sealed class EquipmentViewHandler
     {
         private PlayerData _playerData;
 
@@ -39,15 +40,15 @@ namespace App.Content.Player
         }
         private void StartChoping()
         {
-            if (_playerData.InteractionEntity.Entity is not ResourceSourceEntity)
+            if (_playerData.InteractionEntity.Entity is not TreeEntity)
                 return;
-            Key currentAxe = DefineCurrentAxe();
+            SSOKey currentAxe = DefineCurrentAxe();
             GameObject prefab = _playerData.Configuration.Models.Get(currentAxe);
             GameObject instance = Object.Instantiate(prefab, _playerData.AxeParent);
             _playerData.CurrentAxeModel = instance;
         }
 
-        private Key DefineCurrentAxe()
+        private SSOKey DefineCurrentAxe()
         {
             Cell[] cells = _playerData.PlayerInventory.Cells;
             int count = cells.Length;
@@ -55,7 +56,7 @@ namespace App.Content.Player
             {
                 if (cells[i] == null)
                     continue;
-                Key category = _playerData.Configuration.EquipmentConfigurations.GetUpperCategory(cells[i].Key);
+                SSOKey category = _playerData.Configuration.EquipmentConfigurations.GetUpperCategory(cells[i].Key);
                 if (category == null)
                     continue;
                 if (category == _playerData.AxeCategory)

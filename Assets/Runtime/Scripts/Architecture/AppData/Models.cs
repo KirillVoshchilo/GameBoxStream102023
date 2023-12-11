@@ -1,14 +1,15 @@
-﻿using System;
+﻿using App.Simples;
+using System;
 using UnityEngine;
 
 namespace App.Architecture.AppData
 {
     [Serializable]
-    public class Models
+    public sealed class Models
     {
         [SerializeField] private Model[] _values;
 
-        public GameObject Get(Key key)
+        public GameObject Get(SSOKey key)
         {
             foreach (Model model in _values)
             {

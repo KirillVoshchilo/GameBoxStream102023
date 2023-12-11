@@ -1,6 +1,7 @@
 using App.Architecture.AppData;
 using App.Content;
 using App.Content.Audio;
+using App.Content.Bonfire;
 using App.Content.Player;
 using App.Logic;
 using UnityEngine;
@@ -17,17 +18,17 @@ namespace App.Architecture.Scopes
         [SerializeField] private UIController _uiController;
         [SerializeField] private Configuration _configuration;
         [SerializeField] private BonfireFactory _bonfireFactory;
-        [SerializeField] private FallingSnow _fallingSnowController;
-        [SerializeField] private AudioStorage _audioController;
+        [SerializeField] private FallingSnow _fallingSnow;
+        [SerializeField] private AudioStorage _audioStorage;
 
         protected override void Configure(IContainerBuilder builder)
         {
             _configuration.Construct();
             builder.RegisterComponent(_configuration);
-            builder.RegisterComponent(_audioController);
+            builder.RegisterComponent(_audioStorage);
             builder.RegisterComponent(_worldCanvasStorage);
             builder.RegisterComponent(_playerEntity);
-            builder.RegisterComponent(_fallingSnowController);
+            builder.RegisterComponent(_fallingSnow);
             builder.RegisterComponent(_uiController);
             builder.RegisterComponent(_camerasStorage);
             builder.RegisterComponent(_bonfireFactory);

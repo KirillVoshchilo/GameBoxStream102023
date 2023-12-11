@@ -1,45 +1,48 @@
-﻿using App.Architecture.AppData;
-using App.Content;
+﻿using App.Architecture;
+using App.Architecture.AppData;
 using App.Logic;
 using UnityEngine;
 using VContainer;
 
-public class ScarecrowEntity : MonoBehaviour, IEntity, IDestructable
+namespace App.Content.Scarecrow
 {
-    [SerializeField] private ScarecrowData _scarecrowData;
-
-    private VillageTrustSystem _villageTrustSystem;
-    private LevelsController _levelsController;
-
-    [Inject]
-    public void Construct(VillageTrustSystem villageTrustSystem,
-        LevelsController levelsController)
+    public sealed class ScarecrowEntity : MonoBehaviour, IEntity, IDestructable
     {
-        _levelsController = levelsController;
-        levelsController.OnLevelStarted.AddListener(OnLevelStarted);
-        _villageTrustSystem = villageTrustSystem;
-    }
-    public T Get<T>() where T : class
-    {
-        return null;
-    }
+        [SerializeField] private ScarecrowData _scarecrowData;
 
-    public void Destruct() { }
+        private VillageTrustSystem _villageTrustSystem;
+        private LevelsController _levelsController;
 
-
-    private void OnLevelStarted()
-    {
-        if (_levelsController.CurrentLevel == 0)
+        [Inject]
+        public void Construct(VillageTrustSystem villageTrustSystem,
+            LevelsController levelsController)
         {
-            _scarecrowData.FirstLevelModel.SetActive(false);
-            _scarecrowData.SecondLevelModel.SetActive(false);
-            _scarecrowData.ThirdLevelModel.SetActive(false);
+            _levelsController = levelsController;
+            levelsController.OnLevelStarted.AddListener(OnLevelStarted);
+            _villageTrustSystem = villageTrustSystem;
         }
-        if (_villageTrustSystem.Trust >= _scarecrowData.FirstLevelTrust)
-            _scarecrowData.FirstLevelModel.SetActive(true);
-        if (_villageTrustSystem.Trust >= _scarecrowData.SecondLevelTrust)
-            _scarecrowData.SecondLevelModel.SetActive(true);
-        if (_villageTrustSystem.Trust >= _scarecrowData.ThirdLevelTrust)
-            _scarecrowData.ThirdLevelModel.SetActive(true);
+        public T Get<T>() where T : class
+        {
+            return null;
+        }
+
+        public void Destruct() { }
+
+
+        private void OnLevelStarted()
+        {
+            if (_levelsController.CurrentLevel == 0)
+            {
+                _scarecrowData.FirstLevelModel.SetActive(false);
+                _scarecrowData.SecondLevelModel.SetActive(false);
+                _scarecrowData.ThirdLevelModel.SetActive(false);
+            }
+            if (_villageTrustSystem.Trust >= _scarecrowData.FirstLevelTrust)
+                _scarecrowData.FirstLevelModel.SetActive(true);
+            if (_villageTrustSystem.Trust >= _scarecrowData.SecondLevelTrust)
+                _scarecrowData.SecondLevelModel.SetActive(true);
+            if (_villageTrustSystem.Trust >= _scarecrowData.ThirdLevelTrust)
+                _scarecrowData.ThirdLevelModel.SetActive(true);
+        }
     }
 }

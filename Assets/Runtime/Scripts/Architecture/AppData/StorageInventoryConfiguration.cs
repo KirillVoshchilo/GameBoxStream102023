@@ -1,15 +1,16 @@
-﻿using System;
+﻿using App.Simples;
+using System;
 using UnityEngine;
 
 namespace App.Architecture.AppData
 {
     [Serializable]
-    public class StorageInventoryConfiguration
+    public sealed class StorageInventoryConfiguration
     {
         [SerializeField] private StorageItemConfiguration[] _items;
 
         public StorageItemConfiguration[] Items => _items;
-        public StorageItemConfiguration this[Key key]
+        public StorageItemConfiguration this[SSOKey key]
         {
             get
             {

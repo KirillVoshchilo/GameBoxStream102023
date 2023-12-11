@@ -1,5 +1,8 @@
 using App.Architecture.AppData;
-using App.Content.Field;
+using App.Content.Helicopter;
+using App.Content.SnowSquare;
+using App.Content.Storage;
+using App.Content.Tree;
 using App.Logic;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,10 +17,10 @@ namespace App.Content
         [SerializeField] private GameObject _snowContainer;
         [SerializeField] private HelicopterEntity _helicopterEntity;
         [SerializeField] private GameObject _treesContriner;
-        [SerializeField] private StorageEntity _storageEntity;
+        [SerializeField] private GrigoryEntity _storageEntity;
 
         private readonly HashSet<IDestructable> _destructables = new();
-        private ResourceSourceEntity[] _resourceSourceEntities;
+        private TreeEntity[] _resourceSourceEntities;
 
         public Transform[] PlayerSpawnPosition => _playerSpawnPosition;
         public HelicopterEntity HelicopterEntity => _helicopterEntity;
@@ -27,7 +30,7 @@ namespace App.Content
         public void ResetAll()
         {
             _storageEntity.ResetInventory();
-            foreach (ResourceSourceEntity entity in _resourceSourceEntities)
+            foreach (TreeEntity entity in _resourceSourceEntities)
                 entity.Recover();
         }
         public void Destruct()
@@ -40,7 +43,7 @@ namespace App.Content
         {
             AllSnowController allSnowController = lifeTimeScope.Container.Resolve(typeof(AllSnowController)) as AllSnowController;
             allSnowController.SnowSquareEntities = _snowContainer.GetComponentsInChildren<SnowSquareEntity>();
-            _resourceSourceEntities = _treesContriner.GetComponentsInChildren<ResourceSourceEntity>();
+            _resourceSourceEntities = _treesContriner.GetComponentsInChildren<TreeEntity>();
             if (_autoInjectObjects == null)
                 return;
             foreach (GameObject target in _autoInjectObjects)

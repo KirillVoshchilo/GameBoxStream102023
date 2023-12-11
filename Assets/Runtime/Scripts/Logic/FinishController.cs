@@ -1,6 +1,8 @@
-﻿using App.Architecture.AppData;
+﻿using App.Architecture;
+using App.Architecture.AppData;
 using App.Architecture.AppInput;
 using App.Content.Audio;
+using SimpleComponents.UI;
 using UnityEngine;
 using VContainer;
 
@@ -14,7 +16,7 @@ namespace App.Logic
         private readonly IAppInputSystem _appInputSystem;
         private readonly UIController _uiController;
         private readonly VillageTrustSystem _villageTrustSystem;
-        private SlideShow _currentCutScene;
+        private SCSlideShow _currentCutScene;
 
         [Inject]
         public FinishController(LevelsController levelsController,
@@ -37,7 +39,7 @@ namespace App.Logic
         public void EscapeFinish()
         {
             int lastLevel = _configuration.TrustLevels.Length - 1;
-            if (_villageTrustSystem.Trust >= _configuration.TrustLevels[lastLevel].Trust)
+            if (_villageTrustSystem.Trust >= _configuration.TrustLevels[lastLevel])
             {
                 ShowCutScene(_configuration.FinalCutScenes.GoodEnd);
                 _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.FinalMusic_3);
@@ -52,10 +54,10 @@ namespace App.Logic
         public void EndTimeFinish()
         {
             int lastLevel = _configuration.TrustLevels.Length - 1;
-            if (_villageTrustSystem.Trust >= _configuration.TrustLevels[lastLevel].Trust)
+            if (_villageTrustSystem.Trust >= _configuration.TrustLevels[lastLevel])
             {
                 _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.FinalMusic_2);
-                SlideShow slideShow = ShowCutScene(_configuration.FinalCutScenes.AlmostBadEnd);
+                SCSlideShow slideShow = ShowCutScene(_configuration.FinalCutScenes.AlmostBadEnd);
                 slideShow.OnSlidShowEnded.AddListener(Application.Quit);
             }
             else
@@ -66,7 +68,7 @@ namespace App.Logic
             _levelsController.ResetLevelController();
         }
 
-        private SlideShow ShowCutScene(SlideShow slideShow)
+        private SCSlideShow ShowCutScene(SCSlideShow slideShow)
         {
             _currentCutScene = Object.Instantiate(slideShow);
             _currentCutScene.IsLoop = false;

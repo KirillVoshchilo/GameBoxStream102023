@@ -1,19 +1,19 @@
-﻿using System;
+﻿using App.Simples;
+using System;
 using System.Linq;
 using UnityEngine;
 
 namespace App.Architecture.AppData
 {
     [Serializable]
-    public class ItemCategory
+    public sealed class ItemCategory
     {
-        [SerializeField] private Key _category;
-        [SerializeField] private Key[] _keys;
+        [SerializeField] private SSOKey _category;
+        [SerializeField] private SSOKey[] _keys;
 
-        public Key Category => _category;
-        public Key[] Keys => _keys;
+        public SSOKey Category => _category;
 
-        public bool HasKey(Key key)
+        public bool HasKey(SSOKey key)
             => _keys.Contains(key);
     }
 }

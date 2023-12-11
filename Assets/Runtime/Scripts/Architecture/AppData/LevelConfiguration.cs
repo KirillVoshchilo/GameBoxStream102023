@@ -1,21 +1,22 @@
-﻿using System;
+﻿using SimpleComponents.UI;
+using System;
 using UnityEngine;
 
 namespace App.Architecture.AppData
 {
     [Serializable]
-    public class LevelConfiguration
+    public sealed class LevelConfiguration
     {
-        [SerializeField] private SlideShow _storageDialogs;
-        [SerializeField] private SlideShow _storageDialogeWithTip;
-        [SerializeField] private SlideShow _scarecrowDialogs;
-        [SerializeField] private SlideShow _cutScene;
+        [SerializeField] private SCSlideShow _storageDialogs;
+        [SerializeField] private SCSlideShow _storageDialogeWithTip;
+        [SerializeField] private SCSlideShow _scarecrowDialogs;
+        [SerializeField] private SCSlideShow _cutScene;
         [SerializeField] private float _dayTimeRange;
 
-        public SlideShow CutScene => _cutScene;
-        public SlideShow ScarecrowDialogs => _scarecrowDialogs;
-        public SlideShow StorageDialogs => _storageDialogs;
+        public SCSlideShow CutScene => _cutScene;
+        public SCSlideShow ScarecrowDialogs => _scarecrowDialogs;
+        public SCSlideShow StorageDialogs => _storageDialogs;
         public float DayTimeRange => _dayTimeRange;
-        public SlideShow StorageDialogeWithTip => _storageDialogeWithTip;
+        public SCSlideShow StorageDialogeWithTip => _storageDialogeWithTip;
     }
 }

@@ -1,16 +1,17 @@
-﻿using System;
+﻿using App.Simples;
+using System;
 using UnityEngine;
 
 namespace App.Architecture.AppData
 {
     [Serializable]
-    public class StorageItemConfiguration
+    public sealed class StorageItemConfiguration
     {
-        [SerializeField] private Key _name;
+        [SerializeField] private SSOKey _name;
         [SerializeField] private int _count;
         [SerializeField] private int _trustRequirement;
 
-        public Key Key => _name;
+        public SSOKey Key => _name;
         public int Count => _count;
         public int TrustRequirement => _trustRequirement;
     }

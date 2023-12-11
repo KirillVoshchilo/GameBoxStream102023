@@ -1,3 +1,5 @@
+using App.Content.SnowSquare;
+
 namespace App.Logic
 {
     public sealed class AllSnowController

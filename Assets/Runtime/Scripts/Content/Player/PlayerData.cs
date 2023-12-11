@@ -1,6 +1,10 @@
 using App.Architecture.AppData;
 using App.Architecture.AppInput;
 using App.Components;
+using App.Content.Bonfire;
+using App.Content.SnowSquare;
+using App.Simples;
+using App.Simples.CellsInventory;
 using System;
 using UnityEngine;
 
@@ -12,14 +16,14 @@ namespace App.Content.Player
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Transform _transform;
         [SerializeField] private float _defaultMovingSpeed;
-        [SerializeField] private TriggerComponent _triggerComponent;
+        [SerializeField] private SCTriggerComponent _triggerComponent;
         [SerializeField] private HeatData _heatData;
         [SerializeField] private Transform _bonfireTargetPosition;
         [SerializeField] private float _buildCheckcolliderSize;
         [SerializeField] private InteractionRequirementsComp _bonfireBuildRequirements;
         [SerializeField] private Animator _animator;
         [SerializeField] private Transform _axeParent;
-        [SerializeField] private Key _axeCategory;
+        [SerializeField] private SSOKey _axeCategory;
         [SerializeField] private PlayerAnimationsEvents _playerAnimationsEvents;
         [SerializeField] private AudioSource _axeHitSound;
         [SerializeField] private AudioSource _stepSound;
@@ -41,7 +45,7 @@ namespace App.Content.Player
         public float DefaultMovingSpeed => _defaultMovingSpeed;
         public Rigidbody Rigidbody => _rigidbody;
         public Transform Transform => _transform;
-        public TriggerComponent TriggerComponent => _triggerComponent;
+        public SCTriggerComponent TriggerComponent => _triggerComponent;
         public IAppInputSystem AppInputSystem { get => _appInputSystem; set => _appInputSystem = value; }
         public Inventory PlayerInventory { get => _playerInventory; set => _playerInventory = value; }
         public bool IsEnable { get => _isEnable; set => _isEnable = value; }
@@ -55,7 +59,7 @@ namespace App.Content.Player
         public Transform AxeParent => _axeParent;
         public GameObject CurrentAxeModel { get => _currentAxeModel; set => _currentAxeModel = value; }
         public Configuration Configuration { get => _configuration; set => _configuration = value; }
-        public Key AxeCategory => _axeCategory;
+        public SSOKey AxeCategory => _axeCategory;
         public PlayerAnimationsEvents PlayerAnimationsEvents => _playerAnimationsEvents;
         public bool CanBuildBonfire
         {
@@ -87,9 +91,7 @@ namespace App.Content.Player
             foreach (Alternatives alt in _bonfireBuildRequirements.Alternatives)
             {
                 if (CheckAlternative(alt))
-                {
                     return true;
-                }
             }
             return false;
         }

@@ -11,8 +11,6 @@ namespace App.Architecture.AppInput
         private readonly SEvent<float> _onInteractionPercantagechanged = new();
         private readonly SEvent _onMovingStarted = new();
         private readonly SEvent _onMovingStoped = new();
-        private readonly SEvent _onLookingStarted = new();
-        private readonly SEvent _onLookingStoped = new();
         private readonly SEvent _onInteractionStarted = new();
         private readonly SEvent _onInteractionPerformed = new();
         private readonly SEvent _onInteractionCanceled = new();
@@ -23,9 +21,7 @@ namespace App.Architecture.AppInput
         private readonly SEvent _onGoNext = new();
         private readonly SEvent<Vector2> _onMovedInInventory = new();
         private Vector2 _moveDirection;
-        private Vector2 _lookDirection;
         private bool _isMoving;
-        private bool _isLooking;
         private bool _escapeIsEnable = false;
         private bool _inventoryIsEnable = false;
         private bool _playerMovingIsEnable = false;
@@ -135,20 +131,6 @@ namespace App.Architecture.AppInput
             {
                 _isInteracting = false;
                 _onInteractionPerformed.Invoke();
-            }
-        }
-        public void OnLook(InputAction.CallbackContext context)
-        {
-            _lookDirection = context.ReadValue<Vector2>();
-            if (_lookDirection != Vector2.zero && !_isMoving)
-            {
-                _isLooking = true;
-                _onLookingStarted.Invoke();
-            }
-            if (_isLooking && _lookDirection == Vector2.zero)
-            {
-                _isLooking = false;
-                _onLookingStoped.Invoke();
             }
         }
         public void OnEsc(InputAction.CallbackContext context)

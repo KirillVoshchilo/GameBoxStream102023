@@ -1,8 +1,9 @@
 using App.Architecture.AppInput;
+using App.Content;
 using App.Content.Audio;
 using App.Content.Player;
 using App.Content.UI;
-using App.Content.UI.InventoryUI;
+using App.Simples.CellsInventory;
 using UnityEngine;
 using VContainer;
 

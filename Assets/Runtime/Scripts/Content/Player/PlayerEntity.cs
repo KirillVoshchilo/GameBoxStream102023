@@ -1,6 +1,8 @@
 ﻿using App.Architecture.AppData;
 using App.Architecture.AppInput;
-using App.Content.Field;
+using App.Content.Bonfire;
+using App.Content.Tree;
+using App.Simples.CellsInventory;
 using UnityEngine;
 using VContainer;
 
@@ -72,9 +74,7 @@ namespace App.Content.Player
                 _playerData.CoughSound.Play();
             }
             if (_playerData.HasCoughed && obj > _playerData.HeatData.DefaultHeatValue * 0.2)
-            {
                 _playerData.HasCoughed = false;
-            }
         }
 
         public T Get<T>() where T : class
@@ -98,7 +98,7 @@ namespace App.Content.Player
                 {
                     _moveHandler.StopMove();
                 }
-                if (_playerAnimatorHandler.IsCHoping)
+                if (_playerAnimatorHandler.IsChoping)
                     _playerAnimatorHandler.StopChoping();
                 _playerData.AppInputSystem.PlayerMovingIsEnable = true;
                 _playerData.AppInputSystem.InteractionIsEnable = true;
@@ -131,7 +131,7 @@ namespace App.Content.Player
         {
             if (interactableComp == null)
                 return false;
-            if (interactableComp.Entity is ResourceSourceEntity)
+            if (interactableComp.Entity is TreeEntity)
             {
                 InteractionRequirementsComp interactionRequirementsComp = interactableComp.Entity.Get<InteractionRequirementsComp>();
                 if (!CheckInteractable(interactionRequirementsComp))

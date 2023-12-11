@@ -1,9 +1,10 @@
+using App.Simples.CellsInventory;
 using UnityEngine;
 
 namespace App.Architecture.AppData
 {
     [CreateAssetMenu]
-    public class Configuration : ScriptableObject
+    public sealed class Configuration : ScriptableObject
     {
         [SerializeField] private StartInventoryConfiguration _startInventoryConfiguration;
         [SerializeField] private StorageInventoryConfiguration _defaultStorageItems;
@@ -19,9 +20,9 @@ namespace App.Architecture.AppData
         public StartInventoryConfiguration StartInventoryConfiguration => _startInventoryConfiguration;
         public IconsConfiguration IconsConfiguration => _iconsConfiguration;
         public TrustLevels TrustLevels => _trustLevels;
-        public InventoryConfigurations PlayerInventoryConfigurations  => _playerInventoryConfigurations;
-        public EquipmentConfigurations EquipmentConfigurations => _equipmentConfigurations; 
-        public StorageInventoryConfiguration DefauleStorageItems  => _defaultStorageItems;
+        public InventoryConfigurations PlayerInventoryConfigurations => _playerInventoryConfigurations;
+        public EquipmentConfigurations EquipmentConfigurations => _equipmentConfigurations;
+        public StorageInventoryConfiguration DefauleStorageItems => _defaultStorageItems;
         public InventoryConfigurations StorageInventoryConfigurations => _storageInventoryConfigurations;
         public LevelsConfigurations LevelsConfigurations => _levelsConfigurations;
         public FinalCutScenes FinalCutScenes => _finalCutScenes;

@@ -1,4 +1,4 @@
-using App.Content.UI.WorldCanvases;
+using App.Content.UI;
 using UnityEngine;
 
 namespace App.Content

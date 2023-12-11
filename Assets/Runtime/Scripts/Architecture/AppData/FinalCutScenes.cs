@@ -1,19 +1,20 @@
-﻿using System;
+﻿using SimpleComponents.UI;
+using System;
 using UnityEngine;
 
 namespace App.Architecture.AppData
 {
     [Serializable]
-    public class FinalCutScenes
+    public sealed class FinalCutScenes
     {
-        [SerializeField] private SlideShow _goodEnd;
-        [SerializeField] private SlideShow _almostBadEnd;
-        [SerializeField] private SlideShow _badEnd;
-        [SerializeField] private SlideShow _escapeFinal;
+        [SerializeField] private SCSlideShow _goodEnd;
+        [SerializeField] private SCSlideShow _almostBadEnd;
+        [SerializeField] private SCSlideShow _badEnd;
+        [SerializeField] private SCSlideShow _escapeFinal;
 
-        public SlideShow GoodEnd => _goodEnd;
-        public SlideShow AlmostBadEnd => _almostBadEnd;
-        public SlideShow BadEnd => _badEnd;
-        public SlideShow EscapeFinal => _escapeFinal; 
+        public SCSlideShow GoodEnd => _goodEnd;
+        public SCSlideShow AlmostBadEnd => _almostBadEnd;
+        public SCSlideShow BadEnd => _badEnd;
+        public SCSlideShow EscapeFinal => _escapeFinal;
     }
 }

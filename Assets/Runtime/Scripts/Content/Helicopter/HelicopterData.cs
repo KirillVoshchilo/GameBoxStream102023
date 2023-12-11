@@ -3,13 +3,16 @@ using App.Logic;
 using System;
 using UnityEngine;
 
-[Serializable]
-public class HelicopterData 
+namespace App.Content.Helicopter
 {
-    [SerializeField] private TriggerComponent _triggerComponent;
+    [Serializable]
+    public class HelicopterData
+    {
+        [SerializeField] private SCTriggerComponent _triggerComponent;
 
-    private FinishController _finishController; 
+        private FinishController _finishController;
 
-    public TriggerComponent TriggerComponent => _triggerComponent;
-    public FinishController FinishController { get => _finishController; set => _finishController = value; }
+        public SCTriggerComponent TriggerComponent => _triggerComponent;
+        public FinishController FinishController { get => _finishController; set => _finishController = value; }
+    }
 }

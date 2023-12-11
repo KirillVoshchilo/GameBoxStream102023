@@ -2,7 +2,7 @@
 
 namespace App.Content.Player
 {
-    public class BonfireBuildHandler
+    public sealed class BonfireBuildHandler
     {
         private PlayerData _playerData;
 

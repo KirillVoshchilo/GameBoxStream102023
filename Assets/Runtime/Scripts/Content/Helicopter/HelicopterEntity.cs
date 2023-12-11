@@ -3,28 +3,31 @@ using App.Logic;
 using UnityEngine;
 using VContainer;
 
-public class HelicopterEntity : MonoBehaviour
+namespace App.Content.Helicopter
 {
-    [SerializeField] private HelicopterData _helicopterData;
-
-    private bool _isEnable;
-
-    public bool IsEnable
+    public sealed class HelicopterEntity : MonoBehaviour
     {
-        set => _isEnable = value;
-    }
-    [Inject]
-    public void Construct(FinishController finishController)
-    {
-        _helicopterData.FinishController = finishController;
-        _helicopterData.TriggerComponent.OnEnter.AddListener(OnTrigger);
-    }
+        [SerializeField] private HelicopterData _helicopterData;
 
-    private void OnTrigger(Collider other)
-    {
-        if (!_isEnable)
-            return;
-        if (other.TryGetComponent(out PlayerEntity playerEntity))
-            _helicopterData.FinishController.EscapeFinish();
+        private bool _isEnable;
+
+        public bool IsEnable
+        {
+            set => _isEnable = value;
+        }
+        [Inject]
+        public void Construct(FinishController finishController)
+        {
+            _helicopterData.FinishController = finishController;
+            _helicopterData.TriggerComponent.OnEnter.AddListener(OnTrigger);
+        }
+
+        private void OnTrigger(Collider other)
+        {
+            if (!_isEnable)
+                return;
+            if (other.TryGetComponent(out PlayerEntity playerEntity))
+                _helicopterData.FinishController.EscapeFinish();
+        }
     }
 }

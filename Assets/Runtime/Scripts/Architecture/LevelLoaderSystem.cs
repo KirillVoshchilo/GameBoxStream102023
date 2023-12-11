@@ -10,9 +10,6 @@ namespace App.Architecture
 {
     public sealed class LevelLoaderSystem
     {
-        public const string MAIN_SCENE = "StartScene";
-        public const string FIRST_LEVEL = "FIrstScene";
-
         private readonly LifetimeScope _container;
         private LevelStorage _currentLoadedLevel;
 

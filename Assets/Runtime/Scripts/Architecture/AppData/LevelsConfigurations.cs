@@ -4,7 +4,7 @@ using UnityEngine;
 namespace App.Architecture.AppData
 {
     [Serializable]
-    public class LevelsConfigurations
+    public sealed class LevelsConfigurations
     {
         [SerializeField] private LevelConfiguration[] _levelConfiguration;
 

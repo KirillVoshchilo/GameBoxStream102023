@@ -3,9 +3,12 @@ using App.Architecture.AppData;
 using App.Architecture.AppInput;
 using App.Content;
 using App.Content.Audio;
+using App.Content.Bonfire;
 using App.Content.Player;
 using App.Simples;
+using App.Simples.CellsInventory;
 using Cysharp.Threading.Tasks;
+using SimpleComponents.UI;
 using UnityEngine;
 using VContainer;
 
@@ -28,7 +31,7 @@ namespace App.Logic
         private bool _isLevelLoaded;
         private LevelStorage _levelStorage;
         private bool _isGameStarted;
-        private SlideShow _currentCutScene;
+        private SCSlideShow _currentCutScene;
         private LevelConfiguration _currentLevelConfiguration;
         private readonly LevelTimer _levelTimer;
         private readonly AudioStorage _audioController;
@@ -65,7 +68,7 @@ namespace App.Logic
             _levelLoader = levelLoader;
             _defeatController = defeatController;
             _playerInventory = playerEntity.Get<Inventory>();
-            _levelLoader.LoadScene(LevelLoaderSystem.FIRST_LEVEL, OnCompleteLoading)
+            _levelLoader.LoadScene(ScenesNames.FIRST_LEVEL, OnCompleteLoading)
                 .Forget();
             _levelTimer = levelTimer;
             _allSnowController = allSnowController;
@@ -111,7 +114,7 @@ namespace App.Logic
             int count = _configuration.StartInventoryConfiguration.Items.Length;
             for (int i = 0; i < count; i++)
             {
-                Key key = _configuration.StartInventoryConfiguration.Items[i].Key;
+                SSOKey key = _configuration.StartInventoryConfiguration.Items[i].Key;
                 int quantity = _configuration.StartInventoryConfiguration.Items[i].Count;
                 _playerInventory.AddItem(key, quantity);
             }
@@ -126,7 +129,7 @@ namespace App.Logic
                 SetInitialInventory();
             }
         }
-        private void ShowCutScene(SlideShow slideShow)
+        private void ShowCutScene(SCSlideShow slideShow)
         {
             _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.CutSceneMusic);
             _currentCutScene = Object.Instantiate(slideShow);
@@ -223,7 +226,7 @@ namespace App.Logic
                 return;
             }
             float currentTrust = _villageTrustSystem.Trust;
-            float targetTrust = _configuration.TrustLevels[_currentLevel - 1].Trust;
+            float targetTrust = _configuration.TrustLevels[_currentLevel - 1];
             if (currentTrust >= targetTrust)
                 _uiController.StorageMenuPresenter.Dialoge = _currentLevelConfiguration.StorageDialogeWithTip;
             else _uiController.StorageMenuPresenter.Dialoge = _currentLevelConfiguration.StorageDialogs;
