@@ -1,6 +1,8 @@
 ﻿using App.Simples;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace App.Architecture.AppData
 {
@@ -9,14 +11,20 @@ namespace App.Architecture.AppData
     {
         [SerializeField] private Model[] _values;
 
-        public GameObject Get(SSOKey key)
+        private Dictionary<SSOKey, Model> _modelsDictionary;
+
+        public GameObject this[SSOKey key]
         {
-            foreach (Model model in _values)
+            get
             {
-                if (model.Key == key)
-                    return model.Mesh;
+                if (_modelsDictionary == null)
+                {
+                    _modelsDictionary = new Dictionary<SSOKey, Model>();
+                    foreach (Model model in _values)
+                        _modelsDictionary.Add(model.Key, model);
+                }
+                return _modelsDictionary[key].Mesh;
             }
-            return null;
         }
     }
 }

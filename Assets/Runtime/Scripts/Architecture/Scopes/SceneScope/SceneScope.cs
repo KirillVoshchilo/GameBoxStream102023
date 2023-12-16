@@ -23,7 +23,6 @@ namespace App.Architecture.Scopes
 
         protected override void Configure(IContainerBuilder builder)
         {
-            _configuration.Construct();
             builder.RegisterComponent(_configuration);
             builder.RegisterComponent(_audioStorage);
             builder.RegisterComponent(_worldCanvasStorage);

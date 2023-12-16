@@ -43,7 +43,7 @@ namespace App.Content.Player
             if (_playerData.InteractionEntity.Entity is not TreeEntity)
                 return;
             SSOKey currentAxe = DefineCurrentAxe();
-            GameObject prefab = _playerData.Configuration.Models.Get(currentAxe);
+            GameObject prefab = _playerData.Configuration.Models[currentAxe];
             GameObject instance = Object.Instantiate(prefab, _playerData.AxeParent);
             _playerData.CurrentAxeModel = instance;
         }

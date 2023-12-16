@@ -28,7 +28,5 @@ namespace App.Architecture.AppData
         public FinalCutScenes FinalCutScenes => _finalCutScenes;
         public Models Models => _models;
 
-        public void Construct()
-            => _iconsConfiguration.Construct();
     }
 }

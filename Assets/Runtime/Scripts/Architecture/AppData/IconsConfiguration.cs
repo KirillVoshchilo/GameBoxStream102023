@@ -10,15 +10,20 @@ namespace App.Architecture.AppData
     {
         [SerializeField] private Icon[] _icons;
 
-        private readonly Dictionary<SSOKey, Icon> _iconsDictionary = new();
+        private Dictionary<SSOKey, Icon> _iconsDictionary;
 
         public Sprite this[SSOKey value]
-            => _iconsDictionary[value].Value;
-
-        public void Construct()
         {
-            foreach (Icon icon in _icons)
-                _iconsDictionary.Add(icon.Name, icon);
+            get
+            {
+                if (_iconsDictionary == null)
+                {
+                    _iconsDictionary = new Dictionary<SSOKey, Icon>();
+                    foreach (Icon icon in _icons)
+                        _iconsDictionary.Add(icon.Name, icon);
+                }
+                return _iconsDictionary[value].Value;
+            }
         }
     }
 }
