@@ -15,7 +15,7 @@ using VContainer;
 
 namespace App.Content.UI
 {
-    public class StorageMenuPresenter : MonoBehaviour
+    public sealed class GrigoryMenuPresenter : MonoBehaviour
     {
         [SerializeField] private CellPresenter[] _storageCells;
         [SerializeField] private CellPresenter[] _inventoryCells;
@@ -92,12 +92,8 @@ namespace App.Content.UI
             _iconsConfiguration = configurations.IconsConfiguration;
             _storageInventoryConfiguration = configurations.DefauleStorageItems;
         }
-        public void Clear()
-        {
-            int count = _storageCells.Length;
-            for (int i = 0; i < count; i++)
-                _storageCells[i].Clear();
-        }
+        public void SetInventory(Inventory inventory)
+            => _storageInventory = inventory;
 
         private void OnInventorySelect()
         {
@@ -107,11 +103,9 @@ namespace App.Content.UI
                 return;
             if (!cellPresenter.IsInteractable)
                 return;
-            int cellIndex = _selectionPosition.y * 3 + _selectionPosition.x;
             int maxQuantityInPlayerInventory = _playerInventoryConfigurations.GetCountInCell(cell.Key);
             int emptySpace = _playerInventory.CheckSpaceInInventory(cell.Key);
-            int toAdd = 0;
-            // логику инвентаря надо адаптировать под работу с категориями
+            int toAdd;
             if (emptySpace > maxQuantityInPlayerInventory)
                 toAdd = maxQuantityInPlayerInventory;
             else toAdd = emptySpace;
@@ -218,7 +212,5 @@ namespace App.Content.UI
                 else _storageCells[i].Clear();
             }
         }
-        public void SetInventory(Inventory inventory) 
-            => _storageInventory = inventory;
     }
 }

@@ -6,7 +6,7 @@ using App.Simples.CellsInventory;
 using System;
 using UnityEngine;
 
-namespace App.Content.Storage
+namespace App.Content.Grigory
 {
     [Serializable]
     public sealed class GrigoryData

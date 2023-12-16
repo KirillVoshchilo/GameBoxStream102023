@@ -50,18 +50,12 @@ namespace App.Content.UI
             _continueButton.onClick.AddListener(OnContinueClicked);
         }
         public void CloseTIpsPanel()
-        {
-            _tipsPanel.SetActive(false);
-        }
+            => _tipsPanel.SetActive(false);
 
         private void OnOpenTipsClicked()
-        {
-            _tipsPanel.SetActive(true);
-        }
+            => _tipsPanel.SetActive(true);
         private void OnCloseTipsClicked()
-        {
-            _tipsPanel.SetActive(false);
-        }
+            => _tipsPanel.SetActive(false);
 
         private void OnContinueClicked()
         {

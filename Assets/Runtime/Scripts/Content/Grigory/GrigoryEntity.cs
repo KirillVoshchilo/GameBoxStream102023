@@ -6,7 +6,7 @@ using App.Simples.CellsInventory;
 using UnityEngine;
 using VContainer;
 
-namespace App.Content.Storage
+namespace App.Content.Grigory
 {
     public class GrigoryEntity : MonoBehaviour, IEntity, IDestructable
     {

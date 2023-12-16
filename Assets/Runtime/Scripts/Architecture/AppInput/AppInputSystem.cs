@@ -22,14 +22,14 @@ namespace App.Architecture.AppInput
         private readonly SEvent<Vector2> _onMovedInInventory = new();
         private Vector2 _moveDirection;
         private bool _isMoving;
+        private bool _isInteracting;
+        private float _interactionTime;
         private bool _escapeIsEnable = false;
         private bool _inventoryIsEnable = false;
         private bool _playerMovingIsEnable = false;
         private bool _isGoNextEnable = false;
         private bool _inventoryMoveIsEnable = false;
         private bool _interactionIsEnable = false;
-        private float _interactionTime;
-        private bool _isInteracting;
 
         public Vector2 MoveDirection => _moveDirection;
         public bool IsMoving => _isMoving;

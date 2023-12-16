@@ -14,8 +14,8 @@ namespace App.Logic
         [SerializeField] private InventoryPresenter _inventoryPresenter;
         [SerializeField] private MainMenuPresenter _mainMenuPresenter;
         [SerializeField] private PauseMenuPresenter _pauseMenuPresenter;
-        [SerializeField] private ScarecrowMenuPresenter _scareCrowMenuPresenter;
-        [SerializeField] private StorageMenuPresenter _storageMenuPresenter;
+        [SerializeField] private FevroniaMenuPresenter _scareCrowMenuPresenter;
+        [SerializeField] private GrigoryMenuPresenter _storageMenuPresenter;
         [SerializeField] private FreezeScreenEffect _freezeScreenEffect;
         [SerializeField] private GameWatchPresenter _gameWatchPresenter;
 
@@ -24,8 +24,8 @@ namespace App.Logic
         private LevelsController _levelsController;
         private AudioStorage _audioController;
 
-        public ScarecrowMenuPresenter ScareCrowMenuPresenter => _scareCrowMenuPresenter;
-        public StorageMenuPresenter StorageMenuPresenter => _storageMenuPresenter;
+        public FevroniaMenuPresenter ScareCrowMenuPresenter => _scareCrowMenuPresenter;
+        public GrigoryMenuPresenter StorageMenuPresenter => _storageMenuPresenter;
 
         [Inject]
         public void Construct(IAppInputSystem appInputSystem,

@@ -1,5 +1,4 @@
 ﻿using App.Components;
-using App.Content.Player;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +6,9 @@ using UnityEngine;
 namespace App.Content
 {
     [Serializable]
-    public sealed class HeatCetner
+    public sealed class HeatCenter
     {
-        [SerializeField] private SCTriggerComponent _playerSearcher;
+        [SerializeField] private SCTriggerComponent _trigger;
 
         private readonly HashSet<HeatData> _heatDatas = new();
 
@@ -17,21 +16,21 @@ namespace App.Content
         {
             get
             {
-                if (_playerSearcher == null)
+                if (_trigger == null)
                     return null;
-                return _playerSearcher.transform;
+                return _trigger.transform;
             }
         }
 
         public void Construct()
         {
-            _playerSearcher.OnEnter.AddListener(OnEnterHeatZone);
-            _playerSearcher.OnExit.AddListener(OnExitHeatZone);
+            _trigger.OnEnter.AddListener(OnEnterHeatZone);
+            _trigger.OnExit.AddListener(OnExitHeatZone);
         }
         public void Destruct()
         {
-            _playerSearcher.OnEnter.AddListener(OnEnterHeatZone);
-            _playerSearcher.OnExit.AddListener(OnExitHeatZone);
+            _trigger.OnEnter.AddListener(OnEnterHeatZone);
+            _trigger.OnExit.AddListener(OnExitHeatZone);
             foreach (HeatData heatData in _heatDatas)
             {
                 heatData.HeatSources.Remove(this);

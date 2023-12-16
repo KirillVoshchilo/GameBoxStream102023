@@ -22,7 +22,6 @@ namespace App.Content.Player
             }
             _playerData.BonfireFactory.BuildBonfire(_playerData.BonfireTargetPosition.position);
         }
-
         private bool CheckRequirements(out Alternatives alternative)
         {
             foreach (Alternatives alt in _playerData.BonfireBuildRequirements.Alternatives)

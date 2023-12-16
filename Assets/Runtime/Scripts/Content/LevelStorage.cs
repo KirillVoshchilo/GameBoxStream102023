@@ -1,7 +1,7 @@
 using App.Architecture.AppData;
 using App.Content.Helicopter;
 using App.Content.SnowSquare;
-using App.Content.Storage;
+using App.Content.Grigory;
 using App.Content.Tree;
 using App.Logic;
 using System.Collections.Generic;
@@ -26,8 +26,13 @@ namespace App.Content
         public HelicopterEntity HelicopterEntity => _helicopterEntity;
 
         public void Construct(LifetimeScope lifeTimeScope)
-            => AutoInjectAll(lifeTimeScope);
-        public void ResetAll()
+        {
+            AllSnowController allSnowController = lifeTimeScope.Container.Resolve(typeof(AllSnowController)) as AllSnowController;
+            allSnowController.SnowSquareEntities = _snowContainer.GetComponentsInChildren<SnowSquareEntity>();
+            _resourceSourceEntities = _treesContriner.GetComponentsInChildren<TreeEntity>();
+            AutoInjectAll(lifeTimeScope);
+        } 
+        public void ResetLevel()
         {
             _storageEntity.ResetInventory();
             foreach (TreeEntity entity in _resourceSourceEntities)
@@ -41,9 +46,6 @@ namespace App.Content
 
         private void AutoInjectAll(LifetimeScope lifeTimeScope)
         {
-            AllSnowController allSnowController = lifeTimeScope.Container.Resolve(typeof(AllSnowController)) as AllSnowController;
-            allSnowController.SnowSquareEntities = _snowContainer.GetComponentsInChildren<SnowSquareEntity>();
-            _resourceSourceEntities = _treesContriner.GetComponentsInChildren<TreeEntity>();
             if (_autoInjectObjects == null)
                 return;
             foreach (GameObject target in _autoInjectObjects)

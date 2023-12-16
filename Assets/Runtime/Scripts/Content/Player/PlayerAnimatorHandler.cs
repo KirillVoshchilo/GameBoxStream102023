@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace App.Content.Player
 {
-    public class PlayerAnimatorHandler
+    public sealed class PlayerAnimatorHandler
     {
         private static readonly int s_walkBlend = Animator.StringToHash("Blend");
         private static readonly int s_isMoving = Animator.StringToHash("IsMoving");
@@ -38,7 +38,6 @@ namespace App.Content.Player
             _playerData.AppInputSystem.PlayerMovingIsEnable = true;
             _playerData.AppInputSystem.InventoryIsEnable = true;
         }
-
         private void OnBonfireBuildStarted()
         {
             if (!_playerData.CanBuildBonfire)
@@ -49,13 +48,9 @@ namespace App.Content.Player
             _playerData.AppInputSystem.InteractionIsEnable = false;
         }
         private void OnInteractionPerformed()
-        {
-            StopChoping();
-        }
+            => StopChoping();
         private void OnInteractionCanceled()
-        {
-            StopChoping();
-        }
+            => StopChoping();
         private void OnInteractionStarted()
         {
             if (_playerData.InteractionEntity == null)
@@ -77,11 +72,8 @@ namespace App.Content.Player
                 return;
             _playerData.Animator.SetBool(s_isChoping, true);
         }
-
         private void OnMovingSpeedChanged(float obj)
-        {
-            _targetBlendSpeed = Mathf.Clamp(obj / _playerData.DefaultMovingSpeed, 0, 1);
-        }
+            => _targetBlendSpeed = Mathf.Clamp(obj / _playerData.DefaultMovingSpeed, 0, 1);
         private async UniTask ChangeSpeedProcess()
         {
             while (_playerWalkerData.IsMoving)
@@ -99,17 +91,13 @@ namespace App.Content.Player
                 await UniTask.NextFrame();
             }
         }
-
         private void OnMovingStarted()
         {
             _playerData.Animator.SetBool(s_isMoving, true);
             ChangeSpeedProcess()
                 .Forget();
         }
-        private void OnMovingEnded()
-        {
-            _playerData.Animator.SetBool(s_isMoving, false);
-        }
-
+        private void OnMovingEnded() 
+            => _playerData.Animator.SetBool(s_isMoving, false);
     }
 }

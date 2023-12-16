@@ -80,7 +80,7 @@ namespace App.Logic
             _isGameStarted = true;
             if (_isLevelLoaded)
             {
-                _levelStorage.ResetAll();
+                _levelStorage.ResetLevel();
                 StartLevel(0);
                 SetInitialInventory();
             }

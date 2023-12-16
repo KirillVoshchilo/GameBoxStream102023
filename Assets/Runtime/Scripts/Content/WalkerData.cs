@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace App.Content
 {
-    public class WalkerData
+    public sealed class WalkerData
     {
         private readonly Rigidbody _rigidbody;
         private readonly Dictionary<string, float> _speedMultipliers = new();
@@ -38,8 +38,6 @@ namespace App.Content
                 _onSpeedChanged.Invoke(value);
             }
         }
-        public Rigidbody Rigidbody => _rigidbody;
-        public Transform Transform => _rigidbody.transform;
         public Vector3 Position => _rigidbody.position;
         public Vector3 EulerRotation => _rigidbody.rotation.eulerAngles;
         public Vector3 MovingDirection { get => _movingDIrection; set => _movingDIrection = value; }

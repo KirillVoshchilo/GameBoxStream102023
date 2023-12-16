@@ -3,6 +3,7 @@ using App.Content.Player;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
+
 namespace App.Content.UI
 {
     public sealed class FreezeScreenEffect : MonoBehaviour
@@ -20,10 +21,6 @@ namespace App.Content.UI
             _heatData = playerEntity.Get<HeatData>();
             _freezeMaterial = _freezeImage.materialForRendering;
             _heatData.OnHeatNormalizedChanged.AddListener(OnHeatChanged);
-        }
-        public void ResetFreeze()
-        {
-            _freezeMaterial.SetFloat(ShaderKeys.SideValue, _maxSide);
         }
 
         private void OnHeatChanged(float value)

@@ -12,6 +12,7 @@ namespace App.Content.UI
     public sealed class InventoryPresenter : MonoBehaviour
     {
         private const string TIME_FORMAT = "00";
+
         [SerializeField] private CellPresenter[] _inventoryCells;
         [SerializeField] private TextMeshProUGUI _trustText;
         [SerializeField] private TextMeshProUGUI _timer;
@@ -20,7 +21,6 @@ namespace App.Content.UI
         private IconsConfiguration _iconsConfiguration;
         private bool _enable;
         private VillageTrustSystem _villageTrustSystem;
-        private LevelTimer _levelTimer;
 
         public bool Enable
         {
@@ -35,10 +35,7 @@ namespace App.Content.UI
                         .Forget();
                     _trustText.text = $"Доверие: {_villageTrustSystem.Trust}";
                 }
-                else
-                {
-                    _playerInventory.OnInventoryUpdated.RemoveListener(UpdatePlayerInventoryCells);
-                }
+                else _playerInventory.OnInventoryUpdated.RemoveListener(UpdatePlayerInventoryCells);
             }
         }
 
@@ -49,7 +46,6 @@ namespace App.Content.UI
             VillageTrustSystem villageTrustSystem)
         {
             _villageTrustSystem = villageTrustSystem;
-            _levelTimer = levelTimer;
             levelTimer.OnTimeHasChanged.AddListener(ShowTime);
             _playerInventory = playerEntity.Get<Inventory>();
             _iconsConfiguration = configurations.IconsConfiguration;
@@ -62,7 +58,6 @@ namespace App.Content.UI
             int minutes = (value - seconds) / 60;
             _timer.text = $"{minutes.ToString(TIME_FORMAT)}:{seconds.ToString(TIME_FORMAT)}";
         }
-
         private async UniTask DefferedSubscribes()
         {
             await UniTask.NextFrame();

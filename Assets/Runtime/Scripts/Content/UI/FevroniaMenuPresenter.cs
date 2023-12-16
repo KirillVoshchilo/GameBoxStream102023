@@ -13,7 +13,7 @@ using VContainer;
 
 namespace App.Content.UI
 {
-    public sealed class ScarecrowMenuPresenter : MonoBehaviour
+    public sealed class FevroniaMenuPresenter : MonoBehaviour
     {
         [SerializeField] private CellPresenter[] _cellPresenters;
         [SerializeField] private TextMeshProUGUI _currentWoodCount;
@@ -76,6 +76,21 @@ namespace App.Content.UI
         }
         public int CurrentLevel { get => _currentLevel; set => _currentLevel = value; }
 
+        [Inject]
+        public void Construct(PlayerEntity playerEntity,
+            Configuration configurations,
+            VillageTrustSystem villageTrustSystem,
+            IAppInputSystem appInputSystem,
+            AudioStorage audioController)
+        {
+            _audioController = audioController;
+            _appInputSystem = appInputSystem;
+            _villageTrustSystem = villageTrustSystem;
+            _playerInventory = playerEntity.Get<Inventory>();
+            _trustLevels = configurations.TrustLevels;
+            _iconsConfiguration = configurations.IconsConfiguration;
+        }
+
         private async UniTask DefferedSubscribes()
         {
             await UniTask.NextFrame();
@@ -121,38 +136,22 @@ namespace App.Content.UI
             }
             _woodRequirements.text = $"{goal} дров.";
         }
-
-        [Inject]
-        public void Construct(PlayerEntity playerEntity,
-            Configuration configurations,
-            VillageTrustSystem villageTrustSystem,
-            IAppInputSystem appInputSystem,
-            AudioStorage audioController)
-        {
-            _audioController = audioController;
-            _appInputSystem = appInputSystem;
-            _villageTrustSystem = villageTrustSystem;
-            _playerInventory = playerEntity.Get<Inventory>();
-            _trustLevels = configurations.TrustLevels;
-            _iconsConfiguration = configurations.IconsConfiguration;
-        }
-
         private void PushMaterials()
         {
             if (_villageTrustSystem.Trust == _trustLevels[_currentLevel]
                 && _currentLevel < _trustLevels.Length - 1)
+            {
                 return;
+            }
             Cell cell = _cellsMatrix[_selectionPosition.y, _selectionPosition.x].Cell;
             if (cell == null)
                 return;
             if (_requirementResource != cell.Key)
                 return;
             int cellIndex = _selectionPosition.y * 3 + _selectionPosition.x;
-            int toRemove = 0;
+            int toRemove;
             if (_villageTrustSystem.CurrentTrustLevel >= _trustLevels.Length)
-            {
                 toRemove = cell.Count;
-            }
             else
             {
                 toRemove = GetRequiredWood();
@@ -162,19 +161,11 @@ namespace App.Content.UI
             _villageTrustSystem.AddTrust(toRemove);
             _playerInventory.RemoveItemFromCell(cell.Key, toRemove, cellIndex);
         }
-
         private int GetRequiredWood()
         {
             int currentLevel = _villageTrustSystem.CurrentTrustLevel;
             return (int)(_trustLevels[currentLevel] - _villageTrustSystem.Trust);
         }
-        public void Clear()
-        {
-            int count = _cellPresenters.Length;
-            for (int i = 0; i < count; i++)
-                _cellPresenters[i].Clear();
-        }
-
         private void PrepareInventoryMatrix()
         {
             int count = _cellPresenters.Length;
@@ -220,10 +211,7 @@ namespace App.Content.UI
                     _cellPresenters[i].SetCount(obj[i].Count);
                     _cellPresenters[i].SetSprite(_iconsConfiguration[obj[i].Key]);
                 }
-                else
-                {
-                    _cellPresenters[i].Clear();
-                }
+                else  _cellPresenters[i].Clear();
             }
         }
     }

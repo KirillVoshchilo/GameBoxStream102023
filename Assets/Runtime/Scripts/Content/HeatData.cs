@@ -14,8 +14,7 @@ namespace App.Content
         private readonly SEvent<float> _onHeatChanged = new();
         private readonly SEvent<float> _onHeatNormalizedChanged = new();
         private readonly SEvent<bool> _onFreazingStateChanged = new();
-        private readonly Dictionary<string, float> _freezingMultipliers = new();
-        private readonly List<HeatCetner> _heatSources = new();
+        private readonly List<HeatCenter> _heatSources = new();
         private float _currentFreezingRate;
         private float _currentHeat;
         private bool _isFreezing;
@@ -32,8 +31,7 @@ namespace App.Content
                 _onHeatNormalizedChanged.Invoke(_currentHeat / _defaultHeatValue);
             }
         }
-        public Dictionary<string, float> FreezingMultipliers => _freezingMultipliers;
-        public List<HeatCetner> HeatSources => _heatSources;
+        public List<HeatCenter> HeatSources => _heatSources;
         public float CurrentFreezingRate { get => _currentFreezingRate; set => _currentFreezingRate = value; }
         public bool IsFreezing
         {
