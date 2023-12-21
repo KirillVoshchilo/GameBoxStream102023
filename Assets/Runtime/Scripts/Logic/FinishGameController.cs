@@ -8,7 +8,7 @@ using VContainer;
 
 namespace App.Logic
 {
-    public sealed class FinishController
+    public sealed class FinishGameController
     {
         private readonly AudioStorage _audioController;
         private readonly LevelsController _levelsController;
@@ -19,7 +19,7 @@ namespace App.Logic
         private SCSlideShow _currentCutScene;
 
         [Inject]
-        public FinishController(LevelsController levelsController,
+        public FinishGameController(LevelsController levelsController,
             Configuration configuration,
             IAppInputSystem appInputSystem,
             UIController uiController,
@@ -49,7 +49,8 @@ namespace App.Logic
                 _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.FinalMusic_4);
                 ShowCutScene(_configuration.FinalCutScenes.EscapeFinal);
             }
-            _levelsController.ResetLevelController();
+            _uiController.CloseCurrentOpenedGamePanel();
+            _levelsController.EndCurrentLevel();
         }
         public void EndTimeFinish()
         {
@@ -65,7 +66,8 @@ namespace App.Logic
                 _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.FinalMusic_1);
                 ShowCutScene(_configuration.FinalCutScenes.BadEnd);
             }
-            _levelsController.ResetLevelController();
+            _uiController.CloseCurrentOpenedGamePanel();
+            _levelsController.EndCurrentLevel();
         }
 
         private SCSlideShow ShowCutScene(SCSlideShow slideShow)

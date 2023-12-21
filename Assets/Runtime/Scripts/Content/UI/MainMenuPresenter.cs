@@ -1,4 +1,5 @@
-﻿using App.Content.Audio;
+﻿using App.Architecture;
+using App.Content.Audio;
 using App.Logic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,17 +16,20 @@ namespace App.Content.UI
         [SerializeField] private GameObject _descriptionPanel;
 
         private UIController _uiController;
-        private LevelsController _levelsController;
         private AudioStorage _audioController;
+        private NewGameController _newGameController;
+        private LevelLoaderSystem _levelLoaderSystem;
 
         public UIController UIController { set => _uiController = value; }
 
         [Inject]
-        public void Construct(LevelsController levelsController,
-            AudioStorage audioController)
+        public void Construct(AudioStorage audioController,
+            LevelLoaderSystem levelLoaderSystem,
+            NewGameController newGameController)
         {
+            _newGameController = newGameController;
+            _levelLoaderSystem = levelLoaderSystem;
             _audioController = audioController;
-            _levelsController = levelsController;
             _closeAppButton.onClick.AddListener(OnCloseAppClicked);
             _startGameButton.onClick.AddListener(OnStartNewGameButton);
             _closeDescriptionButton.onClick.AddListener(OnCloseDescriptionClicked);
@@ -45,9 +49,11 @@ namespace App.Content.UI
         }
         private void OnStartNewGameButton()
         {
+            if (!_levelLoaderSystem.LevelIsLoaded)
+                return;
             _audioController.AudioData.SoundTracks.Button.Play();
             _uiController.CloseMainMenu();
-            _levelsController.StartFirstLevel();
+            _newGameController.StartFirstLevel();
         }
 
         private void OnCloseAppClicked()

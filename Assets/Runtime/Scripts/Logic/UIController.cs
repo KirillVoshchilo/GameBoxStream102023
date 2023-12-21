@@ -1,43 +1,38 @@
+using App.Architecture;
 using App.Architecture.AppInput;
 using App.Content;
 using App.Content.Audio;
 using App.Content.Player;
-using App.Content.UI;
 using App.Simples.CellsInventory;
 using UnityEngine;
 using VContainer;
 
 namespace App.Logic
 {
-    public sealed class UIController : MonoBehaviour
+    public sealed class UIController
     {
-        [SerializeField] private InventoryPresenter _inventoryPresenter;
-        [SerializeField] private MainMenuPresenter _mainMenuPresenter;
-        [SerializeField] private PauseMenuPresenter _pauseMenuPresenter;
-        [SerializeField] private FevroniaMenuPresenter _scareCrowMenuPresenter;
-        [SerializeField] private GrigoryMenuPresenter _storageMenuPresenter;
-        [SerializeField] private FreezeScreenEffect _freezeScreenEffect;
-        [SerializeField] private GameWatchPresenter _gameWatchPresenter;
-
+        private LevelLoaderSystem _levelLoaderSystem;
+        private UIStorage _uIStorage;
         private HeatData _playerHeat;
         private IAppInputSystem _appInputSystem;
         private LevelsController _levelsController;
         private AudioStorage _audioController;
 
-        public FevroniaMenuPresenter ScareCrowMenuPresenter => _scareCrowMenuPresenter;
-        public GrigoryMenuPresenter StorageMenuPresenter => _storageMenuPresenter;
-
         [Inject]
-        public void Construct(IAppInputSystem appInputSystem,
+        public UIController(IAppInputSystem appInputSystem,
             PlayerEntity playerEntity,
             AudioStorage audioController,
-            LevelsController levelsController)
+            LevelsController levelsController,
+            UIStorage uIStorage,
+            LevelLoaderSystem levelLoaderSystem)
         {
+            _levelLoaderSystem=levelLoaderSystem;
+            _uIStorage = uIStorage;
             _levelsController = levelsController;
             levelsController.UiController = this;
             _audioController = audioController;
             _playerHeat = playerEntity.Get<HeatData>();
-            _mainMenuPresenter.UIController = this;
+            _uIStorage.MainMenuPresenter.UIController = this;
             _appInputSystem = appInputSystem;
             _appInputSystem.OnEscapePressed.AddListener(OnEscClicked);
             _appInputSystem.OnInventoryPressed.AddListener(OnInventoryPressed);
@@ -47,13 +42,13 @@ namespace App.Logic
             _audioController.AudioData.SoundTracks.OpenFevoniaInterface.Play();
             _playerHeat.CurrentHeat = _playerHeat.DefaultHeatValue;
             _playerHeat.IsFreezing = false;
-            _scareCrowMenuPresenter.gameObject.SetActive(true);
-            _scareCrowMenuPresenter.Enable = true;
+            _uIStorage.ScareCrowMenuPresenter.gameObject.SetActive(true);
+            _uIStorage.ScareCrowMenuPresenter.Enable = true;
             _appInputSystem.IsGoNextEnable = true;
-            _appInputSystem.OnGoNext.AddListener(_scareCrowMenuPresenter.Dialoge.ShowNext);
-            _scareCrowMenuPresenter.Dialoge.OnSlidShowEnded.AddListener(()
-                => _appInputSystem.OnGoNext.RemoveListener(_scareCrowMenuPresenter.Dialoge.ShowNext));
-            _scareCrowMenuPresenter.Dialoge.ShowFirst();
+            _appInputSystem.OnGoNext.AddListener(_uIStorage.ScareCrowMenuPresenter.Dialoge.ShowNext);
+            _uIStorage.ScareCrowMenuPresenter.Dialoge.OnSlidShowEnded.AddListener(()
+                => _appInputSystem.OnGoNext.RemoveListener(_uIStorage.ScareCrowMenuPresenter.Dialoge.ShowNext));
+            _uIStorage.ScareCrowMenuPresenter.Dialoge.ShowFirst();
             _appInputSystem.InventoryIsEnable = false;
             _appInputSystem.PlayerMovingIsEnable = false;
             _appInputSystem.InteractionIsEnable = false;
@@ -63,10 +58,10 @@ namespace App.Logic
         {
             _audioController.AudioData.SoundTracks.CloseInventory.Play();
             _playerHeat.IsFreezing = true;
-            _appInputSystem.OnGoNext.RemoveListener(_scareCrowMenuPresenter.Dialoge.ShowNext);
+            _appInputSystem.OnGoNext.RemoveListener(_uIStorage.ScareCrowMenuPresenter.Dialoge.ShowNext);
             _appInputSystem.IsGoNextEnable = false;
-            _scareCrowMenuPresenter.Enable = false;
-            _scareCrowMenuPresenter.gameObject.SetActive(false);
+            _uIStorage.ScareCrowMenuPresenter.Enable = false;
+            _uIStorage.ScareCrowMenuPresenter.gameObject.SetActive(false);
             _appInputSystem.InventoryIsEnable = true;
             _appInputSystem.InteractionIsEnable = true;
             _appInputSystem.PlayerMovingIsEnable = true;
@@ -77,14 +72,14 @@ namespace App.Logic
             _audioController.AudioData.SoundTracks.OpenGregoryInterface.Play();
             _playerHeat.CurrentHeat = _playerHeat.DefaultHeatValue;
             _playerHeat.IsFreezing = false;
-            _storageMenuPresenter.gameObject.SetActive(true);
-            _storageMenuPresenter.SetInventory(inventory);
+            _uIStorage.StorageMenuPresenter.gameObject.SetActive(true);
+            _uIStorage.StorageMenuPresenter.SetInventory(inventory);
             _appInputSystem.IsGoNextEnable = true;
-            _appInputSystem.OnGoNext.AddListener(_storageMenuPresenter.Dialoge.ShowNext);
-            _storageMenuPresenter.Dialoge.OnSlidShowEnded.AddListener(()
-                => _appInputSystem.OnGoNext.RemoveListener(_storageMenuPresenter.Dialoge.ShowNext));
-            _storageMenuPresenter.Dialoge.ShowFirst();
-            _storageMenuPresenter.Enable = true;
+            _appInputSystem.OnGoNext.AddListener(_uIStorage.StorageMenuPresenter.Dialoge.ShowNext);
+            _uIStorage.StorageMenuPresenter.Dialoge.OnSlidShowEnded.AddListener(()
+                => _appInputSystem.OnGoNext.RemoveListener(_uIStorage.StorageMenuPresenter.Dialoge.ShowNext));
+            _uIStorage.StorageMenuPresenter.Dialoge.ShowFirst();
+            _uIStorage.StorageMenuPresenter.Enable = true;
             _appInputSystem.InteractionIsEnable = false;
             _appInputSystem.InventoryIsEnable = false;
             _appInputSystem.PlayerMovingIsEnable = false;
@@ -94,10 +89,10 @@ namespace App.Logic
         {
             _audioController.AudioData.SoundTracks.CloseInventory.Play();
             _playerHeat.IsFreezing = true;
-            _appInputSystem.OnGoNext.RemoveListener(_storageMenuPresenter.Dialoge.ShowNext);
+            _appInputSystem.OnGoNext.RemoveListener(_uIStorage.StorageMenuPresenter.Dialoge.ShowNext);
             _appInputSystem.IsGoNextEnable = false;
-            _storageMenuPresenter.Enable = false;
-            _storageMenuPresenter.gameObject.SetActive(false);
+            _uIStorage.StorageMenuPresenter.Enable = false;
+            _uIStorage.StorageMenuPresenter.gameObject.SetActive(false);
             _appInputSystem.InventoryIsEnable = true;
             _appInputSystem.InteractionIsEnable = true;
             _appInputSystem.PlayerMovingIsEnable = true;
@@ -107,48 +102,48 @@ namespace App.Logic
         {
             Cursor.visible = true;
             _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.MainMenuMusic);
-            _mainMenuPresenter.gameObject.SetActive(true);
-            _pauseMenuPresenter.gameObject.SetActive(false);
-            _freezeScreenEffect.gameObject.SetActive(false);
+            _uIStorage.MainMenuPresenter.gameObject.SetActive(true);
+            _uIStorage.PauseMenuPresenter.gameObject.SetActive(false);
+            _uIStorage.FreezeScreenEffect.gameObject.SetActive(false);
         }
         public void CloseMainMenu()
         {
             Cursor.visible = false;
-            _mainMenuPresenter.gameObject.SetActive(false);
+            _uIStorage.MainMenuPresenter.gameObject.SetActive(false);
         }
         public void ShowFreezeEffect()
-            => _freezeScreenEffect.gameObject.SetActive(true);
+            => _uIStorage.FreezeScreenEffect.gameObject.SetActive(true);
 
         public void OnEscClicked()
         {
-            if (_inventoryPresenter.gameObject.activeSelf)
+            if (_uIStorage.InventoryPresenter.gameObject.activeSelf)
             {
                 CloseInventory();
                 return;
             }
-            if (_scareCrowMenuPresenter.gameObject.activeSelf)
+            if (_uIStorage.ScareCrowMenuPresenter.gameObject.activeSelf)
             {
                 CloseScarecrowMenu();
                 return;
             }
-            if (_storageMenuPresenter.gameObject.activeSelf)
+            if (_uIStorage.StorageMenuPresenter.gameObject.activeSelf)
             {
                 CloseStorageMenu();
                 return;
             }
-            if (_pauseMenuPresenter.gameObject.activeSelf)
+            if (_uIStorage.PauseMenuPresenter.gameObject.activeSelf)
                 ClosePausePanel();
             else OpenPausePanel();
         }
         public void CloseCurrentOpenedGamePanel()
         {
-            if (_inventoryPresenter.gameObject.activeSelf)
+            if (_uIStorage.InventoryPresenter.gameObject.activeSelf)
                 CloseInventory();
-            if (_scareCrowMenuPresenter.gameObject.activeSelf)
+            if (_uIStorage.ScareCrowMenuPresenter.gameObject.activeSelf)
                 CloseScarecrowMenu();
-            if (_storageMenuPresenter.gameObject.activeSelf)
+            if (_uIStorage.StorageMenuPresenter.gameObject.activeSelf)
                 CloseStorageMenu();
-            if (_pauseMenuPresenter.gameObject.activeSelf)
+            if (_uIStorage.PauseMenuPresenter.gameObject.activeSelf)
                 ClosePausePanel();
         }
         private void OpenPausePanel()
@@ -157,7 +152,7 @@ namespace App.Logic
             _appInputSystem.InteractionIsEnable = false;
             _appInputSystem.InventoryIsEnable = false;
             _appInputSystem.PlayerMovingIsEnable = false;
-            _pauseMenuPresenter.gameObject.SetActive(true);
+            _uIStorage.PauseMenuPresenter.gameObject.SetActive(true);
         }
         private void ClosePausePanel()
         {
@@ -172,34 +167,34 @@ namespace App.Logic
                 _appInputSystem.InventoryIsEnable = true;
             }
             Cursor.visible = false;
-            _pauseMenuPresenter.CloseTIpsPanel();
+            _uIStorage.PauseMenuPresenter.CloseTIpsPanel();
             _appInputSystem.PlayerMovingIsEnable = true;
-            _pauseMenuPresenter.gameObject.SetActive(false);
+            _uIStorage.PauseMenuPresenter.gameObject.SetActive(false);
         }
         private void OnInventoryPressed()
         {
-            if (_inventoryPresenter.gameObject.activeSelf)
+            if (_uIStorage.InventoryPresenter.gameObject.activeSelf)
                 CloseInventory();
             else OpenInventory();
         }
         private void CloseInventory()
         {
-            _gameWatchPresenter.gameObject.SetActive(true);
+            _uIStorage.GameWatchPresenter.gameObject.SetActive(true);
             _audioController.AudioData.SoundTracks.CloseInventory.Play();
             _appInputSystem.IsGoNextEnable = false;
-            _inventoryPresenter.Enable = false;
+            _uIStorage.InventoryPresenter.Enable = false;
             _appInputSystem.InteractionIsEnable = true;
-            _inventoryPresenter.gameObject.SetActive(false);
+            _uIStorage.InventoryPresenter.gameObject.SetActive(false);
             _appInputSystem.PlayerMovingIsEnable = true;
             _appInputSystem.InventoryMoveIsEnable = false;
         }
         private void OpenInventory()
         {
-            _gameWatchPresenter.gameObject.SetActive(false);
+            _uIStorage.GameWatchPresenter.gameObject.SetActive(false);
             _audioController.AudioData.SoundTracks.CloseInventory.Play();
-            _inventoryPresenter.gameObject.SetActive(true);
+            _uIStorage.InventoryPresenter.gameObject.SetActive(true);
             _appInputSystem.IsGoNextEnable = true;
-            _inventoryPresenter.Enable = true;
+            _uIStorage.InventoryPresenter.Enable = true;
             _appInputSystem.InteractionIsEnable = false;
             _appInputSystem.PlayerMovingIsEnable = false;
             _appInputSystem.InventoryMoveIsEnable = true;

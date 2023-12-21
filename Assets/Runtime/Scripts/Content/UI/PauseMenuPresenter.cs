@@ -23,7 +23,7 @@ namespace App.Content.UI
         private Inventory _playerInventory;
         private PlayerEntity _playerEntity;
         private LevelTimer _levelTimer;
-        private DefeatController _defeatController;
+        private EndLevelController _endLevelController;
         private LevelsController _levelsController;
         private BonfireFactory _bonusFactory;
 
@@ -31,7 +31,7 @@ namespace App.Content.UI
         public void Construct(IAppInputSystem appInputSystem,
             PlayerEntity playerEntity,
             UIController uiController,
-            DefeatController defeatController,
+            EndLevelController endLevelController,
             BonfireFactory bonfireFactory,
             LevelsController levelsController,
             LevelTimer levelTimer)
@@ -41,7 +41,7 @@ namespace App.Content.UI
             _levelTimer = levelTimer;
             _levelsController = levelsController;
             _bonusFactory = bonfireFactory;
-            _defeatController = defeatController;
+            _endLevelController = endLevelController;
             _uiController = uiController;
             _playerInventory = playerEntity.Get<Inventory>();
             _playerEntity = playerEntity;
@@ -68,8 +68,9 @@ namespace App.Content.UI
         private void OnEndGameClicked()
         {
             _bonusFactory.ClearAll();
-            _defeatController.IsEnable = false;
-            _levelsController.ResetLevelController();
+            _endLevelController.IsEnable = false;
+            _uiController.CloseCurrentOpenedGamePanel();
+            _levelsController.EndCurrentLevel();
             _playerInventory.Clear();
             _levelTimer.StopTimer();
             _playerEntity.GetComponent<Rigidbody>().useGravity = false;

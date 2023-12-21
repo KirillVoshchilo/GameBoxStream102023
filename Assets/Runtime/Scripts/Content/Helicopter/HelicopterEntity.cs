@@ -16,7 +16,7 @@ namespace App.Content.Helicopter
             set => _isEnable = value;
         }
         [Inject]
-        public void Construct(FinishController finishController)
+        public void Construct(FinishGameController finishController)
         {
             _helicopterData.FinishController = finishController;
             _helicopterData.TriggerComponent.OnEnter.AddListener(OnTrigger);

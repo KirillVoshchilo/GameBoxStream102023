@@ -10,9 +10,9 @@ namespace App.Content.Helicopter
     {
         [SerializeField] private SCTriggerComponent _triggerComponent;
 
-        private FinishController _finishController;
+        private FinishGameController _finishController;
 
         public SCTriggerComponent TriggerComponent => _triggerComponent;
-        public FinishController FinishController { get => _finishController; set => _finishController = value; }
+        public FinishGameController FinishController { get => _finishController; set => _finishController = value; }
     }
 }
