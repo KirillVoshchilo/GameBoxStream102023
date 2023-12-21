@@ -146,9 +146,9 @@ GameObject:
   - component: {fileID: 7200838195075142296}
   - component: {fileID: 7093073374702183787}
   - component: {fileID: 5133994331363317449}
-  - component: {fileID: 3884673666869233761}
+  - component: {fileID: 8725715930194802189}
   m_Layer: 5
-  m_Name: ScarecrowCanvas
+  m_Name: FevroniaCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -239,7 +239,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &3884673666869233761
+--- !u!114 &8725715930194802189
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1597526094212048215}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67e4c292dea431347ba941e3e16460dd, type: 3}
+  m_Script: {fileID: 11500000, guid: a6ff5a682e60c944a9c179523839328b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _cellPresenters:
@@ -265,7 +265,7 @@ MonoBehaviour:
   _currentWoodCountShort: {fileID: 3742046771813132881}
   _woodRequirements: {fileID: 2004917390446945948}
   _trustText: {fileID: 7514353912512831502}
-  _requirementResource: {fileID: 11400000, guid: 8cb786425129ec54496f5ab38651c247, type: 2}
+  _requirementResource: {fileID: 11400000, guid: da40f460932eae741b3dd191e65c3ec5, type: 2}
   _dialogeTransform: {fileID: 6342398234961195589}
 --- !u!1 &1606129667690489754
 GameObject:

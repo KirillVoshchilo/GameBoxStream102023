@@ -16,7 +16,7 @@ namespace App.Architecture.Scopes
         [SerializeField] private PlayerEntity _playerEntity;
         [SerializeField] private CamerasStorage _camerasStorage;
         [SerializeField] private WorldCanvasStorage _worldCanvasStorage;
-        [SerializeField] private UIController _uiController;
+        [SerializeField] private UIStorage _uiStorage;
         [SerializeField] private Configuration _configuration;
         [SerializeField] private BonfireFactory _bonfireFactory;
         [SerializeField] private FallingSnow _fallingSnow;
@@ -29,7 +29,7 @@ namespace App.Architecture.Scopes
             builder.RegisterComponent(_worldCanvasStorage);
             builder.RegisterComponent(_playerEntity);
             builder.RegisterComponent(_fallingSnow);
-            builder.RegisterComponent(_uiController);
+            builder.RegisterComponent(_uiStorage);
             builder.RegisterComponent(_camerasStorage);
             builder.RegisterComponent(_bonfireFactory);
             builder.Register<LevelLoaderSystem>(Lifetime.Singleton)
@@ -37,6 +37,10 @@ namespace App.Architecture.Scopes
             builder.Register<VillageTrustSystem>(Lifetime.Singleton)
                 .AsSelf();
             builder.Register<EndLevelController>(Lifetime.Singleton)
+                .AsSelf();
+            builder.Register<UIController>(Lifetime.Singleton)
+                .AsSelf();
+            builder.Register<NewGameController>(Lifetime.Singleton)
                 .AsSelf();
             builder.Register<LevelsController>(Lifetime.Singleton)
                 .AsSelf();

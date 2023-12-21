@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd1a214d2de6c5c4b802e417a773365a, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a336f0c56b609344bb9e444bd2396d6, type: 3}
   m_Name: Brushwood
   m_EditorClassIdentifier: 
-  _name: Brushwood

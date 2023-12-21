@@ -616,7 +616,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1607157175619591686, guid: 154caafac949b4545bcb678910d19a44, type: 3}
       propertyPath: m_Name
-      value: New Inventory
+      value: Inventory
       objectReference: {fileID: 0}
     - target: {fileID: 1607157175619591686, guid: 154caafac949b4545bcb678910d19a44, type: 3}
       propertyPath: m_IsActive
@@ -1101,7 +1101,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1597526094212048215, guid: 013ad782fd93b03419590ea43fa6b814, type: 3}
       propertyPath: m_Name
-      value: ScarecrowCanvas
+      value: FevroniaCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 1597526094212048215, guid: 013ad782fd93b03419590ea43fa6b814, type: 3}
       propertyPath: m_IsActive
@@ -1575,7 +1575,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -330
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3884673666869233761, guid: 013ad782fd93b03419590ea43fa6b814, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1587,13 +1588,13 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &828751406 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3884673666869233761, guid: 013ad782fd93b03419590ea43fa6b814, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8725715930194802189, guid: 013ad782fd93b03419590ea43fa6b814, type: 3}
   m_PrefabInstance: {fileID: 828751404}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67e4c292dea431347ba941e3e16460dd, type: 3}
+  m_Script: {fileID: 11500000, guid: a6ff5a682e60c944a9c179523839328b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!198 &865645349
@@ -11729,7 +11730,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1597526094212048215, guid: 3dd890874c903a64587602674223bce8, type: 3}
       propertyPath: m_Name
-      value: StorageMenu
+      value: GrigoryMenu
       objectReference: {fileID: 0}
     - target: {fileID: 1597526094212048215, guid: 3dd890874c903a64587602674223bce8, type: 3}
       propertyPath: m_IsActive
@@ -12217,7 +12218,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ea1d5ddb5babb94bbff7788daab8e4c, type: 3}
+  m_Script: {fileID: 11500000, guid: c0c3c315630d825468ee2e834c601395, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1323009374
@@ -13833,21 +13834,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fallingSnow: {fileID: 903761958}
   _fallingSimpleSnow: {fileID: 865645349}
---- !u!4 &110781696842361028
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4805886930808551846}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6274135779634953164}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &949142935203301781
 Transform:
   m_ObjectHideFlags: 0
@@ -13952,25 +13938,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2378987917772325238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4805886930808551846}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38bd6718e80946349b2ec163d4c53b2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inventoryPresenter: {fileID: 588410795}
-  _mainMenuPresenter: {fileID: 2013056219}
-  _pauseMenuPresenter: {fileID: 1201900202}
-  _scareCrowMenuPresenter: {fileID: 828751406}
-  _storageMenuPresenter: {fileID: 1265520132}
-  _freezeScreenEffect: {fileID: 1323009376}
-  _gameWatchPresenter: {fileID: 1381221864}
 --- !u!4 &2500336598024154124
 Transform:
   m_ObjectHideFlags: 0
@@ -13979,7 +13946,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1591109580144080037}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.07047462, y: 0.87191385, z: -0.4662984, w: -0.13177785}
+  m_LocalRotation: {x: -0.0704746, y: 0.8719139, z: -0.46629837, w: -0.13177782}
   m_LocalPosition: {x: 6.71, y: 9.02, z: 7.55}
   m_LocalScale: {x: 1, y: 1.0135, z: 1}
   m_ConstrainProportionsScale: 0
@@ -14145,23 +14112,6 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &4805886930808551846
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 110781696842361028}
-  - component: {fileID: 2378987917772325238}
-  m_Layer: 0
-  m_Name: UIController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &5553037393149206377
 GameObject:
   m_ObjectHideFlags: 0
@@ -14207,7 +14157,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 110781696842361028}
   - {fileID: 949142935203301781}
   - {fileID: 7170386877859393588}
   - {fileID: 1213339425}
@@ -14226,7 +14175,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1894165525925910501}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.07047462, y: 0.87191385, z: -0.4662984, w: -0.13177785}
+  m_LocalRotation: {x: -0.0704746, y: 0.8719139, z: -0.46629837, w: -0.13177782}
   m_LocalPosition: {x: 6.71, y: 9.02, z: 7.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -14502,11 +14451,11 @@ MonoBehaviour:
   _playerEntity: {fileID: 1213339428}
   _camerasStorage: {fileID: 8597381050307482573}
   _worldCanvasStorage: {fileID: 6988648043703767278}
-  _uiController: {fileID: 2378987917772325238}
+  _uiStorage: {fileID: 8320953025939497414}
   _configuration: {fileID: 11400000, guid: f2bf5b729eb1c7943a560e63d2d0567e, type: 2}
   _bonfireFactory: {fileID: 65795619}
-  _fallingSnowController: {fileID: 2080644767}
-  _audioController: {fileID: 407024257}
+  _fallingSnow: {fileID: 2080644767}
+  _audioStorage: {fileID: 407024257}
 --- !u!1 &8320953025939497413
 GameObject:
   m_ObjectHideFlags: 0
@@ -14516,6 +14465,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 949142935203301781}
+  - component: {fileID: 8320953025939497414}
   m_Layer: 0
   m_Name: Canvases
   m_TagString: Untagged
@@ -14523,6 +14473,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8320953025939497414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8320953025939497413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2151856546580e54f9ab8f1e5818b72f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inventoryPresenter: {fileID: 588410795}
+  _mainMenuPresenter: {fileID: 2013056219}
+  _pauseMenuPresenter: {fileID: 1201900202}
+  _scareCrowMenuPresenter: {fileID: 828751406}
+  _storageMenuPresenter: {fileID: 1265520132}
+  _freezeScreenEffect: {fileID: 1323009376}
+  _gameWatchPresenter: {fileID: 1381221864}
 --- !u!4 &8597381050307482572
 Transform:
   m_ObjectHideFlags: 0

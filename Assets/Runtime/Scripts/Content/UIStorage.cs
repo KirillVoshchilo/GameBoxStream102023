@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace App.Content
 {
-    public sealed class UIStorage
+    public sealed class UIStorage : MonoBehaviour
     {
         [SerializeField] private InventoryPresenter _inventoryPresenter;
         [SerializeField] private MainMenuPresenter _mainMenuPresenter;
