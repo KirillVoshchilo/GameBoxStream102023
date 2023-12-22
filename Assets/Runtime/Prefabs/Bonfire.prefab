@@ -454,7 +454,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7742595953448986044}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16c4b328857252246853888a2a66a4dc, type: 3}
+  m_Script: {fileID: 11500000, guid: c9de43bfc53daf84cb2c56494e6268c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8670354758140311708
@@ -641,14 +641,14 @@ MonoBehaviour:
     _interactionRequirements:
       _alternatives:
       - _requirements:
-        - _name: {fileID: 11400000, guid: 8cb786425129ec54496f5ab38651c247, type: 2}
+        - _name: {fileID: 11400000, guid: da40f460932eae741b3dd191e65c3ec5, type: 2}
           _count: 1
     _interactionIconTransform: {fileID: 8909865286730820172}
     _interactTime: 0
     _maxLightScale: 10
     _minLightScale: 4
     _heatCenter:
-      _playerSearcher: {fileID: 1130144783239867941}
+      _trigger: {fileID: 1130144783239867941}
     _kindlingBonfire: {fileID: 4910485872483978141}
     _burningFire: {fileID: 787606898324546566}
     _fireRefresh: {fileID: 6794372194241698220}

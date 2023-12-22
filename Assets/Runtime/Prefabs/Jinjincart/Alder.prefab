@@ -69,27 +69,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1766819940767264774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aea854a6bd28c94dbe92ed31171263f, type: 3}
+  m_Script: {fileID: 11500000, guid: 0a3bcfda4edca304c86d6594b5f20c76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resourceSourceData:
-    _key: {fileID: 11400000, guid: 8cb786425129ec54496f5ab38651c247, type: 2}
-    _itemsCount: 7
-    _crystal: {fileID: 398676449918349256}
+  _treeData:
+    _key: {fileID: 0}
+    _itemsCount: 0
+    _treeObject: {fileID: 0}
     _fieldRequirements:
-      _alternatives:
-      - _requirements:
-        - _name: {fileID: 11400000, guid: 8dd837ea2376b6d43a00e51c868ca679, type: 2}
-          _count: 1
-      - _requirements:
-        - _name: {fileID: 11400000, guid: 9699edb0a014f4f4e8af30dea41cd212, type: 2}
-          _count: 1
-      - _requirements:
-        - _name: {fileID: 11400000, guid: f99b7f2c77c0af8409f915ab1f8ddc95, type: 2}
-          _count: 1
-    _interactionIconTransform: {fileID: 2944211598380249947}
-    _interactTime: 1
-    _recoverTime: -1
+      _alternatives: []
+    _interactionIconTransform: {fileID: 0}
+    _interactTime: 0
+    _recoverTime: 0
     _fallingTreeSound: {fileID: 8453800677131674504}
 --- !u!1 &3088041963014608995
 GameObject:
@@ -319,11 +310,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a995ea506bec5344b85e6bf155c0081, type: 3}
---- !u!1 &398676449918349256 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9a995ea506bec5344b85e6bf155c0081, type: 3}
-  m_PrefabInstance: {fileID: 669079005839708825}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1063890418506282354 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9a995ea506bec5344b85e6bf155c0081, type: 3}

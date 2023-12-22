@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 652e5436ee18caa478a50f9c4d3e9d99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _storageData:
+  _grigoryData:
     _interactionIconTransform: {fileID: 1606839193976769911}
 --- !u!136 &5019085803560020863
 CapsuleCollider:

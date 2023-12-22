@@ -21,13 +21,13 @@ namespace App.Content.Tree
             _treeData.AppInputSystem = appInputSystem;
             _treeData.WorldCanvasStorage = worldCanvasStorage;
             _treeData.InteractableComp.OnFocusChanged.AddListener(OnFocusChanged);
-            _treeData.InteractableComp.Transform = _treeData.Crystal.transform;
+            _treeData.InteractableComp.Transform = _treeData.TreeObject.transform;
             _treeData.InteractableComp.Entity = this;
         }
         public void Recover()
         {
             _treeData.InteractableComp.IsBlocked = false;
-            _treeData.Crystal.SetActive(true);
+            _treeData.TreeObject.SetActive(true);
             _treeData.IsRecovered = true;
         }
         public T Get<T>() where T : class
@@ -116,7 +116,7 @@ namespace App.Content.Tree
         {
             _treeData.InteractableComp.IsBlocked = true;
             _treeData.AppInputSystem.PlayerMovingIsEnable = true;
-            _treeData.Crystal.SetActive(false);
+            _treeData.TreeObject.SetActive(false);
             _treeData.PlayerInventory.AddItem(_treeData.Key, _treeData.ItemsCount);
             CloseInteractionIcon();
             DisableInteraction();
@@ -160,7 +160,7 @@ namespace App.Content.Tree
             if (_treeData == null)
                 return;
             _treeData.IsRecovered = true;
-            _treeData.Crystal.SetActive(true);
+            _treeData.TreeObject.SetActive(true);
             if (_treeData.InteractableComp.IsInFocus)
             {
                 ShowInteractionIcon();
