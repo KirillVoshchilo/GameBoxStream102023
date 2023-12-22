@@ -20,7 +20,7 @@ namespace App.Logic
         private readonly VillageTrustSystem _villageTrustSystem;
         private UIController _uiController;
         private readonly IAppInputSystem _appInputSystem;
-        private readonly EndLevelController _endLevelController;
+        private EndLevelController _endLevelController;
         private FinishGameController _finishController;
         private int _currentLevel;
         private SCSlideShow _currentCutScene;
@@ -37,13 +37,13 @@ namespace App.Logic
         public int CurrentLevel => _currentLevel;
         public UIController UiController { get => _uiController; set => _uiController = value; }
         public SEvent OnLevelStarted => _onLevelStarted;
+        public EndLevelController EndLevelController { set => _endLevelController = value; }
 
         [Inject]
         public LevelsController(Configuration configuration,
             PlayerEntity playerEntity,
             VillageTrustSystem villageTrustSystem,
             IAppInputSystem appInputSystem,
-            EndLevelController endLevelController,
             LevelTimer levelTimer,
             FallingSnow fallingSnow,
             BonfireFactory bonfireFactory,
@@ -61,15 +61,14 @@ namespace App.Logic
             _playerEntity = playerEntity;
             _villageTrustSystem = villageTrustSystem;
             _appInputSystem = appInputSystem;
-            _endLevelController = endLevelController;
             _levelTimer = levelTimer;
             _worldCanvasStorage = worldCanvasStorage;
         }
         public void EndCurrentLevel()
         {
+            _endLevelController.IsEnable = false;
             _levelTimer.StopTimer();
             _fallingSnow.StopSnowing();
-            _endLevelController.IsEnable = false;
             _appInputSystem.EscapeIsEnable = false;
             _appInputSystem.InventoryIsEnable = false;
             _appInputSystem.PlayerMovingIsEnable = false;
@@ -82,6 +81,7 @@ namespace App.Logic
         {
             _currentLevel = levelIndex;
             _currentLevelConfiguration = _configuration.LevelsConfigurations[levelIndex];
+            ConfigureLevel();
             ShowCutScene(_currentLevelConfiguration.CutScene);
         }
 
@@ -91,6 +91,10 @@ namespace App.Logic
             _currentCutScene = Object.Instantiate(slideShow);
             _currentCutScene.IsLoop = false;
             _appInputSystem.IsGoNextEnable = true;
+            _appInputSystem.EscapeIsEnable = false;
+            _appInputSystem.InventoryIsEnable = false;
+            _appInputSystem.PlayerMovingIsEnable = false;
+            _appInputSystem.InteractionIsEnable = false;
             _currentCutScene.OnSlidShowEnded.AddListener(CloseCurrentCutScene);
             _appInputSystem.OnGoNext.AddListener(_currentCutScene.ShowNext);
             _appInputSystem.OnGoNext.AddListener(_audioController.AudioData.SoundTracks.CutSceneChanging.Play);
@@ -98,6 +102,10 @@ namespace App.Logic
         }
         private void CloseCurrentCutScene()
         {
+            _appInputSystem.InteractionIsEnable = true;
+            _appInputSystem.EscapeIsEnable = true;
+            _appInputSystem.InventoryIsEnable = true;
+            _appInputSystem.PlayerMovingIsEnable = true;
             _currentCutScene.OnSlidShowEnded.RemoveListener(CloseCurrentCutScene);
             _appInputSystem.OnGoNext.RemoveListener(_currentCutScene.ShowNext);
             _appInputSystem.OnGoNext.RemoveListener(_audioController.AudioData.SoundTracks.CutSceneChanging.Play);
@@ -108,25 +116,27 @@ namespace App.Logic
         private void StartGame()
         {
             _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.LocationSoundtrack);
-            ConfigureControl();
-            _levelLoaderSystem.CurrentLoadedLevel.HelicopterEntity.IsEnable = true;
-            _worldCanvasStorage.InteractIcon.gameObject.SetActive(false);
-            _bonfireFactory.ClearAll();
             _fallingSnow.StartSnowing();
-            _playerEntity.transform.position = _levelLoaderSystem.CurrentLoadedLevel.PlayerSpawnPosition[_currentLevel].position;
             _endLevelController.IsEnable = true;
             _playerEntity.GetComponent<Rigidbody>().useGravity = true;
-            ConfigureHeat();
+            HeatData heatData = _playerEntity.Get<HeatData>();
+            heatData.IsFreezing = true;
             _uiController.ShowFreezeEffect();
-            ConfigureDialoges();
-            _uIStorage.ScareCrowMenuPresenter.CurrentLevel = _currentLevel;
-            ConfigureTime();
+            _levelTimer.StartTimer();
             _onLevelStarted.Invoke();
         }
-        private void ConfigureTime()
+        private void ConfigureLevel()
         {
+            _uIStorage.ScareCrowMenuPresenter.CurrentLevel = _currentLevel;
+            _playerEntity.transform.position = _levelLoaderSystem.CurrentLoadedLevel.PlayerSpawnPosition[_currentLevel].position;
+            _worldCanvasStorage.InteractIcon.gameObject.SetActive(false);
+            _bonfireFactory.ClearAll();
+            _levelLoaderSystem.CurrentLoadedLevel.HelicopterEntity.IsEnable = true;
             _levelTimer.FullTime = _currentLevelConfiguration.DayTimeRange;
-            _levelTimer.StartTimer();
+            HeatData heatData = _playerEntity.Get<HeatData>();
+            heatData.CurrentHeat = heatData.DefaultHeatValue;
+            ConfigureDialoges();
+            ConfigureControl();
         }
         private void ConfigureControl()
         {
@@ -134,12 +144,6 @@ namespace App.Logic
             _appInputSystem.EscapeIsEnable = true;
             _appInputSystem.InventoryIsEnable = true;
             _appInputSystem.PlayerMovingIsEnable = true;
-        }
-        private void ConfigureHeat()
-        {
-            HeatData heatData = _playerEntity.Get<HeatData>();
-            heatData.CurrentHeat = heatData.DefaultHeatValue;
-            heatData.IsFreezing = true;
         }
         private void ConfigureDialoges()
         {

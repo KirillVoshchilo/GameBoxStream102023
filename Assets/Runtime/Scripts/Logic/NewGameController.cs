@@ -4,6 +4,7 @@ using App.Architecture.AppInput;
 using App.Content.Player;
 using App.Simples;
 using App.Simples.CellsInventory;
+using System;
 using VContainer;
 
 namespace App.Logic
@@ -42,12 +43,19 @@ namespace App.Logic
             _levelsController.StartLevel(0);
             SetInitialInventory();
             _levelLoaderSystem.CurrentLoadedLevel.HelicopterEntity.IsEnable = false;
+            _levelsController.OnLevelStarted.AddListener(OnFirstLEvelStarted);
+            _allSnowController.ResetSnowEntities();
+        }
+
+        private void OnFirstLEvelStarted()
+        {
             _appInputSystem.EscapeIsEnable = true;
             _appInputSystem.InventoryIsEnable = false;
             _appInputSystem.PlayerMovingIsEnable = true;
             _appInputSystem.InteractionIsEnable = false;
-            _allSnowController.ResetSnowEntities();
+            _levelsController.OnLevelStarted.RemoveListener(OnFirstLEvelStarted);
         }
+
         private void SetInitialInventory()
         {
             _playerInventory.Clear();

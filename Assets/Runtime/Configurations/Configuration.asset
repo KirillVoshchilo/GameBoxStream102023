@@ -37,7 +37,7 @@ MonoBehaviour:
       _icon: {fileID: 21300000, guid: 722caffc2723b70429009a548e46ff79, type: 3}
     - _name: {fileID: 11400000, guid: f99b7f2c77c0af8409f915ab1f8ddc95, type: 2}
       _icon: {fileID: 21300000, guid: f4e48422c174c2242ba0419f38bf6ae2, type: 3}
-    - _name: {fileID: 0}
+    - _name: {fileID: 11400000, guid: 933464c970329e343bda27afa9cd09e6, type: 2}
       _icon: {fileID: 21300000, guid: 70c964bce6f722a4cbb842fea7a8be8b, type: 3}
   _trustLevels:
     _values:
@@ -92,7 +92,7 @@ MonoBehaviour:
       _storageDialogeWithTip: {fileID: 8356858981788448534, guid: 67a673e07cc9eea47a9e51aa782aa300, type: 3}
       _scarecrowDialogs: {fileID: 8356858981788448534, guid: 2dc593e0f19dc9a4bb61b3b3a4d87289, type: 3}
       _cutScene: {fileID: 8356858981788448534, guid: 78fd1cff37f946a4b980cd94ee6e23f3, type: 3}
-      _dayTimeRange: 150
+      _dayTimeRange: 3
     - _storageDialogs: {fileID: 8356858981788448534, guid: 93327ae5cdca714418d03a32e05bddb1, type: 3}
       _storageDialogeWithTip: {fileID: 8356858981788448534, guid: cbba0da829e8e164a9a869bce6e31bfa, type: 3}
       _scarecrowDialogs: {fileID: 8356858981788448534, guid: f2847fea7b085ff4e947393546235e19, type: 3}

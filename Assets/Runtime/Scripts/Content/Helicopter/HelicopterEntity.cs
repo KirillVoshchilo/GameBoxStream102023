@@ -11,10 +11,8 @@ namespace App.Content.Helicopter
 
         private bool _isEnable;
 
-        public bool IsEnable
-        {
-            set => _isEnable = value;
-        }
+        public bool IsEnable { set => _isEnable = value; }
+
         [Inject]
         public void Construct(FinishGameController finishController)
         {

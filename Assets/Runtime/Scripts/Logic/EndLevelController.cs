@@ -2,6 +2,7 @@ using App.Architecture;
 using App.Architecture.AppData;
 using App.Content;
 using App.Content.Player;
+using System;
 using VContainer;
 
 namespace App.Logic
@@ -14,11 +15,15 @@ namespace App.Logic
         private readonly HeatData _heatData;
         private readonly LevelTimer _levelTimer;
         private readonly FinishGameController _finishController;
+        private bool _isEnable;
+
 
         public bool IsEnable
         {
             set
             {
+                if (_isEnable == value)
+                    return;
                 if (value)
                 {
                     _levelTimer.OnTimeIsOver.AddListener(OnTimeHasGone);
@@ -43,12 +48,11 @@ namespace App.Logic
             _configuration = configuration;
             _uiController = uIController;
             _levelsController = levelsController;
+            _levelsController.EndLevelController = this;
             _heatData = playerEntity.Get<HeatData>();
             _levelTimer = levelTimer;
-            _levelTimer.OnTimeIsOver.RemoveListener(OnTimeHasGone);
             _finishController = finishController;
         }
-
         private void OnHeatChanged(float obj)
         {
             if (obj <= 0)
@@ -56,9 +60,9 @@ namespace App.Logic
         }
         private void OnTimeHasGone()
             => EndLevel();
-
         private void EndLevel()
         {
+            _levelTimer.OnTimeIsOver.RemoveListener(OnTimeHasGone);
             int nextLevel = _levelsController.CurrentLevel + 1;
             _uiController.CloseCurrentOpenedGamePanel();
             _levelsController.EndCurrentLevel();
