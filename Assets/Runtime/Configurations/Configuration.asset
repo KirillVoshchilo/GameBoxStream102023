@@ -42,10 +42,10 @@ MonoBehaviour:
   _trustLevels:
     _values:
     - 0
-    - 0
-    - 0
-    - 0
-    - 0
+    - 120
+    - 290
+    - 560
+    - 560
   _playerInventoryConfigurations:
     _itemsConfigurations:
     - _key: {fileID: 11400000, guid: 933464c970329e343bda27afa9cd09e6, type: 2}

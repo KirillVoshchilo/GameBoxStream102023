@@ -168,8 +168,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3446513464390408786}
-  - component: {fileID: 6938197305561138300}
   - component: {fileID: 6034891719664678774}
+  - component: {fileID: 7306249030079668281}
   m_Layer: 0
   m_Name: FirMedium
   m_TagString: Untagged
@@ -196,34 +196,6 @@ Transform:
   - {fileID: 2914486489126164169}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6938197305561138300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6506013410188254972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aea854a6bd28c94dbe92ed31171263f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _resourceSourceData:
-    _key: {fileID: 11400000, guid: 8cb786425129ec54496f5ab38651c247, type: 2}
-    _itemsCount: 14
-    _crystal: {fileID: 2538207928456449139}
-    _fieldRequirements:
-      _alternatives:
-      - _requirements:
-        - _name: {fileID: 11400000, guid: f99b7f2c77c0af8409f915ab1f8ddc95, type: 2}
-          _count: 1
-      - _requirements:
-        - _name: {fileID: 11400000, guid: 9699edb0a014f4f4e8af30dea41cd212, type: 2}
-          _count: 1
-    _interactionIconTransform: {fileID: 8373329521629513215}
-    _interactTime: 1
-    _recoverTime: -1
-    _fallingTreeSound: {fileID: 899107932105345407}
 --- !u!136 &6034891719664678774
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -247,6 +219,34 @@ CapsuleCollider:
   m_Height: 5
   m_Direction: 1
   m_Center: {x: 0, y: 2.5, z: 0}
+--- !u!114 &7306249030079668281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6506013410188254972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a3bcfda4edca304c86d6594b5f20c76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _treeData:
+    _key: {fileID: 11400000, guid: da40f460932eae741b3dd191e65c3ec5, type: 2}
+    _itemsCount: 14
+    _treeObject: {fileID: 2538207928456449139}
+    _fieldRequirements:
+      _alternatives:
+      - _requirements:
+        - _name: {fileID: 11400000, guid: 9699edb0a014f4f4e8af30dea41cd212, type: 2}
+          _count: 1
+      - _requirements:
+        - _name: {fileID: 11400000, guid: f99b7f2c77c0af8409f915ab1f8ddc95, type: 2}
+          _count: 1
+    _interactionIconTransform: {fileID: 8373329521629513215}
+    _interactTime: 1
+    _recoverTime: -1
+    _fallingTreeSound: {fileID: 899107932105345407}
 --- !u!1001 &3456776014052929826
 PrefabInstance:
   m_ObjectHideFlags: 0
