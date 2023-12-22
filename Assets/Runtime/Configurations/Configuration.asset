@@ -74,7 +74,7 @@ MonoBehaviour:
     - _key: {fileID: 11400000, guid: f99b7f2c77c0af8409f915ab1f8ddc95, type: 2}
       _maxCellsForItem: 1
       _maxCountInCell: 1
-    - _key: {fileID: 0}
+    - _key: {fileID: 11400000, guid: 933464c970329e343bda27afa9cd09e6, type: 2}
       _maxCellsForItem: 1
       _maxCountInCell: 140
   _equipmentConfigurations:
