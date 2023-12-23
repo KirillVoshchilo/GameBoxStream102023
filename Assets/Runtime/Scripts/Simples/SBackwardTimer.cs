@@ -11,6 +11,7 @@ namespace App.Simples
         private float _fullTime;
         private float _currentTime;
         private bool _isEnable;
+        private bool _isPaused;
 
         public float FullTime { get => _fullTime; set => _fullTime = value; }
         public SEvent OnTimeIsOver => _onTimeIsOver;
@@ -26,12 +27,12 @@ namespace App.Simples
         }
         public void ContinueTimer()
         {
-            _isEnable = true;
+            _isPaused = false;
             TimerProcess()
                 .Forget();
         }
         public void PauseTimer()
-            => _isEnable = false;
+            => _isPaused = true;
         public void StopTimer()
         {
             _isEnable = false;
@@ -40,7 +41,7 @@ namespace App.Simples
 
         private async UniTask TimerProcess()
         {
-            while (_isEnable && _currentTime > 0)
+            while (_isEnable && _currentTime > 0 && !_isPaused)
             {
                 _currentTime -= Time.deltaTime;
                 if (_currentTime < 0)
@@ -48,7 +49,8 @@ namespace App.Simples
                 _onTimeHasChanged.Invoke(_currentTime);
                 await UniTask.NextFrame();
             }
-            _onTimeIsOver.Invoke();
+            if (!_isPaused)
+                _onTimeIsOver.Invoke();
         }
     }
 }

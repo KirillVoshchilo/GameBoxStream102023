@@ -11,12 +11,14 @@ namespace App.Logic
 {
     public sealed class UIController
     {
-        private LevelLoaderSystem _levelLoaderSystem;
-        private UIStorage _uIStorage;
-        private HeatData _playerHeat;
-        private IAppInputSystem _appInputSystem;
-        private LevelsController _levelsController;
-        private AudioStorage _audioController;
+        private readonly LevelTimer _levelTimer;
+        private readonly UIStorage _uIStorage;
+        private readonly HeatData _playerHeat;
+        private readonly IAppInputSystem _appInputSystem;
+        private readonly AudioStorage _audioController;
+
+        private bool _isInteractionEnable;
+        private bool _isInventoryEnable;
 
         [Inject]
         public UIController(IAppInputSystem appInputSystem,
@@ -24,11 +26,10 @@ namespace App.Logic
             AudioStorage audioController,
             LevelsController levelsController,
             UIStorage uIStorage,
-            LevelLoaderSystem levelLoaderSystem)
+            LevelTimer levelTimer)
         {
-            _levelLoaderSystem=levelLoaderSystem;
+            _levelTimer = levelTimer;
             _uIStorage = uIStorage;
-            _levelsController = levelsController;
             levelsController.UiController = this;
             _audioController = audioController;
             _playerHeat = playerEntity.Get<HeatData>();
@@ -39,6 +40,7 @@ namespace App.Logic
         }
         public void OpenScarecrowMenu()
         {
+            _levelTimer.PauseTimer();
             _audioController.AudioData.SoundTracks.OpenFevoniaInterface.Play();
             _playerHeat.CurrentHeat = _playerHeat.DefaultHeatValue;
             _playerHeat.IsFreezing = false;
@@ -56,6 +58,7 @@ namespace App.Logic
         }
         public void CloseScarecrowMenu()
         {
+            _levelTimer.ContinueTimer();
             _audioController.AudioData.SoundTracks.CloseInventory.Play();
             _playerHeat.IsFreezing = true;
             _appInputSystem.OnGoNext.RemoveListener(_uIStorage.ScareCrowMenuPresenter.Dialoge.ShowNext);
@@ -69,6 +72,7 @@ namespace App.Logic
         }
         public void OpenStorageMenu(Inventory inventory)
         {
+            _levelTimer.PauseTimer();
             _audioController.AudioData.SoundTracks.OpenGregoryInterface.Play();
             _playerHeat.CurrentHeat = _playerHeat.DefaultHeatValue;
             _playerHeat.IsFreezing = false;
@@ -87,6 +91,7 @@ namespace App.Logic
         }
         public void CloseStorageMenu()
         {
+            _levelTimer.ContinueTimer();
             _audioController.AudioData.SoundTracks.CloseInventory.Play();
             _playerHeat.IsFreezing = true;
             _appInputSystem.OnGoNext.RemoveListener(_uIStorage.StorageMenuPresenter.Dialoge.ShowNext);
@@ -148,6 +153,9 @@ namespace App.Logic
         }
         private void OpenPausePanel()
         {
+            _isInteractionEnable = _appInputSystem.InteractionIsEnable;
+            _isInventoryEnable = _appInputSystem.InventoryIsEnable;
+            _levelTimer.PauseTimer();
             Cursor.visible = true;
             _appInputSystem.InteractionIsEnable = false;
             _appInputSystem.InventoryIsEnable = false;
@@ -156,16 +164,9 @@ namespace App.Logic
         }
         private void ClosePausePanel()
         {
-            if (_levelsController.CurrentLevel == 0)
-            {
-                _appInputSystem.InteractionIsEnable = false;
-                _appInputSystem.InventoryIsEnable = false;
-            }
-            else
-            {
-                _appInputSystem.InteractionIsEnable = true;
-                _appInputSystem.InventoryIsEnable = true;
-            }
+            _levelTimer.ContinueTimer();
+            _appInputSystem.InteractionIsEnable = _isInteractionEnable;
+            _appInputSystem.InventoryIsEnable = _isInventoryEnable;
             Cursor.visible = false;
             _uIStorage.PauseMenuPresenter.CloseTIpsPanel();
             _appInputSystem.PlayerMovingIsEnable = true;
@@ -179,6 +180,7 @@ namespace App.Logic
         }
         private void CloseInventory()
         {
+            _levelTimer.ContinueTimer();
             _uIStorage.GameWatchPresenter.gameObject.SetActive(true);
             _audioController.AudioData.SoundTracks.CloseInventory.Play();
             _appInputSystem.IsGoNextEnable = false;
@@ -190,6 +192,7 @@ namespace App.Logic
         }
         private void OpenInventory()
         {
+            _levelTimer.PauseTimer();
             _uIStorage.GameWatchPresenter.gameObject.SetActive(false);
             _audioController.AudioData.SoundTracks.CloseInventory.Play();
             _uIStorage.InventoryPresenter.gameObject.SetActive(true);

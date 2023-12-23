@@ -17,7 +17,6 @@ namespace App.Logic
         private readonly FinishGameController _finishController;
         private bool _isEnable;
 
-
         public bool IsEnable
         {
             set
