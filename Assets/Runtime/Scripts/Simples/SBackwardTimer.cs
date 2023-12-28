@@ -1,5 +1,4 @@
-﻿using App.Simples;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace App.Simples

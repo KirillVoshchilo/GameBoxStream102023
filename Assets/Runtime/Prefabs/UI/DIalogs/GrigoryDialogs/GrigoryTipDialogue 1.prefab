@@ -504,7 +504,7 @@ GameObject:
   - component: {fileID: 8297546560019683268}
   - component: {fileID: 8356858981788448534}
   m_Layer: 5
-  m_Name: StorageTipDialogue1 1
+  m_Name: GrigoryTipDialogue 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

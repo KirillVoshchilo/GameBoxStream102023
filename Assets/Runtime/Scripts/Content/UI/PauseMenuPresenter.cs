@@ -22,7 +22,6 @@ namespace App.Content.UI
         private UIController _uiController;
         private Inventory _playerInventory;
         private PlayerEntity _playerEntity;
-        private LevelTimer _levelTimer;
         private EndLevelController _endLevelController;
         private LevelsController _levelsController;
         private BonfireFactory _bonfireFactory;
@@ -33,12 +32,10 @@ namespace App.Content.UI
             UIController uiController,
             EndLevelController endLevelController,
             BonfireFactory bonfireFactory,
-            LevelsController levelsController,
-            LevelTimer levelTimer)
+            LevelsController levelsController)
         {
             _closeTipsButton.onClick.AddListener(OnCloseTipsClicked);
             _openTipsButton.onClick.AddListener(OnOpenTipsClicked);
-            _levelTimer = levelTimer;
             _levelsController = levelsController;
             _bonfireFactory = bonfireFactory;
             _endLevelController = endLevelController;
@@ -67,10 +64,9 @@ namespace App.Content.UI
         }
         private void OnEndGameClicked()
         {
-            _endLevelController.IsEnable = false;
+            _levelsController.EndCurrentLevel();
             _bonfireFactory.ClearAll();
             _uiController.CloseCurrentOpenedGamePanel();
-            _levelsController.EndCurrentLevel();
             _playerInventory.Clear();
             _playerEntity.GetComponent<Rigidbody>().useGravity = false;
             _uiController.OpenMainMenu();
