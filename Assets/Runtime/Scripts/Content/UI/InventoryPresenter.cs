@@ -1,6 +1,7 @@
 using App.Architecture;
 using App.Architecture.AppData;
 using App.Content.Player;
+using App.Logic;
 using App.Simples.CellsInventory;
 using Cysharp.Threading.Tasks;
 using TMPro;
@@ -20,6 +21,7 @@ namespace App.Content.UI
         private Inventory _playerInventory;
         private IconsConfiguration _iconsConfiguration;
         private bool _enable;
+        private LevelsController _levelsController;
         private VillageTrustSystem _villageTrustSystem;
 
         public bool Enable
@@ -43,8 +45,10 @@ namespace App.Content.UI
         public void Construct(PlayerEntity playerEntity,
             Configuration configurations,
             LevelTimer levelTimer,
-            VillageTrustSystem villageTrustSystem)
+            VillageTrustSystem villageTrustSystem,
+            LevelsController levelsController)
         {
+            _levelsController = levelsController;
             _villageTrustSystem = villageTrustSystem;
             levelTimer.OnTimeHasChanged.AddListener(ShowTime);
             _playerInventory = playerEntity.Get<Inventory>();
@@ -56,7 +60,7 @@ namespace App.Content.UI
             int value = (int)obj;
             int seconds = value % 60;
             int minutes = (value - seconds) / 60;
-            _timer.text = $"{minutes.ToString(TIME_FORMAT)}:{seconds.ToString(TIME_FORMAT)}";
+            _timer.text = $"{_levelsController.CurrentLevel} - {minutes.ToString(TIME_FORMAT)}:{seconds.ToString(TIME_FORMAT)}";
         }
         private async UniTask DefferedSubscribes()
         {

@@ -1,4 +1,5 @@
 using App.Architecture;
+using App.Logic;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -11,9 +12,13 @@ namespace App.Content.UI
 
         [SerializeField] private TextMeshProUGUI _timer;
 
+        private LevelsController _levelController;
+
         [Inject]
-        public void Construct(LevelTimer levelTimer)
+        public void Construct(LevelTimer levelTimer,
+            LevelsController levelsController)
         {
+            _levelController = levelsController;
             levelTimer.OnTimeHasChanged.AddListener(ShowTime);
         }
 
@@ -22,7 +27,7 @@ namespace App.Content.UI
             int value = (int)obj;
             int seconds = value % 60;
             int minutes = (value - seconds) / 60;
-            _timer.text = $"{minutes.ToString(TIME_FORMAT)}:{seconds.ToString(TIME_FORMAT)}";
+            _timer.text = $"{_levelController.CurrentLevel} - {minutes.ToString(TIME_FORMAT)}:{seconds.ToString(TIME_FORMAT)}";
         }
     }
 }
