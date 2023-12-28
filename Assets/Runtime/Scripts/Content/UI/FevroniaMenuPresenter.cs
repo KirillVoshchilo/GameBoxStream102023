@@ -7,7 +7,6 @@ using App.Simples;
 using App.Simples.CellsInventory;
 using Cysharp.Threading.Tasks;
 using SimpleComponents.UI;
-using System;
 using TMPro;
 using UnityEngine;
 using VContainer;
