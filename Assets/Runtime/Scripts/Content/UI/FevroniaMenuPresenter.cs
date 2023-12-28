@@ -43,7 +43,7 @@ namespace App.Content.UI
                 _enable = value;
                 if (value)
                 {
-                    UpdateCells(_playerInventory.Cells);
+                    OnInventoryUpdated(_playerInventory.Cells);
                     PrepareInventoryMatrix();
                     SetSelection(0, 0);
                     ShowTrust(_villageTrustSystem.Trust);
@@ -56,9 +56,9 @@ namespace App.Content.UI
                 {
                     _villageTrustSystem.OnTrustChanged.RemoveListener(OnTrustChanged);
                     _villageTrustSystem.OnTrustLevelChanged.RemoveListener(OnTrustLevelChanged);
-                    _appInputSystem.OnMovedInInventory.RemoveListener(MoveSelectionSelection);
-                    _appInputSystem.OnInventorySelected.RemoveListener(PushMaterials);
-                    _playerInventory.OnInventoryUpdated.RemoveListener(UpdateCells);
+                    _appInputSystem.OnMovedInInventory.RemoveListener(OnMovedInInventory);
+                    _appInputSystem.OnInventorySelected.RemoveListener(OnInventorySelected);
+                    _playerInventory.OnInventoryUpdated.RemoveListener(OnInventoryUpdated);
                 }
             }
         }
@@ -105,9 +105,9 @@ namespace App.Content.UI
             await UniTask.NextFrame();
             _villageTrustSystem.OnTrustChanged.AddListener(OnTrustChanged);
             _villageTrustSystem.OnTrustLevelChanged.AddListener(OnTrustLevelChanged);
-            _appInputSystem.OnMovedInInventory.AddListener(MoveSelectionSelection);
-            _appInputSystem.OnInventorySelected.AddListener(PushMaterials);
-            _playerInventory.OnInventoryUpdated.AddListener(UpdateCells);
+            _appInputSystem.OnMovedInInventory.AddListener(OnMovedInInventory);
+            _appInputSystem.OnInventorySelected.AddListener(OnInventorySelected);
+            _playerInventory.OnInventoryUpdated.AddListener(OnInventoryUpdated);
         }
 
         private void OnTrustChanged(float obj)
@@ -141,7 +141,6 @@ namespace App.Content.UI
             _currentWoodCountShort.text = difference.ToString();
             _currentWoodCount.text = $"В наличии {difference}";
         }
-
         private void ShowTrust(float trust)
             => _trustText.text = $"Доверие: {trust}";
         private void ShowGoalCount(int trustLevel)
@@ -161,7 +160,7 @@ namespace App.Content.UI
             }
             _woodRequirements.text = $"{goal} дров.";
         }
-        private void PushMaterials()
+        private void OnInventorySelected()
         {
             if (_villageTrustSystem.Trust == _trustLevels[_currentLevel]
                 && _currentLevel < _trustLevels.Length - 1)
@@ -182,9 +181,9 @@ namespace App.Content.UI
                 toRemove = GetRequiredWood();
                 toRemove = Mathf.Clamp(toRemove, 0, cell.Count);
             }
-            _audioController.AudioData.SoundTracks.ItemTransfer.Play();
             _villageTrustSystem.AddTrust(toRemove);
             _playerInventory.RemoveItemFromCell(cell.Key, toRemove, cellIndex);
+            _audioController.AudioData.SoundTracks.ItemTransfer.Play();
         }
         private int GetRequiredWood()
         {
@@ -207,7 +206,7 @@ namespace App.Content.UI
                 }
             }
         }
-        private void MoveSelectionSelection(Vector2 vector)
+        private void OnMovedInInventory(Vector2 vector)
         {
             if (vector.x > 0 && _selectionPosition.x < 2)
                 SetSelection(_selectionPosition.x + 1, _selectionPosition.y);
@@ -225,7 +224,7 @@ namespace App.Content.UI
             _selectionPosition = (x, y);
             _cellsMatrix[y, x].Highlighter.Highlight();
         }
-        private void UpdateCells(Cell[] obj)
+        private void OnInventoryUpdated(Cell[] obj)
         {
             int count = obj.Length;
             for (int i = 0; i < count; i++)

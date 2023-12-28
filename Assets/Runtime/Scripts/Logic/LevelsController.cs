@@ -69,6 +69,8 @@ namespace App.Logic
             _endLevelController.IsEnable = false;
             _levelTimer.StopTimer();
             _fallingSnow.StopSnowing();
+            _bonfireFactory.ClearAll();
+            _playerEntity.transform.position = Vector3.zero;
             _appInputSystem.EscapeIsEnable = false;
             _appInputSystem.InventoryIsEnable = false;
             _appInputSystem.PlayerMovingIsEnable = false;
@@ -130,7 +132,6 @@ namespace App.Logic
             _uIStorage.ScareCrowMenuPresenter.CurrentLevel = _currentLevel;
             _playerEntity.transform.position = _levelLoaderSystem.CurrentLoadedLevel.PlayerSpawnPosition[_currentLevel].position;
             _worldCanvasStorage.InteractIcon.gameObject.SetActive(false);
-            _bonfireFactory.ClearAll();
             _levelLoaderSystem.CurrentLoadedLevel.HelicopterEntity.IsEnable = true;
             _levelTimer.FullTime = _currentLevelConfiguration.DayTimeRange;
             HeatData heatData = _playerEntity.Get<HeatData>();
