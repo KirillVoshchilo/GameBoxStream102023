@@ -14014,6 +14014,10 @@ PrefabInstance:
       propertyPath: _playerData._heatData._defaultHeatValue
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 5262586587247939025, guid: fbdca5cda23085c408da59ebb9580bbb, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

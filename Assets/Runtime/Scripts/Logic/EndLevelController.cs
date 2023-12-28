@@ -2,8 +2,6 @@ using App.Architecture;
 using App.Architecture.AppData;
 using App.Content;
 using App.Content.Player;
-using System;
-using UnityEngine;
 using VContainer;
 
 namespace App.Logic
@@ -27,13 +25,11 @@ namespace App.Logic
                 _isEnable = value;
                 if (value)
                 {
-                    Debug.Log("включили окончание");
                     _levelTimer.OnTimeIsOver.AddListener(OnTimeHasGone);
                     _heatData.OnHeatChanged.AddListener(OnHeatChanged);
                 }
                 else
                 {
-                    Debug.Log("выключили окончание");
                     _levelTimer.OnTimeIsOver.RemoveListener(OnTimeHasGone);
                     _heatData.OnHeatChanged.RemoveListener(OnHeatChanged);
                 }

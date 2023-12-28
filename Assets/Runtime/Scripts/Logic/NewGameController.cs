@@ -4,7 +4,6 @@ using App.Architecture.AppInput;
 using App.Content.Player;
 using App.Simples;
 using App.Simples.CellsInventory;
-using System;
 using VContainer;
 
 namespace App.Logic

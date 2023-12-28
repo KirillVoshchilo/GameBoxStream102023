@@ -87,7 +87,6 @@ namespace App.Logic
 
         private void ShowCutScene(SCSlideShow slideShow)
         {
-            Debug.Log("открытие кат сцены");
             _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.CutSceneMusic);
             _currentCutScene = Object.Instantiate(slideShow);
             _currentCutScene.IsLoop = false;

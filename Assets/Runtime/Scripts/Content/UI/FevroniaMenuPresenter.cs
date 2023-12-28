@@ -103,11 +103,11 @@ namespace App.Content.UI
         private void OnTrustLevelChanged(int trustLevel)
         {
             ShowGoalCount(trustLevel);
+            ShowTrust(_villageTrustSystem.Trust);
             ShowWoodQuantity(_villageTrustSystem.Trust);
         }
         private void ShowWoodQuantity(float trust)
         {
-            _trustText.text = $"Доверие: {trust}";
             if (_villageTrustSystem.CurrentTrustLevel >= _trustLevels.Length)
             {
                 _currentWoodCountShort.text = "0";
@@ -124,6 +124,7 @@ namespace App.Content.UI
             _currentWoodCount.text = $"В наличии {difference}";
         }
 
+        private void ShowTrust(float trust) => _trustText.text = $"Доверие: {trust}";
         private void ShowGoalCount(int trustLevel)
         {
             if (trustLevel >= _trustLevels.Length)
