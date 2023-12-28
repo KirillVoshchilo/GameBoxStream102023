@@ -156,6 +156,7 @@ namespace App.Logic
             _isInteractionEnable = _appInputSystem.InteractionIsEnable;
             _isInventoryEnable = _appInputSystem.InventoryIsEnable;
             _levelTimer.PauseTimer();
+            _playerHeat.IsFreezing = false;
             Cursor.visible = true;
             _appInputSystem.InteractionIsEnable = false;
             _appInputSystem.InventoryIsEnable = false;
@@ -167,6 +168,7 @@ namespace App.Logic
             _levelTimer.ContinueTimer();
             _appInputSystem.InteractionIsEnable = _isInteractionEnable;
             _appInputSystem.InventoryIsEnable = _isInventoryEnable;
+            _playerHeat.IsFreezing = true;
             Cursor.visible = false;
             _uIStorage.PauseMenuPresenter.CloseTIpsPanel();
             _appInputSystem.PlayerMovingIsEnable = true;
