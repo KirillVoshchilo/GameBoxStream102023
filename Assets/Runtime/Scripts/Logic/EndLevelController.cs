@@ -52,6 +52,7 @@ namespace App.Logic
             _levelTimer = levelTimer;
             _finishController = finishController;
         }
+
         private void OnHeatChanged(float obj)
         {
             if (obj <= 0)

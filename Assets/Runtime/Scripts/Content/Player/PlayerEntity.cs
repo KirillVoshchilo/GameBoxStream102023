@@ -18,26 +18,6 @@ namespace App.Content.Player
         private PlayerAnimatorHandler _playerAnimatorHandler;
         private EquipmentViewHandler _equipmentViewHandler;
 
-        public bool IsEnable
-        {
-            get => _playerData.IsEnable;
-            set
-            {
-                _playerData.IsEnable = value;
-                if (value)
-                {
-                    _playerData.TriggerComponent.OnExit.AddListener(OnExitEntity);
-                    _playerData.TriggerComponent.OnEnter.AddListener(OnEnterEntity);
-                    _moveHandler.IsEnable = true;
-                }
-                else
-                {
-                    _playerData.TriggerComponent.OnExit.ClearListeners();
-                    _playerData.TriggerComponent.OnEnter.ClearListeners();
-                    _moveHandler.IsEnable = true;
-                }
-            }
-        }
         [Inject]
         public void Construct(IAppInputSystem appInputSystem,
             CamerasStorage camerasStorage,

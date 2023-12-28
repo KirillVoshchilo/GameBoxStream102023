@@ -32,6 +32,12 @@ namespace App.Content.Player
             _playerData.PlayerAnimationsEvents.OnBonfireBuilded.AddListener(OnBonfireBuilded);
         }
 
+        public void StopChoping()
+        {
+            if (_playerData.Animator.GetBool(s_isChoping))
+                _playerData.Animator.SetBool(s_isChoping, false);
+        }
+
         private void OnBonfireBuilded()
         {
             _playerData.AppInputSystem.InteractionIsEnable = true;
@@ -60,11 +66,6 @@ namespace App.Content.Player
             if (_playerData.InteractionEntity.IsBlocked)
                 return;
             StartChoping();
-        }
-        public void StopChoping()
-        {
-            if (_playerData.Animator.GetBool(s_isChoping))
-                _playerData.Animator.SetBool(s_isChoping, false);
         }
         private void StartChoping()
         {

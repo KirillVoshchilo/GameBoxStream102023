@@ -24,7 +24,6 @@ namespace App.Content.Bonfire
             _worldCanvasStorage = worldCanvasStorage;
             _aspInputSystem = appInputSystem;
         }
-
         public void ClearAll()
         {
             BonfireEntity[] bonfires = _bonfires.ToArray();
@@ -34,7 +33,6 @@ namespace App.Content.Bonfire
                 _bonfires[i].Destruct();
             }
         }
-
         public BonfireEntity BuildBonfire(Vector3 position)
         {
             BonfireEntity bonfireEntity = Instantiate(_bonfireEntity, position, Quaternion.identity);

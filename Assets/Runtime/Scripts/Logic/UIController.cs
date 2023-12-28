@@ -151,6 +151,7 @@ namespace App.Logic
             if (_uIStorage.PauseMenuPresenter.gameObject.activeSelf)
                 ClosePausePanel();
         }
+
         private void OpenPausePanel()
         {
             _isInteractionEnable = _appInputSystem.InteractionIsEnable;

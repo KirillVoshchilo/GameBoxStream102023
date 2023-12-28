@@ -35,6 +35,7 @@ namespace App.Logic
             _levelsController = levelsController;
             _playerInventory = playerEntity.Get<Inventory>();
         }
+
         public void StartFirstLevel()
         {
             _villageTrustSystem.ResetTrust();
@@ -54,7 +55,6 @@ namespace App.Logic
             _appInputSystem.InteractionIsEnable = false;
             _levelsController.OnLevelStarted.RemoveListener(OnFirstLEvelStarted);
         }
-
         private void SetInitialInventory()
         {
             _playerInventory.Clear();

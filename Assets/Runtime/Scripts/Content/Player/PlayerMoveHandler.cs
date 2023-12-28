@@ -86,7 +86,6 @@ namespace App.Content.Player
             target += _playerData.AppInputSystem.MoveDirection.x * _playerData.MainCameraTransform.right;
             target += _playerData.AppInputSystem.MoveDirection.y * forwarDirection.normalized;
             _playerData.Walker.MovingDirection = (target - _playerData.Transform.position).normalized;
-
             _playerData.Walker.MovingSpeed = CalculateSpeed();
             _playerData.Rigidbody.MovePosition((_playerData.Walker.MovingDirection * _playerData.Walker.MovingSpeed) + _playerData.Transform.position);
         }

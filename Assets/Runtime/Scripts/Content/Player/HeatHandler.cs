@@ -22,7 +22,6 @@ namespace App.Content.Player
             FreezingProcess()
                 .Forget();
         }
-
         private async UniTask FreezingProcess()
         {
             while (_heatData.IsFreezing)

@@ -17,14 +17,10 @@ namespace App.Content.Player
             playerData.AppInputSystem.OnInteractionPerformed.AddListener(OnInteractionPerformed);
         }
 
-        private void OnInteractionPerformed()
-        {
-            StopChoping();
-        }
-        private void OnInteractionCanceled()
-        {
-            StopChoping();
-        }
+        private void OnInteractionPerformed() 
+            => StopChoping();
+        private void OnInteractionCanceled() 
+            => StopChoping();
         private void OnInteractionStarted()
         {
             if (_playerData.InteractionEntity == null)

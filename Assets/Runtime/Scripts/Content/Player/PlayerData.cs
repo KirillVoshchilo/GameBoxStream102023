@@ -35,7 +35,6 @@ namespace App.Content.Player
         private Transform _mainCameraTransform;
         private InteractionComp _interactionEntity;
         private IAppInputSystem _appInputSystem;
-        private bool _isEnable;
         private WalkerData _walker;
         private GameObject _currentAxeModel;
         private bool _hasCoughed;
@@ -48,7 +47,6 @@ namespace App.Content.Player
         public SCTriggerComponent TriggerComponent => _triggerComponent;
         public IAppInputSystem AppInputSystem { get => _appInputSystem; set => _appInputSystem = value; }
         public Inventory PlayerInventory { get => _playerInventory; set => _playerInventory = value; }
-        public bool IsEnable { get => _isEnable; set => _isEnable = value; }
         public WalkerData Walker { get => _walker; set => _walker = value; }
         public Transform BonfireTargetPosition => _bonfireTargetPosition;
         public HeatData HeatData { get => _heatData; set => _heatData = value; }
