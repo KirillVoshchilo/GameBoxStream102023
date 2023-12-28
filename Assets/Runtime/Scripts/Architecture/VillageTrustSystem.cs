@@ -23,35 +23,35 @@ namespace App.Architecture
 
         public void ResetTrust()
         {
-            _currentTrust = 0;
-            _onTrustChanged.Invoke(_currentTrust);
-            int count = _configuration.TrustLevels.Length;
-            int i;
-            for (i = 0; i < count; i++)
-            {
-                if (_currentTrust < _configuration.TrustLevels[i])
-                    break;
-            }
-            if (_currentTrustLevel < i)
-            {
-                _currentTrustLevel = i;
-                _onTrustLevelChanged.Invoke(_currentTrustLevel);
-            }
+            SetTrust(0);
+            DefineTrustLevel(_currentTrust);
         }
         public void AddTrust(float value)
         {
-            _currentTrust += value;
-            _onTrustChanged.Invoke(_currentTrust);
-            int count = _configuration.TrustLevels.Length;
+            SetTrust(_currentTrust + value);
+            DefineTrustLevel(_currentTrust);
+        }
+
+        private void SetTrust(float trust)
+        {
+            _currentTrust = trust;
+            _onTrustChanged.Invoke(trust);
+        }
+        private void DefineTrustLevel(float trust)
+        {
+            int trustLevel = 0;
             int i;
+            int count = _configuration.TrustLevels.Length;
             for (i = 0; i < count; i++)
             {
-                if (_currentTrust < _configuration.TrustLevels[i])
+                if (trust < _configuration.TrustLevels[i])
                     break;
             }
-            if (_currentTrustLevel < i)
+            if (trustLevel < i)
+                trustLevel = i;
+            if (trustLevel != _currentTrustLevel)
             {
-                _currentTrustLevel = i;
+                _currentTrustLevel = trustLevel;
                 _onTrustLevelChanged.Invoke(_currentTrustLevel);
             }
         }

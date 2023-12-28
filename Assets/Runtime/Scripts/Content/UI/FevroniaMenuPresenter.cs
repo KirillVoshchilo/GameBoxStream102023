@@ -7,6 +7,7 @@ using App.Simples;
 using App.Simples.CellsInventory;
 using Cysharp.Threading.Tasks;
 using SimpleComponents.UI;
+using System;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -46,6 +47,7 @@ namespace App.Content.UI
                     UpdateCells(_playerInventory.Cells);
                     PrepareInventoryMatrix();
                     SetSelection(0, 0);
+                    ShowTrust(_villageTrustSystem.Trust);
                     ShowGoalCount(_villageTrustSystem.CurrentTrustLevel);
                     ShowWoodQuantity(_villageTrustSystem.Trust);
                     DefferedSubscribes()
@@ -53,7 +55,7 @@ namespace App.Content.UI
                 }
                 else
                 {
-                    _villageTrustSystem.OnTrustChanged.RemoveListener(ShowWoodQuantity);
+                    _villageTrustSystem.OnTrustChanged.RemoveListener(OnTrustChanged);
                     _villageTrustSystem.OnTrustLevelChanged.RemoveListener(OnTrustLevelChanged);
                     _appInputSystem.OnMovedInInventory.RemoveListener(MoveSelectionSelection);
                     _appInputSystem.OnInventorySelected.RemoveListener(PushMaterials);
@@ -74,7 +76,15 @@ namespace App.Content.UI
                 _dialoge.IsLoop = false;
             }
         }
-        public int CurrentLevel { get => _currentLevel; set => _currentLevel = value; }
+        public int CurrentLevel
+        {
+            get => _currentLevel;
+            set
+            {
+                ShowGoalCount(value + 1);
+                _currentLevel = value;
+            }
+        }
 
         [Inject]
         public void Construct(PlayerEntity playerEntity,
@@ -94,16 +104,22 @@ namespace App.Content.UI
         private async UniTask DefferedSubscribes()
         {
             await UniTask.NextFrame();
-            _villageTrustSystem.OnTrustChanged.AddListener(ShowWoodQuantity);
+            _villageTrustSystem.OnTrustChanged.AddListener(OnTrustChanged);
             _villageTrustSystem.OnTrustLevelChanged.AddListener(OnTrustLevelChanged);
             _appInputSystem.OnMovedInInventory.AddListener(MoveSelectionSelection);
             _appInputSystem.OnInventorySelected.AddListener(PushMaterials);
             _playerInventory.OnInventoryUpdated.AddListener(UpdateCells);
         }
+
+        private void OnTrustChanged(float obj)
+        {
+            ShowTrust(obj);
+            ShowWoodQuantity(obj);
+        }
+
         private void OnTrustLevelChanged(int trustLevel)
         {
             ShowGoalCount(trustLevel);
-            ShowTrust(_villageTrustSystem.Trust);
             ShowWoodQuantity(_villageTrustSystem.Trust);
         }
         private void ShowWoodQuantity(float trust)
@@ -114,21 +130,30 @@ namespace App.Content.UI
                 _currentWoodCount.text = $"В наличии {0}";
                 return;
             }
+            int trustLevel = _villageTrustSystem.CurrentTrustLevel;
+            if (_currentLevel < trustLevel)
+                trustLevel = _currentLevel;
             float difference = trust;
-            if (_villageTrustSystem.CurrentTrustLevel > 0)
+            if (trustLevel > 0)
             {
-                int previousLevel = Mathf.Clamp(_villageTrustSystem.CurrentTrustLevel - 1, 0, _villageTrustSystem.CurrentTrustLevel);
+                int previousLevel = Mathf.Clamp(trustLevel - 1, 0, trustLevel);
                 difference -= _trustLevels[previousLevel];
             }
             _currentWoodCountShort.text = difference.ToString();
             _currentWoodCount.text = $"В наличии {difference}";
         }
 
-        private void ShowTrust(float trust) => _trustText.text = $"Доверие: {trust}";
+        private void ShowTrust(float trust)
+            => _trustText.text = $"Доверие: {trust}";
         private void ShowGoalCount(int trustLevel)
         {
             if (trustLevel >= _trustLevels.Length)
                 return;
+            if (trustLevel != _currentLevel)
+            {
+                _woodRequirements.text = $"Достаточно дров.";
+                return;
+            }
             float goal = _trustLevels[trustLevel];
             if (trustLevel > 0)
             {
@@ -212,7 +237,7 @@ namespace App.Content.UI
                     _cellPresenters[i].SetCount(obj[i].Count);
                     _cellPresenters[i].SetSprite(_iconsConfiguration[obj[i].Key]);
                 }
-                else  _cellPresenters[i].Clear();
+                else _cellPresenters[i].Clear();
             }
         }
     }
