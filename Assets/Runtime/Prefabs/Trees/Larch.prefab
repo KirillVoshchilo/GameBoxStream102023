@@ -74,7 +74,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _treeData:
     _key: {fileID: 11400000, guid: da40f460932eae741b3dd191e65c3ec5, type: 2}
-    _itemsCount: 7
+    _itemsCount: 1
     _treeObject: {fileID: 8424164323385210408}
     _fieldRequirements:
       _alternatives:
