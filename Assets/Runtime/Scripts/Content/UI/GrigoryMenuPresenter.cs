@@ -3,6 +3,7 @@ using App.Architecture.AppData;
 using App.Architecture.AppInput;
 using App.Content.Audio;
 using App.Content.Player;
+using App.Logic;
 using App.Simples;
 using App.Simples.CellsInventory;
 using Cysharp.Threading.Tasks;
@@ -31,6 +32,7 @@ namespace App.Content.UI
         private EquipmentConfigurations _equipmentConfigurations;
         private StorageInventoryConfiguration _storageInventoryConfiguration;
         private InventoryConfigurations _playerInventoryConfigurations;
+        private LevelsController _levelsController;
         private IAppInputSystem _appInputSystem;
         private readonly CellPresenter[,] _storageMatrix = new CellPresenter[3, 3];
         private (int x, int y) _selectionPosition;
@@ -81,8 +83,10 @@ namespace App.Content.UI
             Configuration configurations,
             VillageTrustSystem villageTrustSystem,
             IAppInputSystem appInputSystem,
-            AudioStorage audioController)
+            AudioStorage audioController,
+            LevelsController levelsController)
         {
+            _levelsController = levelsController;
             _audioController = audioController;
             _equipmentConfigurations = configurations.EquipmentConfigurations;
             _playerInventoryConfigurations = configurations.PlayerInventoryConfigurations;
@@ -144,7 +148,8 @@ namespace App.Content.UI
             {
                 if (cell.Cell != null)
                 {
-                    if (_storageInventoryConfiguration[cell.Cell.Key].TrustRequirement <= _villageTrustSystem.Trust)
+                    if (_storageInventoryConfiguration[cell.Cell.Key].TrustRequirement <= _villageTrustSystem.Trust
+                        && _storageInventoryConfiguration[cell.Cell.Key].LevelRequirement <= _levelsController.CurrentLevel)
                         cell.IsInteractable = true;
                     else cell.IsInteractable = false;
                 }

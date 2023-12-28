@@ -10,9 +10,11 @@ namespace App.Architecture.AppData
         [SerializeField] private SSOKey _name;
         [SerializeField] private int _count;
         [SerializeField] private int _trustRequirement;
+        [SerializeField] private int _levelRequirement;
 
         public SSOKey Key => _name;
         public int Count => _count;
         public int TrustRequirement => _trustRequirement;
+        public int LevelRequirement => _levelRequirement;
     }
 }
