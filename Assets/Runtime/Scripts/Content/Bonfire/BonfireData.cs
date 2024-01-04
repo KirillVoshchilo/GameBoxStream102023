@@ -22,6 +22,7 @@ namespace App.Content.Bonfire
         [SerializeField] private AudioSource _burningFire;
         [SerializeField] private AudioSource _fireRefresh;
 
+        private readonly EntityFlags _flags = new(new string[] { Flags.BONFIRE });
         private BonfireFactory _bonfireFactory;
         private float _currentLifetime;
         private readonly InteractionComp _interactableComp = new();
@@ -51,5 +52,6 @@ namespace App.Content.Bonfire
         public AudioSource KindlingBonfire => _kindlingBonfire;
         public AudioSource BurningFire => _burningFire;
         public AudioSource FireRefresh => _fireRefresh;
+        public EntityFlags EntityFlags => _flags;
     }
 }

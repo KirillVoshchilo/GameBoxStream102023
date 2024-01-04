@@ -8,7 +8,7 @@ using VContainer;
 
 namespace App.Content.Grigory
 {
-    public class GrigoryEntity : MonoBehaviour, IEntity, IDestructable
+    public sealed class GrigoryEntity : MonoBehaviour, IEntity, IDestructable
     {
         [SerializeField] private GrigoryData _grigoryData;
 
@@ -21,6 +21,7 @@ namespace App.Content.Grigory
             _grigoryData.Configuration = configuration;
             _grigoryData.AppInputSystem = appInputSystem;
             _grigoryData.UIController = uiController;
+            _grigoryData.InteractableComp.Entity = this;
             _grigoryData.WorldCanvasStorage = worldCanvasStorage;
             _grigoryData.InteractableComp.OnFocusChanged.AddListener(OnFocusChanged);
         }
@@ -33,6 +34,8 @@ namespace App.Content.Grigory
         {
             if (typeof(T) == typeof(InteractionComp))
                 return _grigoryData.InteractableComp as T;
+            if (typeof(T) == typeof(EntityFlags))
+                return _grigoryData.EntityFlags as T;
             return null;
         }
         public void Destruct()

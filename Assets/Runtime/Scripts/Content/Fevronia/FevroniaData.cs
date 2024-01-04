@@ -11,6 +11,7 @@ namespace App.Content.Fevronia
     {
         [SerializeField] private Transform _interactionIconTransform;
 
+        private readonly EntityFlags _flags = new(new string[] { Flags.NPC });
         private readonly float _interactTime = 0;
         private readonly InteractionComp _interactableComp = new();
         private WorldCanvasStorage _worldCanvasStorage;
@@ -24,6 +25,6 @@ namespace App.Content.Fevronia
         public Vector3 InteractionIconPosition => _interactionIconTransform.position;
         public InteractIcon InteractIcon => _worldCanvasStorage.InteractIcon;
         public float InteractTime => _interactTime;
-
+        public EntityFlags EntityFlags => _flags;
     }
 }

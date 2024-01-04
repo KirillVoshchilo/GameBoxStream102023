@@ -11,9 +11,11 @@ namespace App.Content
         private readonly SEvent _onMovingStarted = new();
         private readonly SEvent _onMovingStopped = new();
         private readonly SEvent<float> _onSpeedChanged = new();
+        private readonly SEvent<bool> _onMovingEnableChanged = new();
         private bool _isMoving;
         private float _movingSpeed;
         private Vector3 _movingDIrection;
+        private bool _isMovingEnable;
 
         public Dictionary<string, float> SpeedMultipliers => _speedMultipliers;
         public bool IsMoving
@@ -44,6 +46,17 @@ namespace App.Content
         public SEvent OnMovingStarted => _onMovingStarted;
         public SEvent OnMovingStopped => _onMovingStopped;
         public SEvent<float> OnSpeedChanged => _onSpeedChanged;
+        public bool IsMovingEnable
+        {
+            get => _isMovingEnable;
+            set
+            {
+                if (value != _isMovingEnable)
+                    _onMovingEnableChanged.Invoke(value);
+                _isMovingEnable = value;
+            }
+        }
+        public SEvent<bool> OnMovingEnableChanged => _onMovingEnableChanged;
 
         public WalkerData(Rigidbody rigidbody)
             => _rigidbody = rigidbody;

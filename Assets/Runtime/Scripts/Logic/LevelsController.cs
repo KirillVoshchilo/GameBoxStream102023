@@ -78,6 +78,7 @@ namespace App.Logic
             HeatData heatData = _playerEntity.Get<HeatData>();
             heatData.CurrentHeat = heatData.DefaultHeatValue;
             heatData.IsFreezing = false;
+            _playerEntity.IsEnable = false;
         }
         public void StartLevel(int levelIndex)
         {
@@ -136,6 +137,7 @@ namespace App.Logic
             _levelTimer.FullTime = _currentLevelConfiguration.DayTimeRange;
             HeatData heatData = _playerEntity.Get<HeatData>();
             heatData.CurrentHeat = heatData.DefaultHeatValue;
+            _playerEntity.IsEnable = true;
             ConfigureDialoges();
             ConfigureControl();
         }

@@ -36,6 +36,8 @@ namespace App.Content.Tree
                 return _treeData.InteractableComp as T;
             if (typeof(T) == typeof(InteractionRequirementsComp))
                 return _treeData.FieldRequirements as T;
+            if (typeof(T) == typeof(EntityFlags))
+                return _treeData.EntityFlags as T;
             return null;
         }
         public void Destruct()

@@ -1,48 +1,61 @@
-﻿using App.Architecture.AppData;
+﻿using UnityEngine;
 
 namespace App.Content.Player
 {
     public sealed class BonfireBuildHandler
     {
-        private PlayerData _playerData;
+        private static readonly int s_buildBonfireTrigger = Animator.StringToHash("BuildBonfire");
+
+        private readonly PlayerData _playerData;
+        private bool _isEnable;
+
+        public bool IsEnable
+        {
+            get => _isEnable;
+            set
+            {
+                if (value == _isEnable)
+                    return;
+                _isEnable = value;
+                if (value)
+                {
+                    _playerData.PlayerAnimationsEvents.OnBonfireSetted.AddListener(OnBonfireSetted);
+                    _playerData.AppInputSystem.OnBonfireBuilded.AddListener(OnBonfireBuildStarted);
+                    _playerData.PlayerAnimationsEvents.OnBonfireBuilded.AddListener(OnBonfireBuilded);
+                }
+                else
+                {
+                    _playerData.PlayerAnimationsEvents.OnBonfireSetted.RemoveListener(OnBonfireSetted);
+                    _playerData.AppInputSystem.OnBonfireBuilded.RemoveListener(OnBonfireBuildStarted);
+                    _playerData.PlayerAnimationsEvents.OnBonfireBuilded.RemoveListener(OnBonfireBuilded);
+                }
+            }
+        }
 
         public BonfireBuildHandler(PlayerData playerData)
         {
             _playerData = playerData;
-            _playerData.PlayerAnimationsEvents.OnBonfireSetted.AddListener(OnBonfireSetted);
+            playerData.PlayerAnimationsEvents.OnBonfireSetted.AddListener(OnBonfireSetted);
+            playerData.AppInputSystem.OnBonfireBuilded.AddListener(OnBonfireBuildStarted);
+            playerData.PlayerAnimationsEvents.OnBonfireBuilded.AddListener(OnBonfireBuilded);
         }
 
         private void OnBonfireSetted()
+            => _playerData.BonfireFactory.BuildBonfire(_playerData.BonfireTargetPosition.position);
+        private void OnBonfireBuilded()
         {
-            if (!CheckRequirements(out Alternatives alternative))
+            _playerData.AppInputSystem.InteractionIsEnable = true;
+            _playerData.AppInputSystem.PlayerMovingIsEnable = true;
+            _playerData.AppInputSystem.InventoryIsEnable = true;
+        }
+        private void OnBonfireBuildStarted()
+        {
+            if (!_playerData.CanBuildBonfire)
                 return;
-            foreach (ItemCount item in alternative.Requirements)
-            {
-                _playerData.PlayerInventory.RemoveItem(item.Key, item.Count);
-            }
-            _playerData.BonfireFactory.BuildBonfire(_playerData.BonfireTargetPosition.position);
-        }
-        private bool CheckRequirements(out Alternatives alternative)
-        {
-            foreach (Alternatives alt in _playerData.BonfireBuildRequirements.Alternatives)
-            {
-                if (CheckAlternative(alt))
-                {
-                    alternative = alt;
-                    return true;
-                }
-            }
-            alternative = null;
-            return false;
-        }
-        private bool CheckAlternative(Alternatives alternatives)
-        {
-            foreach (ItemCount itemCount in alternatives.Requirements)
-            {
-                if (_playerData.PlayerInventory.GetCount(itemCount.Key) < itemCount.Count)
-                    return false;
-            }
-            return true;
+            _playerData.Animator.SetTrigger(s_buildBonfireTrigger);
+            _playerData.AppInputSystem.PlayerMovingIsEnable = false;
+            _playerData.AppInputSystem.InventoryIsEnable = false;
+            _playerData.AppInputSystem.InteractionIsEnable = false;
         }
     }
 }

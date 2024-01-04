@@ -1,5 +1,6 @@
 using App.Architecture.AppData;
 using App.Architecture.AppInput;
+using App.Content.Grigory;
 using App.Logic;
 using UnityEngine;
 using VContainer;
@@ -17,6 +18,7 @@ namespace App.Content.Fevronia
         {
             _fevroniaData.AppInputSystem = appInputSystem;
             _fevroniaData.UIController = uiController;
+            _fevroniaData.InteractableComp.Entity = this;
             _fevroniaData.WorldCanvasStorage = worldCanvasStorage;
             _fevroniaData.InteractableComp.OnFocusChanged.AddListener(OnFocusChanged);
         }
@@ -24,6 +26,8 @@ namespace App.Content.Fevronia
         {
             if (typeof(T) == typeof(InteractionComp))
                 return _fevroniaData.InteractableComp as T;
+            if (typeof(T) == typeof(EntityFlags))
+                return _fevroniaData.EntityFlags as T;
             return null;
         }
         public void Destruct()

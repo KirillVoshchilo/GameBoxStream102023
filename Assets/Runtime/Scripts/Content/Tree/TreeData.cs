@@ -20,6 +20,7 @@ namespace App.Content.Tree
         [SerializeField] private float _recoverTime;
         [SerializeField] private AudioSource _fallingTreeSound;
 
+        private readonly EntityFlags _flags = new(new string[] { Flags.TREE });
         private readonly InteractionComp _interactableComp = new();
         private Inventory _playerInventory;
         private WorldCanvasStorage _worldCanvasStorage;
@@ -44,6 +45,7 @@ namespace App.Content.Tree
         public InteractIcon InteractIcon => _worldCanvasStorage.InteractIcon;
         public bool IsInteractable { get => _isInteractable; set => _isInteractable = value; }
         public InteractionRequirementsComp FieldRequirements => _fieldRequirements;
-        public AudioSource FallingTreeSound  => _fallingTreeSound; 
+        public AudioSource FallingTreeSound => _fallingTreeSound;
+        public EntityFlags EntityFlags => _flags;
     }
 }

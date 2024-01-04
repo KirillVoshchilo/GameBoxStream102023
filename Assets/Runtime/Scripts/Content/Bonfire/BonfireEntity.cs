@@ -1,5 +1,6 @@
 using App.Architecture.AppData;
 using App.Architecture.AppInput;
+using App.Content.Fevronia;
 using App.Simples.CellsInventory;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -19,6 +20,7 @@ namespace App.Content.Bonfire
             _bonfireData.PlayerInventory = playerInventory;
             _bonfireData.AppInputSystem = appInputSystem;
             _bonfireData.WorldCanvasStorage = worldCanvasStorage;
+            _bonfireData.InteractableComp.Entity = this;
             _bonfireData.InteractableComp.OnFocusChanged.AddListener(OnFocusChanged);
             _bonfireData.CurrentLifetime = _bonfireData.DefaultLifetime;
             _bonfireData.BurningFire.Play();
@@ -33,6 +35,8 @@ namespace App.Content.Bonfire
                 return _bonfireData.InteractableComp as T;
             if (typeof(T) == typeof(InteractionRequirementsComp))
                 return _bonfireData.InteractionRequirements as T;
+            if (typeof(T) == typeof(EntityFlags))
+                return _bonfireData.EntityFlags as T;
             return null;
         }
         public void Destruct()

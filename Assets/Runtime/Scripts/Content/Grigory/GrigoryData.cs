@@ -15,6 +15,7 @@ namespace App.Content.Grigory
 
         private readonly float _interactTime = 0;
         private readonly InteractionComp _interactableComp = new();
+        private readonly EntityFlags _flags = new(new string[] { Flags.NPC });
         private WorldCanvasStorage _worldCanvasStorage;
         private Inventory _storageInventory;
         private UIController _uiController;
@@ -30,5 +31,6 @@ namespace App.Content.Grigory
         public float InteractTime => _interactTime;
         public Inventory StorageInventory { get => _storageInventory; set => _storageInventory = value; }
         public Configuration Configuration { get => _configuration; set => _configuration = value; }
+        public EntityFlags EntityFlags => _flags;
     }
 }
