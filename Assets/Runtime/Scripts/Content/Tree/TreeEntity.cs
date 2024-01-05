@@ -4,6 +4,7 @@ using App.Architecture.Factories.UI;
 using App.Content.Player;
 using App.Simples.CellsInventory;
 using Cysharp.Threading.Tasks;
+using TreeEditor;
 using UnityEngine;
 using VContainer;
 
@@ -29,6 +30,7 @@ namespace App.Content.Tree
         {
             _treeData.InteractableComp.IsBlocked = false;
             _treeData.TreeObject.SetActive(true);
+            _treeData.StumpObject.SetActive(false);
             _treeData.IsRecovered = true;
         }
         public T Get<T>() where T : class
@@ -119,6 +121,7 @@ namespace App.Content.Tree
             _treeData.InteractableComp.IsBlocked = true;
             _treeData.AppInputSystem.PlayerMovingIsEnable = true;
             _treeData.TreeObject.SetActive(false);
+            _treeData.StumpObject.SetActive(true);
             _treeData.PlayerInventory.AddItem(_treeData.Key, _treeData.ItemsCount);
             CloseInteractionIcon();
             DisableInteraction();

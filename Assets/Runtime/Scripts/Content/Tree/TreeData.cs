@@ -15,6 +15,7 @@ namespace App.Content.Tree
         [SerializeField] private SSOKey _key;
         [SerializeField] private int _itemsCount;
         [SerializeField] private GameObject _treeObject;
+        [SerializeField] private GameObject _stumpObject;
         [SerializeField] private InteractionRequirementsComp _fieldRequirements;
         [SerializeField] private Transform _interactionIconTransform;
         [SerializeField] private float _interactTime;
@@ -49,5 +50,6 @@ namespace App.Content.Tree
         public EntityFlags EntityFlags => _flags;
         public InteractionIconFactory InteractionIconFactory { get => _interactionIconFactory; set => _interactionIconFactory = value; }
         public InteractIcon InteractionIcon { get => _interactionIcon; set => _interactionIcon = value; }
+        public GameObject StumpObject => _stumpObject; 
     }
 }

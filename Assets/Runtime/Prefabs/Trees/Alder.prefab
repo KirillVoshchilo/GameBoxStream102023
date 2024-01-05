@@ -76,6 +76,7 @@ MonoBehaviour:
     _key: {fileID: 11400000, guid: da40f460932eae741b3dd191e65c3ec5, type: 2}
     _itemsCount: 1
     _treeObject: {fileID: 398676449918349256}
+    _stumpObject: {fileID: 5226279182912143603}
     _fieldRequirements:
       _alternatives:
       - _requirements:
@@ -405,5 +406,10 @@ PrefabInstance:
 --- !u!4 &4885466159795608137 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 480ce7c3c4ee01a42a81ee8cb8f3f93a, type: 3}
+  m_PrefabInstance: {fileID: 4919638248586902946}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5226279182912143603 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 480ce7c3c4ee01a42a81ee8cb8f3f93a, type: 3}
   m_PrefabInstance: {fileID: 4919638248586902946}
   m_PrefabAsset: {fileID: 0}
