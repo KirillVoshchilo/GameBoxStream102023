@@ -2,7 +2,6 @@ using App.Architecture;
 using App.Logic;
 using TMPro;
 using UnityEngine;
-using VContainer;
 
 namespace App.Content.UI
 {
@@ -13,13 +12,18 @@ namespace App.Content.UI
         [SerializeField] private TextMeshProUGUI _timer;
 
         private LevelsController _levelController;
+        private LevelTimer _levelTimer;
 
-        [Inject]
         public void Construct(LevelTimer levelTimer,
             LevelsController levelsController)
         {
+            _levelTimer = levelTimer;
             _levelController = levelsController;
             levelTimer.OnTimeHasChanged.AddListener(ShowTime);
+        }
+        public void Destruct()
+        {
+            _levelTimer.OnTimeHasChanged.RemoveListener(ShowTime);
         }
 
         private void ShowTime(float obj)

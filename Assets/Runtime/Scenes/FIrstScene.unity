@@ -17026,7 +17026,7 @@ MonoBehaviour:
   _snowContainer: {fileID: 7704106689768389140}
   _helicopterEntity: {fileID: 435644325}
   _treesContriner: {fileID: 2575040259950108474}
-  _storageEntity: {fileID: 7934567902643619470}
+  _grigoryEntity: {fileID: 7934567902643619470}
 --- !u!1001 &624968538
 PrefabInstance:
   m_ObjectHideFlags: 0

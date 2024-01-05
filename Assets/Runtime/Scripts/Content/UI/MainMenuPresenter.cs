@@ -3,7 +3,6 @@ using App.Content.Audio;
 using App.Logic;
 using UnityEngine;
 using UnityEngine.UI;
-using VContainer;
 
 namespace App.Content.UI
 {
@@ -22,7 +21,6 @@ namespace App.Content.UI
 
         public UIController UIController { set => _uiController = value; }
 
-        [Inject]
         public void Construct(AudioStorage audioController,
             LevelLoaderSystem levelLoaderSystem,
             NewGameController newGameController)
@@ -35,6 +33,13 @@ namespace App.Content.UI
             _closeDescriptionButton.onClick.AddListener(OnCloseDescriptionClicked);
             _descriptionButton.onClick.AddListener(OnDescriptionClicked);
             _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.MainMenuMusic);
+        }
+        public void Destruct()
+        {
+            _closeAppButton.onClick.RemoveListener(OnCloseAppClicked);
+            _startGameButton.onClick.RemoveListener(OnStartNewGameButton);
+            _closeDescriptionButton.onClick.RemoveListener(OnCloseDescriptionClicked);
+            _descriptionButton.onClick.RemoveListener(OnDescriptionClicked);
         }
 
         private void OnDescriptionClicked()

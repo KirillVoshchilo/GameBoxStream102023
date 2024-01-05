@@ -1,7 +1,6 @@
 using App.Architecture.AppData;
 using App.Content;
 using App.Content.Audio;
-using App.Content.Bonfire;
 using App.Content.Player;
 using App.Logic;
 using Cysharp.Threading.Tasks;
@@ -15,46 +14,32 @@ namespace App.Architecture.Scopes
     {
         [SerializeField] private PlayerEntity _playerEntity;
         [SerializeField] private CamerasStorage _camerasStorage;
-        [SerializeField] private WorldCanvasStorage _worldCanvasStorage;
-        [SerializeField] private UIStorage _uiStorage;
         [SerializeField] private Configuration _configuration;
-        [SerializeField] private BonfireFactory _bonfireFactory;
         [SerializeField] private FallingSnow _fallingSnow;
         [SerializeField] private AudioStorage _audioStorage;
+        private ControllersRegistrator _controllerRegistrator;
 
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterComponent(_configuration);
             builder.RegisterComponent(_audioStorage);
-            builder.RegisterComponent(_worldCanvasStorage);
             builder.RegisterComponent(_playerEntity);
             builder.RegisterComponent(_fallingSnow);
-            builder.RegisterComponent(_uiStorage);
             builder.RegisterComponent(_camerasStorage);
-            builder.RegisterComponent(_bonfireFactory);
             builder.Register<LevelLoaderSystem>(Lifetime.Singleton)
                 .AsSelf();
             builder.Register<VillageTrustSystem>(Lifetime.Singleton)
                 .AsSelf();
-            builder.Register<EndLevelController>(Lifetime.Singleton)
-                .AsSelf();
-            builder.Register<UIController>(Lifetime.Singleton)
-                .AsSelf();
-            builder.Register<NewGameController>(Lifetime.Singleton)
-                .AsSelf();
-            builder.Register<LevelsController>(Lifetime.Singleton)
-                .AsSelf();
-            builder.Register<AllSnowController>(Lifetime.Singleton)
-                .AsSelf();
-            builder.Register<FinishGameController>(Lifetime.Singleton)
-                .AsSelf();
+            _controllerRegistrator = new ControllersRegistrator(builder);
+            new FactoriesRegistrator(builder);
             builder.RegisterBuildCallback((container) =>
             {
-                FinishGameController finishController = container.Resolve<FinishGameController>();
-                finishController.Construct();
+                _controllerRegistrator.Resolver(container);
                 LevelLoaderSystem levelLoaderSystem = container.Resolve<LevelLoaderSystem>();
                 levelLoaderSystem.LoadScene(ScenesNames.FIRST_LEVEL)
                 .Forget();
+                UIController uiController = container.Resolve<UIController>();
+                uiController.OpenMainMenu();
             });
         }
     }

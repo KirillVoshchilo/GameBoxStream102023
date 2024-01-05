@@ -17,7 +17,7 @@ namespace App.Content
         [SerializeField] private GameObject _snowContainer;
         [SerializeField] private HelicopterEntity _helicopterEntity;
         [SerializeField] private GameObject _treesContriner;
-        [SerializeField] private GrigoryEntity _storageEntity;
+        [SerializeField] private GrigoryEntity _grigoryEntity;
 
         private readonly HashSet<IDestructable> _destructables = new();
         private TreeEntity[] _resourceSourceEntities;
@@ -31,15 +31,18 @@ namespace App.Content
             allSnowController.SnowSquareEntities = _snowContainer.GetComponentsInChildren<SnowSquareEntity>();
             _resourceSourceEntities = _treesContriner.GetComponentsInChildren<TreeEntity>();
             AutoInjectAll(lifeTimeScope);
-        } 
+        }
         public void ResetLevel()
         {
-            _storageEntity.ResetInventory();
+            _helicopterEntity.IsEnable = true;
+            _grigoryEntity.IsEnable = true;
+            _grigoryEntity.ResetInventory();
             foreach (TreeEntity entity in _resourceSourceEntities)
                 entity.Recover();
         }
         public void Destruct()
         {
+            _grigoryEntity.IsEnable = false;
             foreach (IDestructable destructable in _destructables)
                 destructable.Destruct();
         }

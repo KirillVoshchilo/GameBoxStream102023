@@ -15,6 +15,7 @@ namespace App.Simples
         public float FullTime { get => _fullTime; set => _fullTime = value; }
         public SEvent OnTimeIsOver => _onTimeIsOver;
         public SEvent<float> OnTimeHasChanged => _onTimeHasChanged;
+        public float CurrentTime => _currentTime;
 
         public void StartTimer()
         {

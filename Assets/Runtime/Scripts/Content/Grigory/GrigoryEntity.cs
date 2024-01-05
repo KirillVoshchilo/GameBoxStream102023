@@ -1,5 +1,6 @@
 using App.Architecture.AppData;
 using App.Architecture.AppInput;
+using App.Architecture.Factories.UI;
 using App.Logic;
 using App.Simples;
 using App.Simples.CellsInventory;
@@ -8,13 +9,30 @@ using VContainer;
 
 namespace App.Content.Grigory
 {
-    public sealed class GrigoryEntity : MonoBehaviour, IEntity, IDestructable
+    public sealed class GrigoryEntity : MonoBehaviour, IEntity
     {
         [SerializeField] private GrigoryData _grigoryData;
 
+        private GrigoryInteractionHandler _grigoryInteractionHandler;
+        private bool _isEnable;
+
+        public bool IsEnable
+        {
+            get => _isEnable;
+            set
+            {
+                if (value == _isEnable)
+                    return;
+                _isEnable = value;
+                if (value)
+                    _grigoryInteractionHandler.IsEnable = true;
+                else _grigoryInteractionHandler.IsEnable = false;
+            }
+        }
+
         [Inject]
         public void Construct(UIController uiController,
-                 WorldCanvasStorage worldCanvasStorage,
+                 InteractionIconFactory interactionIconFactory,
                  IAppInputSystem appInputSystem,
                  Configuration configuration)
         {
@@ -22,8 +40,8 @@ namespace App.Content.Grigory
             _grigoryData.AppInputSystem = appInputSystem;
             _grigoryData.UIController = uiController;
             _grigoryData.InteractableComp.Entity = this;
-            _grigoryData.WorldCanvasStorage = worldCanvasStorage;
-            _grigoryData.InteractableComp.OnFocusChanged.AddListener(OnFocusChanged);
+            _grigoryData.InteractionIconFactory = interactionIconFactory;
+            _grigoryInteractionHandler = new GrigoryInteractionHandler(_grigoryData);
         }
         public void ResetInventory()
         {
@@ -38,12 +56,6 @@ namespace App.Content.Grigory
                 return _grigoryData.EntityFlags as T;
             return null;
         }
-        public void Destruct()
-        {
-            _grigoryData.InteractableComp.OnFocusChanged.RemoveListener(OnFocusChanged);
-            _grigoryData.AppInputSystem.OnInteractionPerformed.ClearListeners();
-        }
-
         private void FillInventory(Configuration configuration)
         {
             int count = configuration.DefauleStorageItems.Items.Length;
@@ -54,36 +66,5 @@ namespace App.Content.Grigory
                 _grigoryData.StorageInventory.AddItem(key, quantity);
             }
         }
-        private void OnFocusChanged(bool obj)
-        {
-            if (obj)
-            {
-                ShowInteractionIcon();
-                _grigoryData.AppInputSystem.SetInteractionTime(_grigoryData.InteractTime);
-                _grigoryData.AppInputSystem.OnInteractionPerformed.AddListener(OnPerformedInteraction);
-            }
-            else
-            {
-                CloseInteractionIcon();
-                _grigoryData.AppInputSystem.OnInteractionPerformed.RemoveListener(OnPerformedInteraction);
-            }
-        }
-        private void CloseInteractionIcon()
-        {
-            _grigoryData.InteractIcon.CloseProgress();
-            _grigoryData.InteractIcon.CloseTip();
-            _grigoryData.InteractIcon.IsEnable = false;
-            _grigoryData.InteractIcon.gameObject.SetActive(false);
-        }
-        private void ShowInteractionIcon()
-        {
-            _grigoryData.InteractIcon.SetPosition(_grigoryData.InteractionIconPosition);
-            _grigoryData.InteractIcon.gameObject.SetActive(true);
-            _grigoryData.InteractIcon.IsEnable = true;
-            _grigoryData.InteractIcon.OpenTip();
-            _grigoryData.InteractIcon.HoldMode = false;
-        }
-        private void OnPerformedInteraction()
-            => _grigoryData.UIController.OpenStorageMenu(_grigoryData.StorageInventory);
     }
 }

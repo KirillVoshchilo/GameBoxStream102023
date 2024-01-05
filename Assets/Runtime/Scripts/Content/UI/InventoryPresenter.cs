@@ -6,7 +6,6 @@ using App.Simples.CellsInventory;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-using VContainer;
 
 namespace App.Content.UI
 {
@@ -20,37 +19,43 @@ namespace App.Content.UI
 
         private Inventory _playerInventory;
         private IconsConfiguration _iconsConfiguration;
-        private bool _enable;
+        private bool _isEnable;
+        private LevelTimer _levelTimer;
         private LevelsController _levelsController;
         private VillageTrustSystem _villageTrustSystem;
 
-        public bool Enable
+        public bool IsEnable
         {
-            get => _enable;
+            get => _isEnable;
             set
             {
-                _enable = value;
+                _isEnable = value;
                 if (value)
                 {
+                    _levelTimer.OnTimeHasChanged.AddListener(ShowTime);
+                    ShowTime(_levelTimer.CurrenTime);
                     UpdatePlayerInventoryCells(_playerInventory.Cells);
                     DefferedSubscribes()
                         .Forget();
                     _trustText.text = $"Доверие: {_villageTrustSystem.Trust}";
                 }
-                else _playerInventory.OnInventoryUpdated.RemoveListener(UpdatePlayerInventoryCells);
+                else
+                {
+                    _levelTimer.OnTimeHasChanged.RemoveListener(ShowTime);
+                    _playerInventory.OnInventoryUpdated.RemoveListener(UpdatePlayerInventoryCells);
+                }
             }
         }
 
-        [Inject]
         public void Construct(PlayerEntity playerEntity,
             Configuration configurations,
             LevelTimer levelTimer,
             VillageTrustSystem villageTrustSystem,
             LevelsController levelsController)
         {
+            _levelTimer = levelTimer;
             _levelsController = levelsController;
             _villageTrustSystem = villageTrustSystem;
-            levelTimer.OnTimeHasChanged.AddListener(ShowTime);
             _playerInventory = playerEntity.Get<Inventory>();
             _iconsConfiguration = configurations.IconsConfiguration;
         }

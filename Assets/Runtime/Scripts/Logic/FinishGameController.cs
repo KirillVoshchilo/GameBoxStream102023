@@ -49,7 +49,8 @@ namespace App.Logic
                 _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.FinalMusic_4);
                 ShowCutScene(_configuration.FinalCutScenes.EscapeFinal);
             }
-            _uiController.CloseCurrentOpenedGamePanel();
+            _uiController.CloseFreezeEffect();
+            _uiController.CloseGameWatch();
             _levelsController.EndCurrentLevel();
         }
         public void EndTimeFinish()
@@ -66,7 +67,8 @@ namespace App.Logic
                 _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.FinalMusic_1);
                 ShowCutScene(_configuration.FinalCutScenes.BadEnd);
             }
-            _uiController.CloseCurrentOpenedGamePanel();
+            _uiController.CloseFreezeEffect();
+            _uiController.CloseGameWatch();
             _levelsController.EndCurrentLevel();
         }
 

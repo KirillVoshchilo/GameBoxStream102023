@@ -2,7 +2,6 @@ using App.Architecture.AppData;
 using App.Content.Player;
 using UnityEngine;
 using UnityEngine.UI;
-using VContainer;
 
 namespace App.Content.UI
 {
@@ -15,12 +14,15 @@ namespace App.Content.UI
         private HeatData _heatData;
         private Material _freezeMaterial;
 
-        [Inject]
         public void Construct(PlayerEntity playerEntity)
         {
             _heatData = playerEntity.Get<HeatData>();
             _freezeMaterial = _freezeImage.materialForRendering;
             _heatData.OnHeatNormalizedChanged.AddListener(OnHeatChanged);
+        }
+        public void Destruct()
+        {
+            _heatData.OnHeatNormalizedChanged.RemoveListener(OnHeatChanged);
         }
 
         private void OnHeatChanged(float value)

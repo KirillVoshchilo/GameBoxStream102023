@@ -9,7 +9,6 @@ using Cysharp.Threading.Tasks;
 using SimpleComponents.UI;
 using TMPro;
 using UnityEngine;
-using VContainer;
 
 namespace App.Content.UI
 {
@@ -32,15 +31,15 @@ namespace App.Content.UI
         private IAppInputSystem _appInputSystem;
         private readonly CellPresenter[,] _cellsMatrix = new CellPresenter[3, 3];
         private (int x, int y) _selectionPosition;
-        private bool _enable;
+        private bool _isEnable;
         private int _currentLevel;
 
-        public bool Enable
+        public bool IsEnable
         {
-            get => _enable;
+            get => _isEnable;
             set
             {
-                _enable = value;
+                _isEnable = value;
                 if (value)
                 {
                     OnInventoryUpdated(_playerInventory.Cells);
@@ -85,7 +84,6 @@ namespace App.Content.UI
             }
         }
 
-        [Inject]
         public void Construct(PlayerEntity playerEntity,
             Configuration configurations,
             VillageTrustSystem villageTrustSystem,

@@ -1,6 +1,6 @@
 using App.Architecture.AppData;
 using App.Architecture.AppInput;
-using App.Content.Grigory;
+using App.Architecture.Factories.UI;
 using App.Logic;
 using UnityEngine;
 using VContainer;
@@ -13,13 +13,13 @@ namespace App.Content.Fevronia
 
         [Inject]
         public void Construct(UIController uiController,
-              WorldCanvasStorage worldCanvasStorage,
+              InteractionIconFactory interactionIconFactory,
               IAppInputSystem appInputSystem)
         {
+            _fevroniaData.InteractionIconFactory = interactionIconFactory;
             _fevroniaData.AppInputSystem = appInputSystem;
             _fevroniaData.UIController = uiController;
             _fevroniaData.InteractableComp.Entity = this;
-            _fevroniaData.WorldCanvasStorage = worldCanvasStorage;
             _fevroniaData.InteractableComp.OnFocusChanged.AddListener(OnFocusChanged);
         }
         public T Get<T>() where T : class
@@ -52,20 +52,19 @@ namespace App.Content.Fevronia
         }
         private void CloseInteractionIcon()
         {
-            _fevroniaData.InteractIcon.CloseProgress();
-            _fevroniaData.InteractIcon.CloseTip();
-            _fevroniaData.InteractIcon.IsEnable = false;
-            _fevroniaData.InteractIcon.gameObject.SetActive(false);
+            if (_fevroniaData.InteractIcon == null)
+                return;
+            _fevroniaData.InteractionIconFactory.Remove(_fevroniaData.InteractIcon);
         }
         private void ShowInteractionIcon()
         {
+            _fevroniaData.InteractIcon = _fevroniaData.InteractionIconFactory.Create();
             _fevroniaData.InteractIcon.SetPosition(_fevroniaData.InteractionIconPosition);
-            _fevroniaData.InteractIcon.gameObject.SetActive(true);
             _fevroniaData.InteractIcon.IsEnable = true;
             _fevroniaData.InteractIcon.OpenTip();
             _fevroniaData.InteractIcon.HoldMode = false;
         }
         private void OnPerformedInteraction()
-            => _fevroniaData.UIController.OpenScarecrowMenu();
+            => _fevroniaData.UIController.OpenFevroniaMenu();
     }
 }

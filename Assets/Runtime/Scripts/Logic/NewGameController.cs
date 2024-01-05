@@ -42,7 +42,7 @@ namespace App.Logic
             _levelLoaderSystem.CurrentLoadedLevel.ResetLevel();
             _levelsController.StartLevel(0);
             SetInitialInventory();
-            _levelLoaderSystem.CurrentLoadedLevel.HelicopterEntity.IsEnable = false;
+            _levelLoaderSystem.CurrentLoadedLevel.HelicopterEntity.IsInteractable = false;
             _levelsController.OnLevelStarted.AddListener(OnFirstLEvelStarted);
             _allSnowController.ResetSnowEntities();
         }

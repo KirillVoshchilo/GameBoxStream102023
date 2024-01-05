@@ -12,7 +12,6 @@ using System;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using VContainer;
 
 namespace App.Content.UI
 {
@@ -36,14 +35,14 @@ namespace App.Content.UI
         private IAppInputSystem _appInputSystem;
         private readonly CellPresenter[,] _storageMatrix = new CellPresenter[3, 3];
         private (int x, int y) _selectionPosition;
-        private bool _enable;
+        private bool _isEnable;
 
-        public bool Enable
+        public bool IsEnable
         {
-            get => _enable;
+            get => _isEnable;
             set
             {
-                _enable = value;
+                _isEnable = value;
                 if (value)
                 {
                     UpdatePlayerInventoryCells(_playerInventory.Cells);
@@ -78,7 +77,6 @@ namespace App.Content.UI
             }
         }
 
-        [Inject]
         public void Construct(PlayerEntity playerEntity,
             Configuration configurations,
             VillageTrustSystem villageTrustSystem,

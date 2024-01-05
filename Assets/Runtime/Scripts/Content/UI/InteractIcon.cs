@@ -1,7 +1,6 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
-using VContainer;
 
 namespace App.Content.UI
 {
@@ -48,7 +47,6 @@ namespace App.Content.UI
             }
         }
 
-        [Inject]
         public void Construct(CamerasStorage camerasStorage)
         {
             _canvas.worldCamera = camerasStorage.MainCamera;
@@ -70,7 +68,11 @@ namespace App.Content.UI
         public void CloseProgress()
             => _progressBar.SetActive(false);
         public void SetProgress(float value)
-            => _progressImage.fillAmount = value;
+        {
+            if (_progressImage == null)
+                return;
+            _progressImage.fillAmount = value;
+        }
 
         private async UniTask OrientProcess()
         {

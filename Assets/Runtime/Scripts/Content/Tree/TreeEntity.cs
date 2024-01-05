@@ -1,5 +1,6 @@
 ﻿using App.Architecture.AppData;
 using App.Architecture.AppInput;
+using App.Architecture.Factories.UI;
 using App.Content.Player;
 using App.Simples.CellsInventory;
 using Cysharp.Threading.Tasks;
@@ -13,13 +14,13 @@ namespace App.Content.Tree
         [SerializeField] private TreeData _treeData;
 
         [Inject]
-        public void Construct(WorldCanvasStorage worldCanvasStorage,
+        public void Construct(InteractionIconFactory interactionIconFactory,
             IAppInputSystem appInputSystem,
             PlayerEntity playerEntity)
         {
+            _treeData.InteractionIconFactory = interactionIconFactory;
             _treeData.PlayerInventory = playerEntity.Get<Inventory>();
             _treeData.AppInputSystem = appInputSystem;
-            _treeData.WorldCanvasStorage = worldCanvasStorage;
             _treeData.InteractableComp.OnFocusChanged.AddListener(OnFocusChanged);
             _treeData.InteractableComp.Transform = _treeData.TreeObject.transform;
             _treeData.InteractableComp.Entity = this;
@@ -101,18 +102,17 @@ namespace App.Content.Tree
         }
         private void CloseInteractionIcon()
         {
-            _treeData.InteractIcon.CloseProgress();
-            _treeData.InteractIcon.CloseTip();
-            _treeData.InteractIcon.IsEnable = false;
-            _treeData.InteractIcon.gameObject.SetActive(false);
+            if (_treeData.InteractionIcon == null)
+                return;
+            _treeData.InteractionIconFactory.Remove(_treeData.InteractionIcon);
         }
         private void ShowInteractionIcon()
         {
-            _treeData.InteractIcon.SetPosition(_treeData.InteractionIconPosition);
-            _treeData.InteractIcon.gameObject.SetActive(true);
-            _treeData.InteractIcon.IsEnable = true;
-            _treeData.InteractIcon.OpenTip();
-            _treeData.InteractIcon.HoldMode = true;
+            _treeData.InteractionIcon = _treeData.InteractionIconFactory.Create();
+            _treeData.InteractionIcon.SetPosition(_treeData.InteractionIconPosition);
+            _treeData.InteractionIcon.IsEnable = true;
+            _treeData.InteractionIcon.OpenTip();
+            _treeData.InteractionIcon.HoldMode = true;
         }
         private void OnPerformedInteraction()
         {
@@ -131,17 +131,17 @@ namespace App.Content.Tree
         private void OnCancelInteraction()
         {
             _treeData.AppInputSystem.PlayerMovingIsEnable = true;
-            _treeData.InteractIcon.CloseProgress();
-            _treeData.InteractIcon.OpenTip();
+            _treeData.InteractionIcon.CloseProgress();
+            _treeData.InteractionIcon.OpenTip();
             _treeData.IsInteracting = false;
-            _treeData.InteractIcon.HoldMode = true;
+            _treeData.InteractionIcon.HoldMode = true;
         }
         private void OnStartedInteracrtion()
         {
             _treeData.AppInputSystem.PlayerMovingIsEnable = false;
             _treeData.IsInteracting = true;
-            _treeData.InteractIcon.CloseTip();
-            _treeData.InteractIcon.OpenProgress();
+            _treeData.InteractionIcon.CloseTip();
+            _treeData.InteractionIcon.OpenProgress();
             ProgressVisualize()
                 .Forget();
         }
@@ -149,7 +149,7 @@ namespace App.Content.Tree
         {
             while (_treeData.IsInteracting)
             {
-                _treeData.InteractIcon.SetProgress(_treeData.AppInputSystem.InteractionPercentage);
+                _treeData.InteractionIcon.SetProgress(_treeData.AppInputSystem.InteractionPercentage);
                 await UniTask.Delay(50);
             }
         }

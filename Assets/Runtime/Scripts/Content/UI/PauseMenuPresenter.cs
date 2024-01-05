@@ -1,5 +1,4 @@
-﻿using App.Architecture;
-using App.Architecture.AppInput;
+﻿using App.Architecture.AppInput;
 using App.Content.Bonfire;
 using App.Content.Player;
 using App.Logic;
@@ -22,15 +21,13 @@ namespace App.Content.UI
         private UIController _uiController;
         private Inventory _playerInventory;
         private PlayerEntity _playerEntity;
-        private EndLevelController _endLevelController;
         private LevelsController _levelsController;
         private BonfireFactory _bonfireFactory;
 
-        [Inject]
+        public UIController UiController { set => _uiController = value; }
+
         public void Construct(IAppInputSystem appInputSystem,
             PlayerEntity playerEntity,
-            UIController uiController,
-            EndLevelController endLevelController,
             BonfireFactory bonfireFactory,
             LevelsController levelsController)
         {
@@ -38,13 +35,18 @@ namespace App.Content.UI
             _openTipsButton.onClick.AddListener(OnOpenTipsClicked);
             _levelsController = levelsController;
             _bonfireFactory = bonfireFactory;
-            _endLevelController = endLevelController;
-            _uiController = uiController;
             _playerInventory = playerEntity.Get<Inventory>();
             _playerEntity = playerEntity;
             _appInputSystem = appInputSystem;
             _closeAppButton.onClick.AddListener(OnEndGameClicked);
             _continueButton.onClick.AddListener(OnContinueClicked);
+        }
+        public void Destruct()
+        {
+            _closeAppButton.onClick.RemoveListener(OnEndGameClicked);
+            _continueButton.onClick.RemoveListener(OnContinueClicked);
+            _closeTipsButton.onClick.RemoveListener(OnCloseTipsClicked);
+            _openTipsButton.onClick.RemoveListener(OnOpenTipsClicked);
         }
         public void CloseTIpsPanel()
             => _tipsPanel.SetActive(false);
@@ -53,7 +55,6 @@ namespace App.Content.UI
             => _tipsPanel.SetActive(true);
         private void OnCloseTipsClicked()
             => _tipsPanel.SetActive(false);
-
         private void OnContinueClicked()
         {
             _appInputSystem.EscapeIsEnable = true;
@@ -66,7 +67,9 @@ namespace App.Content.UI
         {
             _levelsController.EndCurrentLevel();
             _bonfireFactory.ClearAll();
-            _uiController.CloseCurrentOpenedGamePanel();
+            _uiController.CloseFreezeEffect();
+            _uiController.ClosePausePanel();
+            _uiController.CloseGameWatch();
             _playerInventory.Clear();
             _playerEntity.GetComponent<Rigidbody>().useGravity = false;
             _uiController.OpenMainMenu();

@@ -1,6 +1,6 @@
 using App.Architecture.AppData;
 using App.Architecture.AppInput;
-using App.Content.Fevronia;
+using App.Architecture.Factories.UI;
 using App.Simples.CellsInventory;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -11,7 +11,7 @@ namespace App.Content.Bonfire
     {
         [SerializeField] private BonfireData _bonfireData;
 
-        public void Construct(WorldCanvasStorage worldCanvasStorage,
+        public void Construct(InteractionIconFactory interactionIconFactory,
                   IAppInputSystem appInputSystem,
                   Inventory playerInventory,
                   BonfireFactory bonfireFactory)
@@ -19,7 +19,7 @@ namespace App.Content.Bonfire
             _bonfireData.BonfireFactory = bonfireFactory;
             _bonfireData.PlayerInventory = playerInventory;
             _bonfireData.AppInputSystem = appInputSystem;
-            _bonfireData.WorldCanvasStorage = worldCanvasStorage;
+            _bonfireData.InteractionIconFactory = interactionIconFactory;
             _bonfireData.InteractableComp.Entity = this;
             _bonfireData.InteractableComp.OnFocusChanged.AddListener(OnFocusChanged);
             _bonfireData.CurrentLifetime = _bonfireData.DefaultLifetime;
@@ -57,7 +57,7 @@ namespace App.Content.Bonfire
                 UpdateLightView();
                 await UniTask.NextFrame();
             }
-            _bonfireData.BonfireFactory.RemoveBonfire(this);
+            _bonfireData.BonfireFactory.Remove(this);
         }
         private void UpdateLightView()
         {
@@ -114,18 +114,16 @@ namespace App.Content.Bonfire
         }
         private void CloseInteractionIcon()
         {
-            _bonfireData.InteractIcon.CloseProgress();
-            _bonfireData.InteractIcon.CloseTip();
-            _bonfireData.InteractIcon.IsEnable = false;
-            _bonfireData.InteractIcon.gameObject.SetActive(false);
+            _bonfireData.InteractionIconFactory.Remove(_bonfireData.InteractionIcon);
         }
         private void ShowInteractionIcon()
         {
-            _bonfireData.InteractIcon.SetPosition(_bonfireData.InteractionIconPosition);
-            _bonfireData.InteractIcon.gameObject.SetActive(true);
-            _bonfireData.InteractIcon.IsEnable = true;
-            _bonfireData.InteractIcon.OpenTip();
-            _bonfireData.InteractIcon.HoldMode = true;
+            _bonfireData.InteractionIcon = _bonfireData.InteractionIconFactory.Create();
+            _bonfireData.InteractionIcon.SetPosition(_bonfireData.InteractionIconPosition);
+            _bonfireData.InteractionIcon.gameObject.SetActive(true);
+            _bonfireData.InteractionIcon.IsEnable = true;
+            _bonfireData.InteractionIcon.OpenTip();
+            _bonfireData.InteractionIcon.HoldMode = true;
         }
         private void OnPerformedInteraction()
         {
@@ -138,16 +136,16 @@ namespace App.Content.Bonfire
         }
         private void OnCancelInteraction()
         {
-            _bonfireData.InteractIcon.CloseProgress();
-            _bonfireData.InteractIcon.OpenTip();
+            _bonfireData.InteractionIcon.CloseProgress();
+            _bonfireData.InteractionIcon.OpenTip();
             _bonfireData.IsInteracting = false;
-            _bonfireData.InteractIcon.HoldMode = true;
+            _bonfireData.InteractionIcon.HoldMode = true;
         }
         private void OnStartedInteracrtion()
         {
             _bonfireData.IsInteracting = true;
-            _bonfireData.InteractIcon.CloseTip();
-            _bonfireData.InteractIcon.OpenProgress();
+            _bonfireData.InteractionIcon.CloseTip();
+            _bonfireData.InteractionIcon.OpenProgress();
             ProgressVisualize()
                 .Forget();
         }
@@ -155,7 +153,7 @@ namespace App.Content.Bonfire
         {
             while (_bonfireData.IsInteracting)
             {
-                _bonfireData.InteractIcon.SetProgress(_bonfireData.AppInputSystem.InteractionPercentage);
+                _bonfireData.InteractionIcon.SetProgress(_bonfireData.AppInputSystem.InteractionPercentage);
                 await UniTask.Delay(50);
             }
         }

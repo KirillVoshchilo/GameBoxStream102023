@@ -41,7 +41,7 @@ namespace App.Content.Player
         }
 
         private void OnBonfireSetted()
-            => _playerData.BonfireFactory.BuildBonfire(_playerData.BonfireTargetPosition.position);
+            => _playerData.BonfireFactory.Create();
         private void OnBonfireBuilded()
         {
             _playerData.AppInputSystem.InteractionIsEnable = true;

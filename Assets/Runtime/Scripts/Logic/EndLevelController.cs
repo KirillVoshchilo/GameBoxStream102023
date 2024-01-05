@@ -9,7 +9,6 @@ namespace App.Logic
     public sealed class EndLevelController
     {
         private readonly Configuration _configuration;
-        private readonly UIController _uiController;
         private readonly LevelsController _levelsController;
         private readonly HeatData _heatData;
         private readonly LevelTimer _levelTimer;
@@ -40,12 +39,10 @@ namespace App.Logic
         public EndLevelController(PlayerEntity playerEntity,
             LevelTimer levelTimer,
             LevelsController levelsController,
-            UIController uIController,
             Configuration configuration,
             FinishGameController finishController)
         {
             _configuration = configuration;
-            _uiController = uIController;
             _levelsController = levelsController;
             _levelsController.EndLevelController = this;
             _heatData = playerEntity.Get<HeatData>();
@@ -64,7 +61,6 @@ namespace App.Logic
         {
             _levelTimer.OnTimeIsOver.RemoveListener(OnTimeHasGone);
             int nextLevel = _levelsController.CurrentLevel + 1;
-            _uiController.CloseCurrentOpenedGamePanel();
             _levelsController.EndCurrentLevel();
             if (nextLevel >= _configuration.LevelsConfigurations.Count)
                 _finishController.EndTimeFinish();

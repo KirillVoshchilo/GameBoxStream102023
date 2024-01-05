@@ -62,13 +62,14 @@ namespace App.Content.Player
             Configuration configuration,
             BonfireFactory bonfireFactory)
         {
+            bonfireFactory.PlayerEntity = this;
+            bonfireFactory.Parent = _playerData.BonfireTargetPosition;
             _playerData.Configuration = configuration;
             _playerData.BonfireFactory = bonfireFactory;
             _playerData.Walker = new(_playerData.Rigidbody);
             _playerData.AppInputSystem = appInputSystem;
             _playerData.MainCameraTransform = camerasStorage.MainCamera.transform;
             _playerData.PlayerInventory = new Inventory(configuration.PlayerInventoryConfigurations, 9);
-            bonfireFactory.PlayerInventory = _playerData.PlayerInventory;
             _heatHandler = new HeatHandler(_playerData);
             _bonfireBuildHandler = new BonfireBuildHandler(_playerData);
             _playerMoveHandler = new PlayerMoveHandler(_playerData);
