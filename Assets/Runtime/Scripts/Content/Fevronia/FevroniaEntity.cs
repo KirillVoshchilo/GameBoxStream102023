@@ -36,6 +36,7 @@ namespace App.Content.Fevronia
             _fevroniaData.AppInputSystem = appInputSystem;
             _fevroniaData.UIController = uiController;
             _fevroniaData.InteractableComp.Entity = this;
+            _fevroniaInteractionHandler = new FevroniaInteractionHandler(_fevroniaData);
         }
         public T Get<T>() where T : class
         {

@@ -11887,7 +11887,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1591109580144080037}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.07047462, y: 0.87191385, z: -0.4662984, w: -0.13177785}
+  m_LocalRotation: {x: -0.0704746, y: 0.8719139, z: -0.46629837, w: -0.13177782}
   m_LocalPosition: {x: 6.71, y: 9.02, z: 7.55}
   m_LocalScale: {x: 1, y: 1.0135, z: 1}
   m_ConstrainProportionsScale: 0
@@ -11946,14 +11946,6 @@ PrefabInstance:
     - target: {fileID: 1856468608627977328, guid: fbdca5cda23085c408da59ebb9580bbb, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 2833999119266005505, guid: fbdca5cda23085c408da59ebb9580bbb, type: 3}
-      propertyPath: _playerData._heatData._defaultHeatValue
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 5262586587247939025, guid: fbdca5cda23085c408da59ebb9580bbb, type: 3}
-      propertyPath: m_Volume
-      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12104,7 +12096,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1894165525925910501}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.07047462, y: 0.87191385, z: -0.4662984, w: -0.13177785}
+  m_LocalRotation: {x: -0.0704746, y: 0.8719139, z: -0.46629837, w: -0.13177782}
   m_LocalPosition: {x: 6.71, y: 9.02, z: 7.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -12244,9 +12236,7 @@ MonoBehaviour:
   parentReference:
     TypeName: App.Architecture.Scopes.RootScope
   autoRun: 1
-  autoInjectGameObjects:
-  - {fileID: 0}
-  - {fileID: 0}
+  autoInjectGameObjects: []
   _playerEntity: {fileID: 1213339428}
   _camerasStorage: {fileID: 8597381050307482573}
   _configuration: {fileID: 11400000, guid: f2bf5b729eb1c7943a560e63d2d0567e, type: 2}

@@ -12,13 +12,28 @@ namespace App.Content.Scarecrow
 
         private VillageTrustSystem _villageTrustSystem;
         private LevelsController _levelsController;
+        private bool _isEnable;
+
+        public bool IsEnable
+        {
+            get => _isEnable;
+            set
+            {
+                if (value == _isEnable)
+                    return;
+                _isEnable = value;
+                if (value)
+                    _levelsController.OnLevelStarted.AddListener(OnLevelStarted);
+                else _levelsController.OnLevelStarted.RemoveListener(OnLevelStarted);
+            }
+        }
 
         [Inject]
         public void Construct(VillageTrustSystem villageTrustSystem,
             LevelsController levelsController)
         {
             _levelsController = levelsController;
-            levelsController.OnLevelStarted.AddListener(OnLevelStarted);
+
             _villageTrustSystem = villageTrustSystem;
         }
         public T Get<T>() where T : class

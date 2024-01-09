@@ -28,7 +28,6 @@ namespace App.Architecture.Factories.UI
         }
         public override void Remove(InteractIcon obj)
         {
-            Debug.Log("удалил");
             OnRemoved.Invoke(obj);
             obj.IsEnable = false;
             Object.Destroy(obj.gameObject);

@@ -17027,6 +17027,8 @@ MonoBehaviour:
   _helicopterEntity: {fileID: 435644325}
   _treesContriner: {fileID: 2575040259950108474}
   _grigoryEntity: {fileID: 7934567902643619470}
+  _fevroniaEntity: {fileID: 5878123647654748591}
+  _scarecrowEntity: {fileID: 1128422628}
 --- !u!1001 &624968538
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33187,6 +33189,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5721110831617722664, guid: 553a3e78dccd8cc4c9a402eac88871ef, type: 3}
   m_PrefabInstance: {fileID: 1128422625}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1128422628 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8996783079552701347, guid: 553a3e78dccd8cc4c9a402eac88871ef, type: 3}
+  m_PrefabInstance: {fileID: 1128422625}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128422627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 469e8b67d16024e4c88cc39eddb7d3be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1133952826
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -80952,6 +80965,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74b174309345d074d877f04914c8bb73, type: 3}
+--- !u!114 &5878123647654748591 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5039118795457651199, guid: 74b174309345d074d877f04914c8bb73, type: 3}
+  m_PrefabInstance: {fileID: 5878123647654748590}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477415368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd2d90d68c047c94bb6bfb2308d719c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5907189976402447105 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3508628283958506404, guid: e4a394da2800fad46bcfe8837aeb4b87, type: 3}

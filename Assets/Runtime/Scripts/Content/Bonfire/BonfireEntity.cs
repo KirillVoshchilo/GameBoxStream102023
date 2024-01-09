@@ -114,6 +114,8 @@ namespace App.Content.Bonfire
         }
         private void CloseInteractionIcon()
         {
+            if (_bonfireData.InteractionIcon == null)
+                return;
             _bonfireData.InteractionIconFactory.Remove(_bonfireData.InteractionIcon);
         }
         private void ShowInteractionIcon()

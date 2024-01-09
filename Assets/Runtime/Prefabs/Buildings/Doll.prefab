@@ -51,9 +51,9 @@ MonoBehaviour:
     _firstLevelModel: {fileID: 3940549251953174026}
     _secondLevelModel: {fileID: 7449509676474866880}
     _thirdLevelModel: {fileID: 4979811912074631215}
-    _firstLevelTrust: 120
-    _secondLevelTrust: 290
-    _thirdLevelTrust: 560
+    _firstLevelTrust: 17
+    _secondLevelTrust: 41
+    _thirdLevelTrust: 80
 --- !u!1001 &4210528631053917019
 PrefabInstance:
   m_ObjectHideFlags: 0

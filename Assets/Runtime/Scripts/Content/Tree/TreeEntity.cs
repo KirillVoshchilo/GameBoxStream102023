@@ -4,7 +4,6 @@ using App.Architecture.Factories.UI;
 using App.Content.Player;
 using App.Simples.CellsInventory;
 using Cysharp.Threading.Tasks;
-using TreeEditor;
 using UnityEngine;
 using VContainer;
 

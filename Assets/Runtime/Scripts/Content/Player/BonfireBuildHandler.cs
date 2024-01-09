@@ -35,9 +35,6 @@ namespace App.Content.Player
         public BonfireBuildHandler(PlayerData playerData)
         {
             _playerData = playerData;
-            playerData.PlayerAnimationsEvents.OnBonfireSetted.AddListener(OnBonfireSetted);
-            playerData.AppInputSystem.OnBonfireBuilded.AddListener(OnBonfireBuildStarted);
-            playerData.PlayerAnimationsEvents.OnBonfireBuilded.AddListener(OnBonfireBuilded);
         }
 
         private void OnBonfireSetted()

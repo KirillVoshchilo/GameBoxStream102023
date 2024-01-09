@@ -7,6 +7,8 @@ using App.Logic;
 using System.Collections.Generic;
 using UnityEngine;
 using VContainer.Unity;
+using App.Content.Fevronia;
+using App.Content.Scarecrow;
 
 namespace App.Content
 {
@@ -18,6 +20,8 @@ namespace App.Content
         [SerializeField] private HelicopterEntity _helicopterEntity;
         [SerializeField] private GameObject _treesContriner;
         [SerializeField] private GrigoryEntity _grigoryEntity;
+        [SerializeField] private FevroniaEntity _fevroniaEntity;
+        [SerializeField] private ScarecrowEntity _scarecrowEntity;
 
         private readonly HashSet<IDestructable> _destructables = new();
         private TreeEntity[] _resourceSourceEntities;
@@ -34,7 +38,9 @@ namespace App.Content
         }
         public void ResetLevel()
         {
+            _scarecrowEntity.IsEnable = true;
             _helicopterEntity.IsEnable = true;
+            _fevroniaEntity.IsEnable = true;
             _grigoryEntity.IsEnable = true;
             _grigoryEntity.ResetInventory();
             foreach (TreeEntity entity in _resourceSourceEntities)
@@ -42,6 +48,8 @@ namespace App.Content
         }
         public void Destruct()
         {
+            _scarecrowEntity.IsEnable = false;
+            _fevroniaEntity.IsEnable = false;
             _grigoryEntity.IsEnable = false;
             foreach (IDestructable destructable in _destructables)
                 destructable.Destruct();

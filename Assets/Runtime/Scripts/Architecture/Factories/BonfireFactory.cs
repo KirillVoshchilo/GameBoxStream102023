@@ -11,7 +11,7 @@ namespace App.Content.Bonfire
 {
     public sealed class BonfireFactory : ASceneObjectFactory<BonfireEntity>
     {
-        private const string PREFAB = "Prefabs/UI/FreezeEffect";
+        private const string PREFAB = "Prefabs/Bonfire";
 
         private readonly List<BonfireEntity> _bonfires = new();
         private readonly InteractionIconFactory _interactionIconFactory;
