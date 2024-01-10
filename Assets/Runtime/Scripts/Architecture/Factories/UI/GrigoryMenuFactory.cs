@@ -47,6 +47,7 @@ namespace App.Architecture.Factories.UI
                 _audioController,
                 _levelsController);
             ConfigureDialoges(instance);
+            instance.IsEnable = true;
             OnCreated.Invoke(instance);
             return instance;
         }

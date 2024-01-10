@@ -400,7 +400,9 @@ MonoBehaviour:
   _woodRequirements: {fileID: 2004917390446945948}
   _trustText: {fileID: 7514353912512831502}
   _requirementResource: {fileID: 11400000, guid: da40f460932eae741b3dd191e65c3ec5, type: 2}
-  _dialogeTransform: {fileID: 6342398234961195589}
+  _dialogueTransform: {fileID: 6342398234961195589}
+  _firstInterlocator: {fileID: 5913588823870216772}
+  _lastInterlocator: {fileID: 7418512400871589135}
 --- !u!1 &1606129667690489754
 GameObject:
   m_ObjectHideFlags: 0

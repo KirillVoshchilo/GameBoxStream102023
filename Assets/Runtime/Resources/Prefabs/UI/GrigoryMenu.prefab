@@ -424,7 +424,9 @@ MonoBehaviour:
   - {fileID: 2065737062207347665}
   - {fileID: 4555491476080355262}
   _trustText: {fileID: 7514353912512831502}
-  _dialogeTransform: {fileID: 6342398234961195589}
+  _dialogueTransform: {fileID: 6342398234961195589}
+  _firstInterlocator: {fileID: 7323960550182504724}
+  _lastInterlocator: {fileID: 4692258408986392498}
 --- !u!1 &1891237067700456595
 GameObject:
   m_ObjectHideFlags: 0

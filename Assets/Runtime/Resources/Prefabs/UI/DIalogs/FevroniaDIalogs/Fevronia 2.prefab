@@ -2674,7 +2674,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3033522918920455303}
   - component: {fileID: 8297546560019683268}
-  - component: {fileID: 8356858981788448534}
+  - component: {fileID: 1270460308067276458}
   m_Layer: 5
   m_Name: Fevronia 2
   m_TagString: Untagged
@@ -2722,7 +2722,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5194072544796706387}
   m_CullTransparentMesh: 1
---- !u!114 &8356858981788448534
+--- !u!114 &1270460308067276458
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2731,10 +2731,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5194072544796706387}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59c09bf2b04e0314e9aa6b0e890f731c, type: 3}
+  m_Script: {fileID: 11500000, guid: 66eafb242e42a7e45be9b0b2a79db3c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slides:
+  _messages:
   - {fileID: 3973909449964028803}
   - {fileID: 8827868062499594667}
   - {fileID: 969198416327344345}
@@ -2748,6 +2748,33 @@ MonoBehaviour:
   - {fileID: 5849921792823224941}
   - {fileID: 5029675555366860400}
   - {fileID: 2880157976805015737}
+  _interlocutors:
+  - _value: "\u041F\u0435\u0442\u0440"
+    _value2: ???
+  - _value: "\u041F\u0435\u0442\u0440"
+    _value2: ???
+  - _value: "\u041F\u0435\u0442\u0440"
+    _value2: ???
+  - _value: "\u041F\u0435\u0442\u0440"
+    _value2: ???
+  - _value: "\u041F\u0435\u0442\u0440"
+    _value2: ???
+  - _value: "\u041F\u0435\u0442\u0440"
+    _value2: ???
+  - _value: "\u041F\u0435\u0442\u0440"
+    _value2: ???
+  - _value: "\u041F\u0435\u0442\u0440"
+    _value2: "\u041D\u0435\u0437\u043D\u0430\u043A\u043E\u043C\u043A\u0430"
+  - _value: "\u041F\u0435\u0442\u0440"
+    _value2: "\u041D\u0435\u0437\u043D\u0430\u043A\u043E\u043C\u043A\u0430"
+  - _value: "\u041F\u0435\u0442\u0440"
+    _value2: "\u041D\u0435\u0437\u043D\u0430\u043A\u043E\u043C\u043A\u0430"
+  - _value: "\u041F\u0435\u0442\u0440"
+    _value2: "\u041D\u0435\u0437\u043D\u0430\u043A\u043E\u043C\u043A\u0430"
+  - _value: "\u041F\u0435\u0442\u0440"
+    _value2: "\u041D\u0435\u0437\u043D\u0430\u043A\u043E\u043C\u043A\u0430"
+  - _value: "\u041F\u0435\u0442\u0440"
+    _value2: "\u041D\u0435\u0437\u043D\u0430\u043A\u043E\u043C\u043A\u0430"
 --- !u!1 &5326071620999999707
 GameObject:
   m_ObjectHideFlags: 0

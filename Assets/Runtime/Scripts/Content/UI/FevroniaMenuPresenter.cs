@@ -6,7 +6,6 @@ using App.Content.Player;
 using App.Simples;
 using App.Simples.CellsInventory;
 using Cysharp.Threading.Tasks;
-using SimpleComponents.UI;
 using TMPro;
 using UnityEngine;
 
@@ -20,9 +19,11 @@ namespace App.Content.UI
         [SerializeField] private TextMeshProUGUI _woodRequirements;
         [SerializeField] private TextMeshProUGUI _trustText;
         [SerializeField] private SSOKey _requirementResource;
-        [SerializeField] private Transform _dialogeTransform;
+        [SerializeField] private Transform _dialogueTransform;
+        [SerializeField] private TextMeshProUGUI _firstInterlocator;
+        [SerializeField] private TextMeshProUGUI _lastInterlocator;
 
-        private SCSlideShow _dialoge;
+        private Dialogue _dialogue;
         private Inventory _playerInventory;
         private IconsConfiguration _iconsConfiguration;
         private VillageTrustSystem _villageTrustSystem;
@@ -50,9 +51,23 @@ namespace App.Content.UI
                     ShowWoodQuantity(_villageTrustSystem.Trust);
                     DefferedSubscribes()
                         .Forget();
+                    _dialogue.ShowFirst();
+                    _firstInterlocator.text = _dialogue.Interlocators[_dialogue.CurrentMessage].Value;
+                    _lastInterlocator.text = _dialogue.Interlocators[_dialogue.CurrentMessage].Value2;
+                    _appInputSystem.IsGoNextEnable = true;
+                    _appInputSystem.InventoryIsEnable = false;
+                    _appInputSystem.PlayerMovingIsEnable = false;
+                    _appInputSystem.InteractionIsEnable = false;
+                    _appInputSystem.InventoryMoveIsEnable = true;
                 }
                 else
                 {
+                    _appInputSystem.IsGoNextEnable = false;
+                    _appInputSystem.InventoryIsEnable = true;
+                    _appInputSystem.InteractionIsEnable = true;
+                    _appInputSystem.PlayerMovingIsEnable = true;
+                    _appInputSystem.InventoryMoveIsEnable = false;
+                    _appInputSystem.OnGoNext.RemoveListener(OnGoNextMessage);
                     _villageTrustSystem.OnTrustChanged.RemoveListener(OnTrustChanged);
                     _villageTrustSystem.OnTrustLevelChanged.RemoveListener(OnTrustLevelChanged);
                     _appInputSystem.OnMovedInInventory.RemoveListener(OnMovedInInventory);
@@ -61,17 +76,17 @@ namespace App.Content.UI
                 }
             }
         }
-        public SCSlideShow Dialoge
+        public Dialogue Dialoge
         {
-            get => _dialoge;
+            get => _dialogue;
             set
             {
                 if (value == null)
                     return;
-                if (_dialoge != null)
-                    Destroy(_dialoge.gameObject);
-                _dialoge = Instantiate(value, _dialogeTransform);
-                _dialoge.IsLoop = false;
+                if (_dialogue != null)
+                    Destroy(_dialogue.gameObject);
+                _dialogue = Instantiate(value, _dialogueTransform);
+                _dialogue.IsLoop = false;
             }
         }
         public int CurrentLevel
@@ -96,16 +111,26 @@ namespace App.Content.UI
             _playerInventory = playerEntity.Get<Inventory>();
             _trustLevels = configurations.TrustLevels;
             _iconsConfiguration = configurations.IconsConfiguration;
+
         }
 
         private async UniTask DefferedSubscribes()
         {
             await UniTask.NextFrame();
+            _appInputSystem.OnGoNext.AddListener(OnGoNextMessage);
             _villageTrustSystem.OnTrustChanged.AddListener(OnTrustChanged);
             _villageTrustSystem.OnTrustLevelChanged.AddListener(OnTrustLevelChanged);
             _appInputSystem.OnMovedInInventory.AddListener(OnMovedInInventory);
             _appInputSystem.OnInventorySelected.AddListener(OnInventorySelected);
             _playerInventory.OnInventoryUpdated.AddListener(OnInventoryUpdated);
+        }
+        private void OnGoNextMessage()
+        {
+            _dialogue.ShowNext();
+            if (_dialogue.CurrentMessage == _dialogue.MessagesCount - 1)
+                _appInputSystem.OnGoNext.RemoveListener(OnGoNextMessage);
+            _firstInterlocator.text = _dialogue.Interlocators[_dialogue.CurrentMessage].Value;
+            _lastInterlocator.text = _dialogue.Interlocators[_dialogue.CurrentMessage].Value2;
         }
 
         private void OnTrustChanged(float obj)
@@ -144,7 +169,10 @@ namespace App.Content.UI
         private void ShowGoalCount(int trustLevel)
         {
             if (trustLevel >= _trustLevels.Length)
+            {
+                _woodRequirements.text = $"Достаточно дров.";
                 return;
+            }              
             if (trustLevel != _currentLevel)
             {
                 _woodRequirements.text = $"Достаточно дров.";

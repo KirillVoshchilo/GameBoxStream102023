@@ -7,7 +7,6 @@ using App.Logic;
 using App.Simples;
 using App.Simples.CellsInventory;
 using Cysharp.Threading.Tasks;
-using SimpleComponents.UI;
 using System;
 using System.Linq;
 using TMPro;
@@ -20,9 +19,11 @@ namespace App.Content.UI
         [SerializeField] private CellPresenter[] _storageCells;
         [SerializeField] private CellPresenter[] _inventoryCells;
         [SerializeField] private TextMeshProUGUI _trustText;
-        [SerializeField] private Transform _dialogeTransform;
+        [SerializeField] private Transform _dialogueTransform;
+        [SerializeField] private TextMeshProUGUI _firstInterlocator;
+        [SerializeField] private TextMeshProUGUI _lastInterlocator;
 
-        private SCSlideShow _dialoge;
+        private Dialogue _dialogue;
         private Inventory _playerInventory;
         private Inventory _storageInventory;
         private IconsConfiguration _iconsConfiguration;
@@ -46,15 +47,26 @@ namespace App.Content.UI
                 if (value)
                 {
                     UpdatePlayerInventoryCells(_playerInventory.Cells);
-                    UpdateStorageInventoryCells(_storageInventory.Cells);
-                    PrepareInventoryMatrix();
-                    SetSelection(0, 0);
                     OnTrustUpdated(_villageTrustSystem.Trust);
                     DefferedSubscribes()
                         .Forget();
+                    _dialogue.ShowFirst();
+                    _firstInterlocator.text = _dialogue.Interlocators[_dialogue.CurrentMessage].Value;
+                    _lastInterlocator.text = _dialogue.Interlocators[_dialogue.CurrentMessage].Value2;
+                    _appInputSystem.IsGoNextEnable = true;
+                    _appInputSystem.InteractionIsEnable = false;
+                    _appInputSystem.InventoryIsEnable = false;
+                    _appInputSystem.PlayerMovingIsEnable = false;
+                    _appInputSystem.InventoryMoveIsEnable = true;
                 }
                 else
                 {
+                    _appInputSystem.IsGoNextEnable = false;
+                    _appInputSystem.InventoryIsEnable = true;
+                    _appInputSystem.InteractionIsEnable = true;
+                    _appInputSystem.PlayerMovingIsEnable = true;
+                    _appInputSystem.InventoryMoveIsEnable = false;
+                    _appInputSystem.OnGoNext.RemoveListener(OnGoNextMessage);
                     _villageTrustSystem.OnTrustChanged.RemoveListener(OnTrustUpdated);
                     _appInputSystem.OnMovedInInventory.RemoveListener(MoveSelectionSelection);
                     _appInputSystem.OnInventorySelected.RemoveListener(OnInventorySelect);
@@ -63,17 +75,17 @@ namespace App.Content.UI
                 }
             }
         }
-        public SCSlideShow Dialoge
+        public Dialogue Dialoge
         {
-            get => _dialoge;
+            get => _dialogue;
             set
             {
                 if (value == null)
                     return;
-                if (_dialoge != null)
-                    Destroy(_dialoge.gameObject);
-                _dialoge = Instantiate(value, _dialogeTransform);
-                _dialoge.IsLoop = false;
+                if (_dialogue != null)
+                    Destroy(_dialogue.gameObject);
+                _dialogue = Instantiate(value, _dialogueTransform);
+                _dialogue.IsLoop = false;
             }
         }
 
@@ -95,8 +107,22 @@ namespace App.Content.UI
             _storageInventoryConfiguration = configurations.DefauleStorageItems;
         }
         public void SetInventory(Inventory inventory)
-            => _storageInventory = inventory;
+        {
+            _storageInventory = inventory;
+            UpdateStorageInventoryCells(_storageInventory.Cells);
+            PrepareInventoryMatrix();
+            SetSelection(0, 0);
+            OnTrustUpdated(_villageTrustSystem.Trust);
+        } 
 
+        private void OnGoNextMessage()
+        {
+            _dialogue.ShowNext();
+            if (_dialogue.CurrentMessage == _dialogue.MessagesCount - 1)
+                _appInputSystem.OnGoNext.RemoveListener(OnGoNextMessage);
+            _firstInterlocator.text = _dialogue.Interlocators[_dialogue.CurrentMessage].Value;
+            _lastInterlocator.text = _dialogue.Interlocators[_dialogue.CurrentMessage].Value2;
+        }
         private void OnInventorySelect()
         {
             CellPresenter cellPresenter = _storageMatrix[_selectionPosition.y, _selectionPosition.x];
@@ -133,6 +159,7 @@ namespace App.Content.UI
         private async UniTask DefferedSubscribes()
         {
             await UniTask.NextFrame();
+            _appInputSystem.OnGoNext.AddListener(OnGoNextMessage);
             _villageTrustSystem.OnTrustChanged.AddListener(OnTrustUpdated);
             _appInputSystem.OnMovedInInventory.AddListener(MoveSelectionSelection);
             _appInputSystem.OnInventorySelected.AddListener(OnInventorySelect);

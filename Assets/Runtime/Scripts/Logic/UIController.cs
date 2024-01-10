@@ -72,15 +72,7 @@ namespace App.Logic
             _playerHeat.CurrentHeat = _playerHeat.DefaultHeatValue;
             _playerHeat.IsFreezing = false;
             _fevroniaMenuPresenter = _fevroniaMenuFactory.Create();
-            _appInputSystem.IsGoNextEnable = true;
-            _appInputSystem.OnGoNext.AddListener(_fevroniaMenuPresenter.Dialoge.ShowNext);
-            _fevroniaMenuPresenter.Dialoge.OnSlidShowEnded.AddListener(()
-                => _appInputSystem.OnGoNext.RemoveListener(_fevroniaMenuPresenter.Dialoge.ShowNext));
-            _fevroniaMenuPresenter.Dialoge.ShowFirst();
-            _appInputSystem.InventoryIsEnable = false;
-            _appInputSystem.PlayerMovingIsEnable = false;
-            _appInputSystem.InteractionIsEnable = false;
-            _appInputSystem.InventoryMoveIsEnable = true;
+
         }
         public void CloseFevroniaMenu()
         {
@@ -89,13 +81,7 @@ namespace App.Logic
             _levelTimer.ContinueTimer();
             _audioController.AudioData.SoundTracks.CloseInventory.Play();
             _playerHeat.IsFreezing = true;
-            _appInputSystem.OnGoNext.RemoveListener(_fevroniaMenuPresenter.Dialoge.ShowNext);
-            _appInputSystem.IsGoNextEnable = false;
             _fevroniaMenuFactory.Remove(_fevroniaMenuPresenter);
-            _appInputSystem.InventoryIsEnable = true;
-            _appInputSystem.InteractionIsEnable = true;
-            _appInputSystem.PlayerMovingIsEnable = true;
-            _appInputSystem.InventoryMoveIsEnable = false;
         }
         public void OpenGrigoryMenu(Inventory inventory)
         {
@@ -107,16 +93,7 @@ namespace App.Logic
             _playerHeat.IsFreezing = false;
             _grigoryMenuPresenter = _grigoryMenuFactory.Create();
             _grigoryMenuPresenter.SetInventory(inventory);
-            _grigoryMenuPresenter.IsEnable = true;
-            _appInputSystem.IsGoNextEnable = true;
-            _appInputSystem.OnGoNext.AddListener(_grigoryMenuPresenter.Dialoge.ShowNext);
-            _grigoryMenuPresenter.Dialoge.OnSlidShowEnded.AddListener(()
-                => _appInputSystem.OnGoNext.RemoveListener(_grigoryMenuPresenter.Dialoge.ShowNext));
-            _grigoryMenuPresenter.Dialoge.ShowFirst();
-            _appInputSystem.InteractionIsEnable = false;
-            _appInputSystem.InventoryIsEnable = false;
-            _appInputSystem.PlayerMovingIsEnable = false;
-            _appInputSystem.InventoryMoveIsEnable = true;
+ 
         }
         public void CloseGrigoryMenu()
         {
@@ -125,13 +102,7 @@ namespace App.Logic
             _levelTimer.ContinueTimer();
             _audioController.AudioData.SoundTracks.CloseInventory.Play();
             _playerHeat.IsFreezing = true;
-            _appInputSystem.OnGoNext.RemoveListener(_grigoryMenuPresenter.Dialoge.ShowNext);
-            _appInputSystem.IsGoNextEnable = false;
             _grigoryMenuFactory.Remove(_grigoryMenuPresenter);
-            _appInputSystem.InventoryIsEnable = true;
-            _appInputSystem.InteractionIsEnable = true;
-            _appInputSystem.PlayerMovingIsEnable = true;
-            _appInputSystem.InventoryMoveIsEnable = false;
         }
         public void OpenMainMenu()
         {
