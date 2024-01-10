@@ -20,12 +20,12 @@ MonoBehaviour:
     _items:
     - _name: {fileID: 11400000, guid: 9699edb0a014f4f4e8af30dea41cd212, type: 2}
       _count: 1
-      _trustRequirement: 11
-      _levelRequirement: 1
+      _trustRequirement: 17
+      _levelRequirement: 2
     - _name: {fileID: 11400000, guid: f99b7f2c77c0af8409f915ab1f8ddc95, type: 2}
       _count: 1
-      _trustRequirement: 30
-      _levelRequirement: 1
+      _trustRequirement: 41
+      _levelRequirement: 3
     - _name: {fileID: 11400000, guid: 933464c970329e343bda27afa9cd09e6, type: 2}
       _count: 140
       _trustRequirement: 17

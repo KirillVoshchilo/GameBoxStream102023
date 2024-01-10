@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using App.Architecture.AppData;
+using UnityEngine;
 
 namespace App.Content.Player
 {
@@ -38,7 +39,12 @@ namespace App.Content.Player
         }
 
         private void OnBonfireSetted()
-            => _playerData.BonfireFactory.Create();
+        {
+            _playerData.BonfireFactory.Create();
+            Alternatives cost = GetCost();
+            foreach (ItemCount itemCount in cost.Requirements)
+                _playerData.PlayerInventory.RemoveItem(itemCount.Key, itemCount.Count);
+        }
         private void OnBonfireBuilded()
         {
             _playerData.AppInputSystem.InteractionIsEnable = true;
@@ -53,6 +59,25 @@ namespace App.Content.Player
             _playerData.AppInputSystem.PlayerMovingIsEnable = false;
             _playerData.AppInputSystem.InventoryIsEnable = false;
             _playerData.AppInputSystem.InteractionIsEnable = false;
+        }
+
+        private bool CheckAlternative(Alternatives alternatives)
+        {
+            foreach (ItemCount itemCount in alternatives.Requirements)
+            {
+                if (_playerData.PlayerInventory.GetCount(itemCount.Key) < itemCount.Count)
+                    return false;
+            }
+            return true;
+        }
+        private Alternatives GetCost()
+        {
+            foreach (Alternatives alt in _playerData.BonfireBuildRequirements.Alternatives)
+            {
+                if (CheckAlternative(alt))
+                    return alt;
+            }
+            return null;
         }
     }
 }

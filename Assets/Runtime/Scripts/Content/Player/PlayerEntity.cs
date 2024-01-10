@@ -10,6 +10,7 @@ namespace App.Content.Player
     public sealed class PlayerEntity : MonoBehaviour, IEntity
     {
         [SerializeField] private PlayerData _playerData;
+
         private HeatHandler _heatHandler;
         private BonfireBuildHandler _bonfireBuildHandler;
         private PlayerMoveHandler _playerMoveHandler;
