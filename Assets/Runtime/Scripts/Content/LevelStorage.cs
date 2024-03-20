@@ -9,6 +9,7 @@ using UnityEngine;
 using VContainer.Unity;
 using App.Content.Fevronia;
 using App.Content.Scarecrow;
+using App.Content.RadioTower;
 
 namespace App.Content
 {
@@ -22,6 +23,7 @@ namespace App.Content
         [SerializeField] private GrigoryEntity _grigoryEntity;
         [SerializeField] private FevroniaEntity _fevroniaEntity;
         [SerializeField] private ScarecrowEntity _scarecrowEntity;
+        [SerializeField] private RadioTowerEntity _radioTowerEntity;
 
         private readonly HashSet<IDestructable> _destructables = new();
         private TreeEntity[] _resourceSourceEntities;
@@ -42,7 +44,9 @@ namespace App.Content
             _helicopterEntity.IsEnable = true;
             _fevroniaEntity.IsEnable = true;
             _grigoryEntity.IsEnable = true;
+            _radioTowerEntity.IsEnable = true;
             _grigoryEntity.ResetInventory();
+
             foreach (TreeEntity entity in _resourceSourceEntities)
                 entity.Recover();
         }
@@ -51,6 +55,8 @@ namespace App.Content
             _scarecrowEntity.IsEnable = false;
             _fevroniaEntity.IsEnable = false;
             _grigoryEntity.IsEnable = false;
+            _radioTowerEntity.IsEnable= false;
+
             foreach (IDestructable destructable in _destructables)
                 destructable.Destruct();
         }
@@ -59,6 +65,7 @@ namespace App.Content
         {
             if (_autoInjectObjects == null)
                 return;
+
             foreach (GameObject target in _autoInjectObjects)
             {
                 if (target != null)

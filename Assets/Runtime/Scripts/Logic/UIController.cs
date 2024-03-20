@@ -5,6 +5,7 @@ using App.Content;
 using App.Content.Audio;
 using App.Content.Player;
 using App.Content.UI;
+using App.Simples;
 using App.Simples.CellsInventory;
 using UnityEngine;
 using VContainer;
@@ -33,6 +34,9 @@ namespace App.Logic
         private PauseMenuPresenter _pauseMenuPresenter;
         private InventoryPresenter _inventoryPresenter;
         private GameWatchPresenter _gameWatchPresenter;
+        private readonly SEvent<bool> _onUIOpened = new();
+
+        public SEvent<bool> OnUIOpened => _onUIOpened;
 
         [Inject]
         public UIController(IAppInputSystem appInputSystem,
@@ -67,6 +71,8 @@ namespace App.Logic
         {
             if (_fevroniaMenuPresenter != null)
                 return;
+
+            _onUIOpened.Invoke(true);
             _levelTimer.PauseTimer();
             _audioController.AudioData.SoundTracks.OpenFevoniaInterface.Play();
             _playerHeat.CurrentHeat = _playerHeat.DefaultHeatValue;
@@ -78,6 +84,8 @@ namespace App.Logic
         {
             if (_fevroniaMenuPresenter == null)
                 return;
+
+            _onUIOpened.Invoke(false);
             _levelTimer.ContinueTimer();
             _audioController.AudioData.SoundTracks.CloseInventory.Play();
             _playerHeat.IsFreezing = true;
@@ -87,18 +95,22 @@ namespace App.Logic
         {
             if (_grigoryMenuPresenter != null)
                 return;
+
+            _onUIOpened.Invoke(true);
             _levelTimer.PauseTimer();
             _audioController.AudioData.SoundTracks.OpenGregoryInterface.Play();
             _playerHeat.CurrentHeat = _playerHeat.DefaultHeatValue;
             _playerHeat.IsFreezing = false;
             _grigoryMenuPresenter = _grigoryMenuFactory.Create();
             _grigoryMenuPresenter.SetInventory(inventory);
- 
+
         }
         public void CloseGrigoryMenu()
         {
             if (_grigoryMenuPresenter == null)
                 return;
+
+            _onUIOpened.Invoke(false);
             _levelTimer.ContinueTimer();
             _audioController.AudioData.SoundTracks.CloseInventory.Play();
             _playerHeat.IsFreezing = true;
@@ -108,6 +120,8 @@ namespace App.Logic
         {
             if (_mainmenuPresenter != null)
                 return;
+
+            _onUIOpened.Invoke(true);
             Cursor.visible = true;
             _audioController.PlayAudioSource(_audioController.AudioData.CycleTracks.MainMenuMusic);
             _mainmenuPresenter = _mainmenuFactory.Create();
@@ -117,6 +131,8 @@ namespace App.Logic
         {
             if (_mainmenuPresenter == null)
                 return;
+
+            _onUIOpened.Invoke(false);
             Cursor.visible = false;
             _mainmenuFactory.Remove(_mainmenuPresenter);
         }
@@ -150,7 +166,7 @@ namespace App.Logic
             {
                 ShowFreezeEffect();
                 OpenGameWatch();
-                CloseFevroniaMenu();   
+                CloseFevroniaMenu();
                 return;
             }
             if (_pauseMenuPresenter != null)
@@ -173,6 +189,8 @@ namespace App.Logic
         {
             if (_pauseMenuPresenter == null)
                 return;
+
+            _onUIOpened.Invoke(false);
             _levelTimer.ContinueTimer();
             _appInputSystem.InteractionIsEnable = _isInteractionEnable;
             _appInputSystem.InventoryIsEnable = _isInventoryEnable;
@@ -186,6 +204,8 @@ namespace App.Logic
         {
             if (_pauseMenuPresenter != null)
                 return;
+
+            _onUIOpened.Invoke(true);
             _isInteractionEnable = _appInputSystem.InteractionIsEnable;
             _isInventoryEnable = _appInputSystem.InventoryIsEnable;
             _levelTimer.PauseTimer();
@@ -214,6 +234,8 @@ namespace App.Logic
         {
             if (_inventoryPresenter == null)
                 return;
+
+            _onUIOpened.Invoke(false);
             _levelTimer.ContinueTimer();
             _inventoryMenuFactory.Remove(_inventoryPresenter);
             _audioController.AudioData.SoundTracks.CloseInventory.Play();
@@ -226,6 +248,8 @@ namespace App.Logic
         {
             if (_inventoryPresenter != null)
                 return;
+
+            _onUIOpened.Invoke(true);
             _levelTimer.PauseTimer();
             _audioController.AudioData.SoundTracks.CloseInventory.Play();
             _inventoryPresenter = _inventoryMenuFactory.Create();

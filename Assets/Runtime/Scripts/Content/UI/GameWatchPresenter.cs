@@ -31,7 +31,8 @@ namespace App.Content.UI
             int value = (int)obj;
             int seconds = value % 60;
             int minutes = (value - seconds) / 60;
-            _timer.text = $"{_levelController.CurrentLevel} - {minutes.ToString(TIME_FORMAT)}:{seconds.ToString(TIME_FORMAT)}";
+            int day = _levelController.CurrentLevel + 1;
+            _timer.text = $"{day} - {minutes.ToString(TIME_FORMAT)}:{seconds.ToString(TIME_FORMAT)}";
         }
     }
 }

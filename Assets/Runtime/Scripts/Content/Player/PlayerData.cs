@@ -17,6 +17,7 @@ namespace App.Content.Player
         [SerializeField] private Transform _transform;
         [SerializeField] private float _defaultMovingSpeed;
         [SerializeField] private SCTriggerComponent _triggerComponent;
+        [SerializeField] private SCTriggerComponent _enablerSensor;
         [SerializeField] private HeatData _heatData;
         [SerializeField] private Transform _bonfireTargetPosition;
         [SerializeField] private float _buildCheckcolliderSize;
@@ -74,6 +75,7 @@ namespace App.Content.Player
         public AudioSource StepSound  => _stepSound;
         public AudioSource CoughSound => _coughSound;
         public bool HasCoughed { get => _hasCoughed; set => _hasCoughed = value; }
+        public SCTriggerComponent EnablerSensor  => _enablerSensor; 
 
         private bool CheckAlternative(Alternatives alternatives)
         {

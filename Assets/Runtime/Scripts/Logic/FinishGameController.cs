@@ -2,6 +2,7 @@
 using App.Architecture.AppData;
 using App.Architecture.AppInput;
 using App.Content.Audio;
+using App.Simples;
 using SimpleComponents.UI;
 using UnityEngine;
 using VContainer;
@@ -17,6 +18,9 @@ namespace App.Logic
         private readonly UIController _uiController;
         private readonly VillageTrustSystem _villageTrustSystem;
         private SCSlideShow _currentCutScene;
+        private readonly SEvent<bool> _onGameFinished = new();
+
+        public SEvent<bool> OnGameFinished => _onGameFinished;
 
         [Inject]
         public FinishGameController(LevelsController levelsController,
@@ -38,6 +42,7 @@ namespace App.Logic
 
         public void EscapeFinish()
         {
+            _onGameFinished.Invoke(true);
             int lastLevel = _configuration.TrustLevels.Length - 1;
             if (_villageTrustSystem.Trust >= _configuration.TrustLevels[lastLevel])
             {
@@ -55,6 +60,7 @@ namespace App.Logic
         }
         public void EndTimeFinish()
         {
+            _onGameFinished.Invoke(true);
             int lastLevel = _configuration.TrustLevels.Length - 1;
             if (_villageTrustSystem.Trust >= _configuration.TrustLevels[lastLevel])
             {

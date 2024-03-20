@@ -17,6 +17,7 @@ namespace App.Content.Player
         private InteractBonfireHandler _interactBonfireHandler;
         private InteractCharacterHandler _interactCharacterHandler;
         private ChopHandler _chopHandler;
+        private EnvironmentObjectsSwitcher _environmentObjectsSwitcher;
         private bool _isEnable;
 
         public bool IsEnable
@@ -35,6 +36,7 @@ namespace App.Content.Player
                     _chopHandler.IsEnable = true;
                     _interactCharacterHandler.IsEnable = true;
                     _interactBonfireHandler.IsEnable = true;
+                    _environmentObjectsSwitcher.IsEnable = true;
                 }
                 else
                 {
@@ -44,6 +46,7 @@ namespace App.Content.Player
                     _chopHandler.IsEnable = false;
                     _interactCharacterHandler.IsEnable = false;
                     _interactBonfireHandler.IsEnable = false;
+                    _environmentObjectsSwitcher.IsEnable = false;
                 }
             }
         }
@@ -77,6 +80,7 @@ namespace App.Content.Player
             _chopHandler = new ChopHandler(_playerData);
             _interactCharacterHandler = new InteractCharacterHandler(_playerData);
             _interactBonfireHandler = new InteractBonfireHandler(_playerData);
+            _environmentObjectsSwitcher = new EnvironmentObjectsSwitcher(_playerData);
         }
 
         public T Get<T>() where T : class
