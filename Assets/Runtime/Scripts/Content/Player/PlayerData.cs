@@ -71,11 +71,11 @@ namespace App.Content.Player
                 return true;
             }
         }
-        public AudioSource AxeHitSound  => _axeHitSound; 
-        public AudioSource StepSound  => _stepSound;
+        public AudioSource AxeHitSound => _axeHitSound;
+        public AudioSource StepSound => _stepSound;
         public AudioSource CoughSound => _coughSound;
         public bool HasCoughed { get => _hasCoughed; set => _hasCoughed = value; }
-        public SCTriggerComponent EnablerSensor  => _enablerSensor; 
+        public SCTriggerComponent EnablerSensor => _enablerSensor;
 
         private bool CheckAlternative(Alternatives alternatives)
         {
@@ -101,7 +101,12 @@ namespace App.Content.Player
             RaycastHit[] hitsInfo = Physics.SphereCastAll(position, _buildCheckcolliderSize, Vector3.down, 1);
             foreach (RaycastHit hitInfo in hitsInfo)
             {
-                if (!hitInfo.collider.gameObject.TryGetComponent(out SnowSquareEntity snowSquareEntity))
+                Collider collider = hitInfo.collider;
+
+                if (collider.isTrigger)
+                    continue;
+
+                if (!collider.gameObject.TryGetComponent(out SnowSquareEntity snowSquareEntity))
                     return false;
             }
             return true;

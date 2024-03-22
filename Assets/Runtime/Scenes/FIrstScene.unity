@@ -67776,6 +67776,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: RadioTower
       objectReference: {fileID: 0}
+    - target: {fileID: 4965438423426359171, guid: f5df0522d49169c4cae845ba6251dedc, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965438423426359171, guid: f5df0522d49169c4cae845ba6251dedc, type: 3}
+      propertyPath: MaxDistance
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990679864433592616, guid: f5df0522d49169c4cae845ba6251dedc, type: 3}
+      propertyPath: m_Radius
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

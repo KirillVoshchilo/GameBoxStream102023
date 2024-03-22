@@ -42,6 +42,7 @@ namespace App.Content.Player
         {
             _playerData.BonfireFactory.Create();
             Alternatives cost = GetCost();
+
             foreach (ItemCount itemCount in cost.Requirements)
                 _playerData.PlayerInventory.RemoveItem(itemCount.Key, itemCount.Count);
         }
@@ -55,6 +56,7 @@ namespace App.Content.Player
         {
             if (!_playerData.CanBuildBonfire)
                 return;
+
             _playerData.Animator.SetTrigger(s_buildBonfireTrigger);
             _playerData.AppInputSystem.PlayerMovingIsEnable = false;
             _playerData.AppInputSystem.InventoryIsEnable = false;
